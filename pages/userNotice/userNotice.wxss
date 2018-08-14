@@ -1,0 +1,35 @@
+.notice_tlt{
+	height:110rpx;
+	line-height:110rpx;
+	text-align:center;
+}
+.notice_tlt{
+	
+}
+.notice_tlt text{
+	height:30rpx;
+	line-height:30rpx;
+	border-left:solid 2px #00c6f7;
+	padding-left:20rpx;
+}
+.notice1{
+	margin-bottom:30rpx;
+}
+.notice1 image{
+	height:286rpx;
+	width:100%;
+}
+.process{
+	padding-left:72rpx;
+	padding-right:98rpx;
+	margin-bottom:54rpx;
+}
+.process_tlt{
+	color:#00c6f7;
+	font-weight:bold;
+	margin-bottom:20rpx;
+}
+.notice_one{
+	color:#666;
+	line-height:40rpx;
+}

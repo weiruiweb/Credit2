@@ -1,12 +1,27 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+     "pages/Index/index",
+     "pages/indexDetail/indexDetail",
+     "pages/indexDetailOrder/indexDetailOrder",
+      "pages/Send/send",
+      "pages/User/user",
+      "pages/userOrder/userOrder",
+      "pages/userPoster/userPoster",
+      "pages/userTeam/userTeam",
+      "pages/userAddress/userAddress",
+      "pages/userCredit/userCredit",
+      "pages/userAddressnew/userAddressnew",
+      "pages/userNotice/userNotice",
+      "pages/userComment/userComment",
+      "pages/sendInformation/sendInformation",
+      "pages/sign/sign",
+      "pages/share/share",
+      "pages/ranking/ranking"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "分销积分商城",
     "navigationBarTextStyle":"black"
   }
 }

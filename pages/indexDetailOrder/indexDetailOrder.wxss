@@ -1,0 +1,159 @@
+page{
+	min-height:100%;
+	width:100%;
+	background:#f2f2f2;
+
+}
+.order_user{
+	height:90rpx;
+	padding:0rpx 13%;
+	width:74%;
+	line-height:90rpx;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	color:#262626;
+
+}
+.order_left,.order_right{
+	width:50%;
+}
+.order_right{
+	text-align:right;
+}
+.order_address{
+	height:32rpx;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.order_icon{
+	width:14%;
+	text-align:right;
+}
+.order_icon image{
+	width:30rpx;
+	height:30rpx;
+	margin-right:20rpx;
+}
+.order_center{
+	width:80%;
+}
+.next_page{
+	width:6%;
+}
+.next_page image{
+	width:11rpx;
+	height:20rpx;
+}
+.confirm{
+	border-bottom:solid 1px #e0e0e0;
+	padding-bottom:30rpx;
+	background:#fff;
+}
+.order_infor{
+	height:226rpx;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	border-bottom:solid 1px #e0e0e0;
+		background:#fff;
+}
+.infor_left{
+	width:26.5%;
+	height:160rpx;
+	text-align:center;
+	align-items:center;
+}
+.infor_center{
+	width:65.5%;
+	height:160rpx;
+}
+.infor_right{
+	width:8%;
+	height:160rpx;
+}
+.infor_left image{
+	width:160rpx;
+	height:160rpx;
+}
+.order_name .text1{
+	color:#333;
+}
+.order_name .text2{
+	color:#898989;
+	margin-top:10rpx;
+}
+.order_credit{
+	color:#ff0000
+}
+.infor_right{
+	color:#666;
+}
+.order_name text{
+	display:block;
+}
+.order_name{
+	height:75%;
+}
+.order_credit{
+	height:25%;
+}
+.message{
+	height:135rpx;
+	padding:0px 20rpx;
+	clear:both;
+	width:100%;
+	background:#fff;
+}
+.message_in{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	height:135rpx;
+	width:100%;
+}
+.message_left{
+	width:22.5%;
+	height:50rpx;
+}
+.message_right{
+	width:77.5%;
+	height:50rpx;
+}
+textarea{
+	width:80%;
+	position:none;
+	height:50rpx;
+	color:#666;
+	font-size:28rpx;
+}
+.go_buy{
+	width:100%;
+	height:88rpx;
+	border-top:solid 1px #e0e0e0;
+	line-height:88rpx;
+	background:#fff;
+	position:fixed;
+	bottom:0;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.buy_left{
+	width:65%;
+	line-height:86rpx;
+	color:#ff0000;
+	text-align:right;
+}
+.buy_left text{
+	font-weight:bold;
+	margin-right:30rpx;
+}
+.buy_right{
+	width:35%;
+	text-align:center;
+	line-height:88rpx;
+	color:#fff;
+	background:#00c6f7;
+}

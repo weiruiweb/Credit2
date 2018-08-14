@@ -1,21 +1,219 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+page{
+	min-height:100%;
+	width:100%;
+	background:#f2f2f2;
+
+}
+.page-body image{
+	width:100%;
+	height:400rpx;
+}
+swiper{
+	height:400rpx;
+}
+/****************module****************/
+.module{
+	width:100%;
+	display:flex;
+	padding:30rpx 0;
+	background:#fff
+}
+.module-item{
+	width:33.33%;
+	text-align:center;
+}
+.module_img image{
+	width:118rpx;
+	height:114rpx;
+}
+.note{
+	padding:0px 25rpx;
+	background:#f5f2c2;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.note_list{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:100%;
+	height:60rpx;
+	
+}
+.note_left{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:50%;
+	overflow:hidden;
+	height:60rpx;
+}
+.note_next{
+	width:50%;
+	overflow:hidden;
+	text-align:right;
+}
+.note_txt{
+
+	color:#00c6f7;
+}
+.note_img{
+	height:60rpx;
+	line-height:60rpx;
+
+}
+.note_left image{
+	width:39rpx;
+	height:39rpx;
+	margin-right:20rpx;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.note_next image{
+	width:16rpx;
+	height:29rpx;
 }
+/*****************mall*********************/
+.mall_product{
+	margin-top:20rpx;
+}
+.mall{
+	background:#fff;
+	margin-bottom:200rpx;
+}
+.mallTilte{
+	width:100%;
+	height:50rpx;
+	
+	overflow:hidden;
+	margin-top:20rpx;
+	padding:30rpx 0;
+	display:flex;
+	justify-content:center;
+}
+.mall_tlt_txt{
+	color:#333;
+	width:100%;
+	text-align:center;
+}
+.mall_tlt{
+	position:relative;
+	text-align:center;
+	width:180rpx;
+	overflow:hidden;
+	margin:0 auto;
+	height:50rpx;
+	line-height:50rpx;
+}
+.mall_tlt image{
+	width:180rpx;
+	height:49rpx;
+}
+.mall_tlt_txt{
+	position:absolute;
+	top:0;
+}
+.mall_more{
+	color:#999;
+	float:right;
+	margin-right:45rpx;
+	height:50rpx;
+	line-height:50rpx;
+}
+.mall_sort{
+	height:40rpx;
+	border-top:solid 1px #ccc;
+	border-bottom:solid 1px #ccc;
+	padding:15rpx 0;
+}
+.mall_inter{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.sort_item{
+	width:25%;
+	text-align:center;
+	border-right:solid 1px #e6e6e6;
+}
+.mall_list{
+	width:96%;
+	padding:0 2%;
+	display:flex;
+	flex-wrap:wrap;
+}
+.mall_item{
+	width:46%;
+	padding:0 2%;
+	text-align:center;
+	margin-bottom:30rpx;
+}
+.mall_item image{
+	width:100%;
+	height:280rpx;
+}
+.product_name{
+	height:66rpx;
+	line-height:66rpx;
+	color:#666;
+}
+.product_credit{
+	display:flex;
+	justify-content:center;
+	align-items:flex-end;
+}
+.product_credit1{color:#ff0000}
+.product_credit2{
+	padding-bottom:4rpx;
+	color:#666;
+}
+.cash{
+	width:100%;
+	height:60rpx;
+	background:#00c6f7;
+	line-height:60rpx;
+	border-radius:30rpx;
+	color:#fff;
+	font-weight:bold;
+	margin-top:15rpx;
+}
+.qcored{
+	width:68%;
+	height:670rpx;
+	background:#fff;
+	position:fixed;
+	margin:0px auto;
+	text-align:center;
+	bottom:20%;
 
-.usermotto {
-  margin-top: 200px;
+	left:16%;
+	box-shadow:0rpx 0rpx 20rpx #666;
+}
+.qcored_bg image{
+	width:281rpx;
+	height:85rpx;
+	margin:20rpx auto 60rpx;
+}
+.head_down{
+	margin:30rpx 0 20rpx;
+}
+.head_down image{
+	width:50rpx;
+	height:58rpx;
+
+}
+.qcoreds image{
+	width:282rpx;
+	height:282rpx;
+}
+.qcored_cont{
+
+	position:relative;
+
+}
+.close image{
+	position:absolute;
+	right:-36rpx;
+	top:-36rpx;
+	width:72rpx;
+	height:72rpx;
 }

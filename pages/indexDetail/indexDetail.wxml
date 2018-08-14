@@ -1,0 +1,35 @@
+<!--indexDetail.wxml-->
+<view class="detail_banner">
+  <image src="/images/detail.jpg">
+  </image >
+</view>
+<view class="detail_cont">
+  <view class="detail_tlt">
+    <view class="detail_name" style="{{fonts[4].font}}">
+      商品名称商品名称商品名称商品
+    </view>
+    <view class="detail_price" style="{{fonts[2].font}}">
+      <text>¥299.00</text>积分
+    </view>
+  </view>
+  <view class="detail_content">
+      <view class="content_left"  style="{{fonts[4].font}}">
+          详情:
+      </view>
+      <view class="content_right"  style="{{fonts[3].font}}">
+        <view>
+        内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描
+        </view>
+        <view class="content_img">
+        
+            <image src="/images/detail.jpg"></image>
+  
+        </view>
+      </view>
+  </view>
+</view>
+<view class="case_btn" bindtap="indexDetailOrder">
+  <view class="submit_info">
+    立即兑换
+  </view>
+</view>

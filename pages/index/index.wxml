@@ -1,13 +1,189 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="page-body">
+    <view class="page-section page-section-spacing swiper">
+      <swiper
+        indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
+        interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <image src="{{item}}"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+</view>
+
+<view class="module">
+  <view class="module-item" bindtap="sign">
+     <view class="module_img">
+        <image src="/images/index_icon1.png"></image>
+     </view>
+     <view class="module_txt"  style="{{fonts[3].font}}">
+        签到
+     </view>
+
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="module-item" bindtap="share">
+     <view class="module_img">
+        <image src="/images/index_icon2.png"></image>
+     </view>
+     <view class="module_txt"  style="{{fonts[3].font}}">
+        分享
+     </view>
+
+  </view>
+  <view class="module-item" bindtap="ranking">
+     <view class="module_img">
+        <image src="/images/index_icon3.png"></image>
+     </view>
+     <view class="module_txt"  style="{{fonts[3].font}}">
+        排行
+     </view>
+
+  </view>
+</view>
+<view class="note">
+  <view class="note_list">
+    <view class="note_left">
+      <image src="/images/note_icon.png"></image>
+      <view class="note_txt" style="{{fonts[3].font}}">
+        怎样快速兑换更多积分
+      </view>
+    </view>
+    <view class="note_next">
+      <image src="/images/next_pages1.png"></image>
+    </view>
+  </view>
+</view>
+<view class="mall">
+    <view class="mallTilte">
+      <view class="mall_tlt">
+        <image src="/images/tlt_bg.png"></image>
+        <view  style="{{fonts[4].font}}" class="mall_tlt_txt">积分商城</view>
+      </view>
+      <view class="mall_more" style="{{fonts[2].font}}">更多</view>
+    </view>
+    <view class="mall_content">
+      <view class="mall_sort">
+        <view class="mall_inter" style="{{fonts[4].font}}">
+          <view class="sort_item"  style="{{currentId == 0?'color:#00c6f7':''}}" data-id="0" bindtap="click_this">全部</view>
+          <view class="sort_item"  style="{{currentId == 1?'color:#00c6f7':''}}" data-id="1" bindtap="click_this">实物</view>
+          <view class="sort_item"  style="{{currentId == 2?'color:#00c6f7':''}}" data-id="2" bindtap="click_this">兑换</view>
+          <view class="sort_item"  style="{{currentId == 3?'color:#00c6f7':''}};border-right:none;" data-id="3" bindtap="click_this">线下</view>
+        </view>
+      </view>
+      <view class="mall_product">
+        <view class="mall_list" bindtap="indexDetail">
+         <view class="mall_item">
+            <image src="/images/product.png"></image>
+            <view class="product_infor">
+              <view class="product_name" style="{{fonts[3].font}}">
+                泰迪熊
+              </view>
+              <view class="product_credit">
+                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
+                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+              </view>
+            </view>
+            <view class="cash" style="{{fonts[3].font}}">
+              立即兑现
+            </view>
+          </view>
+          <view class="mall_item">
+            <image src="/images/product.png"></image>
+            <view class="product_infor">
+              <view class="product_name" style="{{fonts[3].font}}">
+                泰迪熊
+              </view>
+              <view class="product_credit">
+                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
+                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+              </view>
+            </view>
+            <view class="cash" style="{{fonts[3].font}}">
+              立即兑现
+            </view>
+          </view>
+          <view class="mall_item">
+            <image src="/images/product.png"></image>
+            <view class="product_infor">
+              <view class="product_name" style="{{fonts[3].font}}">
+                泰迪熊
+              </view>
+              <view class="product_credit">
+                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
+                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+              </view>
+            </view>
+            <view class="cash" style="{{fonts[3].font}}">
+              立即兑现
+            </view>
+          </view>
+          <view class="mall_item">
+            <image src="/images/product.png"></image>
+            <view class="product_infor">
+              <view class="product_name" style="{{fonts[3].font}}">
+                泰迪熊
+              </view>
+              <view class="product_credit">
+                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
+                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+              </view>
+            </view>
+            <view class="cash" style="{{fonts[3].font}}">
+              立即兑现
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+</view>
+
+<view class="navbar">
+    
+      <view class="navbar_item" bindtap="index">
+      
+          <view class="nav_img">
+            <image src="/images/navbar1-a.png" style="width:42rpx;height:42rpx;"></image>
+          </view>
+          <view class="text this-text" style="{{fonts[2].font}}">首页</view>
+
+      </view>
+    
+    <view class="navbar_item" bindtap="sort">
+   
+        <view class="nav_img">
+           <image src="/images/navbar2.png" style="width:42rpx;height:42rpx;"></image>
+        </view>
+        <view class="text" style="{{fonts[2].font}}">发布</view>
+    
+    </view>
+  
+    <view class="navbar_item"  bindtap="User">
+   
+        <view class="nav_img">
+            <image src="/images/navbar4.png" style="width:42rpx;height:42rpx;"></image>
+        </view>
+        <view class="text" style="{{fonts[2].font}}">我的</view>
+
+    </view>
+</view>
+<view class="qcored" style="{{isShow?'display:none':''}}">
+  <view class="qcored_cont">
+    <view class="close" bindtap="close"> 
+      <image src="/images/close_icon.png"></image>
+    </view>
+    <view class="qcored_bg">
+        <image src="/images/qcored_bg.png"></image>
+    </view>
+    <view class="qcored_txt" style="{{fonts[3].font}}">
+    长按识别下方客服二维码领取
+    </view>
+    <view class="head_down">
+      <image src="/images/head_down.png"></image>
+    </view>
+    <view class="qcoreds">
+      <image src="/images/qcored.png"></image>
+    </view>
   </view>
 </view>

@@ -1,0 +1,59 @@
+<!--indexDetailOrder.wxml-->
+<view class="confirm">
+	<view class="order_user"  style="{{fonts[5].font}}">
+		<view class="order_left">
+			收货人:米桃子
+		</view>
+		<view class="order_right">
+			18888888888
+		</view>
+	</view>
+	<view class="order_address">
+		<view class="order_icon">
+			<image src="/images/user_icon4.png"></image>
+		</view>
+		<view class="order_center"   style="{{fonts[2].font}}">
+			收货地址：陕西省西安市高新大都荟
+		</view>
+		<view class="next_page">
+			<image src="/images/next_page.jpg"></image>
+		</view>
+	</view>
+</view>
+<view class="order_infor">
+	<view class="infor_left">
+		<image src="/images/product.png"></image>
+
+	</view>
+	<view class="infor_center">
+		<view class="order_name">
+			<text class="text1" style="{{fonts[3].font}}">商品名称商品名称 </text>
+			<text  class="text2" style="{{fonts[2].font}}">商品属性  </text>
+		</view>
+		<view class="order_credit" style="{{fonts[2].font}}">
+			积分：<text style="{{fonts[5].font}}">299</text>
+		</view>
+	</view>
+	<view class="infor_right" style="{{fonts[3].font}}">
+	X1
+	</view>
+
+</view>
+<view class="message">
+	<view class="message_in">
+		<view class="message_left" style="{{fonts[3].font}}">
+			买家留言：
+		</view>
+		<view class="message_right" style="{{fonts[2].font}}">
+			<textarea placeholder="选填:填写内容已和卖家协商确认" style="{{fonts[2].font}}"></textarea>
+		</view>
+	</view>
+</view>
+<view class="go_buy">
+	<view class="buy_left" style="{{fonts[3].font}}">
+		合计:<text>¥8988</text>
+	</view>
+	<view class="buy_right" style="{{fonts[3].font}}">
+		提交订单
+	</view>
+</view>

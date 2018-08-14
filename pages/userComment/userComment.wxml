@@ -1,0 +1,66 @@
+<!--userComment.wxml-->
+<view class="userComment">
+	<view class="comment_save"  style="{{fonts[4].font}}">
+		<view class="has_send" data-id="0" bindtap="has_send" style="{{currentId == 0?'color:#00c6f7':''}}"> 
+			已发布
+		</view>
+		<view class="will_send" data-id="1" bindtap="has_send" style="{{currentId == 1?'color:#00c6f7':''}}"> 
+			已保存
+		</view>
+	</view>
+</view>
+<view class="comment_cont">
+	<view class="comment_list">
+		<view class="comment_txt" style="{{fonts[3].font}}" >
+			内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
+		</view>
+		<view class="comment_img">
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+		</view>
+		<view class="comment_handle" style="{{fonts[4].font}}">	
+			<view class="comment_left">
+				<view class="comment_btn">发布</view>
+				<view class="comment_btn comment_btn1">删除</view>
+			</view>
+			<view class="comment_right" style="{{fonts[4].font}}">
+				2018-8-8
+			</view>
+		</view>
+	</view>
+	<view class="comment_list">
+		<view class="comment_txt" style="{{fonts[3].font}}" >
+			内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
+		</view>
+		<view class="comment_img">
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+			<view class="img_list">
+				<image src="/images/order.png"></image>
+			</view>
+		</view>
+		<view class="comment_handle" style="{{fonts[4].font}}">	
+			<view class="comment_left">
+				<view class="comment_btn">发布</view>
+				<view class="comment_btn comment_btn1">删除</view>
+			</view>
+			<view class="comment_right" style="{{fonts[4].font}}">
+				2018-8-8
+			</view>
+		</view>
+	</view>
+</view>

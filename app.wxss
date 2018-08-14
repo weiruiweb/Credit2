@@ -8,3 +8,50 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+.flexRowBetween{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+/***********navbar***********/
+.navbar{
+	height:120rpx;
+	width:100%;
+	position:fixed;
+	bottom:0rpx;
+	z-index:999;
+	background:#fff;
+	display:flex;
+	justify-content:center;
+	border-top:solid 1px #dbdbdb;
+	align-items:center;
+	box-shadow:5rpx 0 15rpx #84ddf3;
+}
+.navbar_item{
+
+	width:33.3%;
+	text-align:center;
+
+}
+.navbar .text{
+	color:#656565;
+}
+.navbar .this-text{
+	color:#21c3d4;
+}
+
+.navigator-hover {
+	background:none;
+	color:#21c3d4;
+}
+.submit_info{
+margin:0rpx 25rpx;
+width:700rpx;
+height:88rpx;
+line-height:88rpx;
+text-align:center;
+font-size:36rpx;
+border-radius:50rpx;
+color:#fff;
+background:#00c6f7;
+border-radius:10rpx;}

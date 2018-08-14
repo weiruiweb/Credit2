@@ -1,0 +1,143 @@
+page{
+	min-height:100%;
+	width:100%;
+	background:#f2f2f2;
+}
+.ranking{
+	height:260rpx;
+	width:100%;
+	position:relative;
+	background:#fff;
+}
+.ranking_cont{
+	width:303rpx;
+	height:170rpx;
+	margin:0rpx auto;
+	text-align:center;
+	
+	overflow:hidden;
+}
+.ranking_cont1{
+	height:178rpx;
+	position:relative;
+}
+.rank{
+	position:absolute;
+	bottom:0rpx;
+	width:100%;
+	text-align:center;
+}
+.rank1{
+	position:absolute;
+	bottom:0;
+}
+.rank_img{
+	width:120rpx;
+	height:120rpx;
+	border-radius:50%;
+	margin:0 auto;
+}
+.rank_img1{
+	width:303rpx;
+	height:64rpx;
+}
+.rank3{
+	width:100%;
+	text-align:center;
+}
+.rank2{
+	position:absolute;
+	left:60rpx;
+	bottom:8rpx;
+	width:180rpx;
+	height:34rpx;
+	line-height:34rpx;
+	background:#e7c420;
+	margin:0rpx auto;
+	color:#fff;
+}
+.ranking3{
+	text-align:center;
+}
+.ranking3 image{
+	width:88rpx;
+	height:49rpx;
+	z-index:99;
+	position:relative;
+	top:2px;
+	
+}
+.numberOne{
+	overflow:hidden;
+	position:absolute;
+	top:100rpx;
+	left:0;
+	width:162rpx;
+}
+.numberOne_in{
+	
+	width:162rpx;
+	text-align:center;
+	height:40rpx;
+	line-height:40rpx;
+	background:#00c6f7;
+	border-radius:0rpx 30rpx 30rpx 0;
+	overflow:hidden;
+	color:#fff;
+	
+}
+.total_credit{
+	margin:10rpx 0rpx 10rpx 300rpx;
+	height:34rpx;
+	align-items:center;
+	display:flex;
+
+}
+.total_credit image{
+	width:33rpx;
+	height:32rpx;
+	margin-right:20rpx;
+}
+.rank_list{
+	height:120rpx;
+	clear:both;
+	margin-top:15rpx;
+	background:#fff;
+}
+.rank_item{
+	height:120rpx;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.rank_left{
+	width:25%;
+	height:100rpx;
+	font-size:34rpx;
+	color:#ffc402;
+	text-align:center;
+	line-height:100rpx;
+}
+.rank_right{
+	width:75%;
+	height:100rpx;
+	display:flex;
+	text-align:left;
+}
+.rank_right image{
+	width:100rpx;
+	height:100rpx;
+}
+.rank_credits{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.rank_credits image{
+	width:33rpx;
+	height:32rpx;
+	margin-right:18rpx;
+}
+.rank_imgs image{
+	margin-right:45rpx;
+}

@@ -1,0 +1,153 @@
+<!--sign.wxml-->
+<view class="sign">
+
+	<view class="sign_bg">
+		<image src="/images/sign_bg.jpg"></image>
+	</view>
+	<view class="sign_date" >
+		<view class="year">
+			<view class="year_in">
+				<view class="date_year flexRowBetween"  style="{{fonts[3].font}}">
+					<view>  <image src="/images/left.png"></image> </view>
+					<view> 2018 </view>
+					<view>  <image src="/images/right.png"></image> </view>
+				</view>
+			</view>
+		</view>
+		<view class="sign_month">
+			<view class="month_in">
+				<view class="weak" style="{{fonts[3].font}}" >
+					<view class="weak_day">
+						日
+					</view>
+					<view class="weak_day">
+						一
+					</view>
+					<view class="weak_day">
+						二
+					</view>
+					<view class="weak_day">
+						三
+					</view>
+					<view class="weak_day">
+						四
+					</view>
+					<view class="weak_day">
+						五
+					</view>
+					<view class="weak_day">
+						六
+					</view>
+				</view>
+				<view class="sign_day" style="{{fonts[2].font}}">
+					<view class="weak_day">
+						<view>1</view>
+					</view>
+					<view class="weak_day">
+						<view>2</view>
+					</view>
+					<view class="weak_day">
+						<view>3</view>
+					</view>
+					<view class="weak_day">
+						<view>4</view>
+					</view>
+					<view class="weak_day">
+						<view>5</view>
+					</view>
+					<view class="weak_day ">
+						<view class="this_day">6</view>
+					</view>
+					<view class="weak_day">
+						<view>7</view>
+					</view>
+					<view class="weak_day">
+						<view>8</view>
+					</view>
+					<view class="weak_day">
+						<view>9</view>
+					</view>
+					<view class="weak_day">
+						<view>10</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="today_sign">
+	<view class="begin_sign">
+		<view class="sign_left" bindtap="sucssess">
+			<view class="sign_now">
+				今日签到
+			</view>
+		</view>
+		<view class="sign_right"  style="{{fonts[5].font}}">
+			总积分:100
+		</view>
+	</view>
+</view>
+<view class="sign_days">
+	<view class="sign_daysIn">
+		<view class="sign_note" style="{{fonts[5].font}}">
+			<text>今日已签到<text  class="text1">+5</text>！</text>
+			<text class="text2">连续签到<text  class="text1">1</text>天</text>
+		</view>
+		<view class="continuous">
+			<view class="continuous_day">
+				<view class="continuous_item" style="{{fonts[5].font}}">	
+					<view class="item1 this_item">
+						10
+					</view>
+					<view class="choose_day">
+						<image src="/images/sign_icon.png"></image>
+					</view>
+				</view>
+				<view class="continuous_item" style="{{fonts[5].font}}">	
+					<view class="item1">
+						+20
+					</view>
+				</view>
+				<view class="continuous_item" style="{{fonts[5].font}}">	
+					<view class="item1">
+						+50
+					</view>
+				</view>
+				<view class="continuous_item" style="{{fonts[5].font}}">	
+					<view class="item1">
+						+300
+					</view>
+				</view>
+				<view class="continuous_item" style="{{fonts[5].font}}">	
+					<view class="item1">
+						+300
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="regular">
+    <view class="regular_cont">
+        <view class="regular_tlt" style="{{fonts[4].font}}">
+            签到积分规则
+        </view>
+        <view class="regular_item"  style="{{fonts[3].font}}">
+          <view>1、.每日签到可获得10积分</view>
+          <view>2、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view>
+        </view>
+    </view>
+</view>
+<view class="adver">
+	<image src="/images/ad.png"></image>
+</view>
+<view class="sign_sucess" style="{{isShow?'display:block':'display:none'}}">
+	<view> <image src="/images/sign1.png"></image>
+	</view>
+	<view class="sucess_txt"  style="{{fonts[3].font}}">
+		<text>恭喜你签到成功</text>
+		<text>+5积分</text>
+	</view>
+</view>
+<view class="mask" style="{{isShow?'display:block':'display:none'}}">
+</view>

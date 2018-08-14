@@ -24,13 +24,101 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 13,
+			"list": [
+				{
+					"id": -1,
+					"name": "send",
+					"pathName": "pages/Send/send",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "user",
+					"pathName": "pages/User/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order",
+					"pathName": "pages/userOrder/userOrder",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "team",
+					"pathName": "pages/userTeam/userTeam",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "manadd",
+					"pathName": "pages/userAddress/userAddress",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "sendIN",
+					"pathName": "pages/sendInformation/sendInformation",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "credit",
+					"pathName": "pages/userCredit/userCredit",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "credit",
+					"pathName": "pages/User/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/indexDetail/indexDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "comfioerm",
+					"pathName": "pages/indexDetailOrder/indexDetailOrder",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "comfioerm",
+					"pathName": "pages/User/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "sign",
+					"pathName": "pages/sign/sign",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "share",
+					"pathName": "pages/share/share",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ranking",
+					"pathName": "pages/ranking/ranking"
+				}
+			]
 		}
 	}
 }

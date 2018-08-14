@@ -1,0 +1,37 @@
+<!--share.wxml-->
+<view class="share_banner">
+	<image src="/images/banner1.png"></image>
+</view>
+<view class="today_sign">
+	<view class="begin_sign">
+		<view class="sign_left">
+			<view class="sign_now">
+				立即分享
+			</view>
+		</view>
+		<view class="sign_right"  style="{{fonts[5].font}}">
+			总积分:100
+		</view>
+	</view>
+</view>
+<view id="share">
+	<view class="sign_note" style="{{fonts[5].font}}">
+		<text>通过我的海报分享已经有<text  class="text1">5</text>个好友使用本商城
+		连续签到，并获<text  class="text1">100</text>得积分
+		</text>
+	</view>
+</view>
+<view class="regular">
+    <view class="regular_cont">
+        <view class="regular_tlt" style="{{fonts[4].font}}">
+            分享积分规则
+        </view>
+        <view class="regular_item"  style="{{fonts[3].font}}">
+          <view>1、每日签到可获得10积分</view>
+          <view>2、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view> <view>3、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view> <view>4、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view>
+        </view>
+    </view>
+</view>
+<view class="adver">
+	<image src="/images/ad.png"></image>
+</view>

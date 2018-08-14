@@ -31,22 +31,11 @@ Page({
          
         }, 2000);
   },
-  sign:function(){
+  indexDetailOrder:function(){
      wx.navigateTo({
-      url:'/pages/sign/sign'
+      url:'/pages/indexDetailOrder/indexDetailOrder'
     })
-  },
-  share:function(){
-     wx.navigateTo({
-      url:'/pages/share/share'
-    })
-  }, 
-  ranking:function(){
-     wx.navigateTo({
-      url:'/pages/ranking/ranking'
-    })
-  },
-  sort:function(){
+  },sort:function(){
      wx.redirectTo({
       url:'/pages/Send/send'
     })
@@ -59,11 +48,6 @@ Page({
   User:function(){
      wx.redirectTo({
       url:'/pages/User/user'
-    })
-  },
-  indexDetail:function(){
-     wx.navigateTo({
-      url:'/pages/indexDetail/indexDetail'
     })
   },
   click_this:function(e){

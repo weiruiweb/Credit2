@@ -1,0 +1,90 @@
+<!--userPoster.wxml-->
+<view class="team_tlt flexRowBetween">
+	<view class="next_bank" style="{{fonts[4].font}}">
+		我的下级
+	</view>
+	<view class="next_number" style="{{fonts[4].font}}">
+		总计<text >210</text>人
+	</view>
+	
+</view>
+<view class="date" style="{{fonts[4].font}}">
+	<view class="date_item">
+		<view class="text">全部积分</view>
+		<image src="/images/up_icon1.jpg"></image>
+	</view>
+	<view class="date_item">
+		<view class="date_left" style="color:#00c6f7;">
+			<picker  mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+			    <view class="picker text">
+			      起始日期
+			    </view>
+			    <view class="text" style="{{fonts[2].font}}">{{date}}</view>
+			</picker>
+			
+		</view>
+		<image src="/images/up_icon2.jpg"></image>
+	</view>
+	<view class="date_item">
+		<view class="date_left">
+			<picker  mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+			    <view class="picker text">
+			      截至日期
+			    </view>
+			    <view class="text" style="{{fonts[2].font}}">{{date}}</view>
+			</picker>
+		</view>
+		<image src="/images/up_icon1.jpg"></image>
+	</view>
+	
+</view>
+<view class="team_all">
+	<view class="team_list">
+		<view class="team_item">
+			<view class="team_left">
+				<image src="/images/team_img.png"></image>
+			</view>
+			<view class="team_right">
+				<view class="team_user flexRowBetween">
+					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
+					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
+				</view>
+				<view class="teat_add" style="{{fonts[1].font}}">
+					通过微信分享二维码加入团队
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="team_list">
+		<view class="team_item">
+			<view class="team_left">
+				<image src="/images/team_img.png"></image>
+			</view>
+			<view class="team_right">
+				<view class="team_user flexRowBetween">
+					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
+					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
+				</view>
+				<view class="teat_add" style="{{fonts[1].font}}">
+					通过微信分享二维码加入团队
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="team_list">
+		<view class="team_item">
+			<view class="team_left">
+				<image src="/images/team_img.png"></image>
+			</view>
+			<view class="team_right">
+				<view class="team_user flexRowBetween">
+					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
+					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
+				</view>
+				<view class="teat_add" style="{{fonts[1].font}}">
+					通过微信分享二维码加入团队
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

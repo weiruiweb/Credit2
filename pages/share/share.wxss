@@ -1,0 +1,95 @@
+.share_banner image{
+	width:100%;
+	height:350rpx;
+}
+.today_sign{
+	padding:0rpx 43rpx;
+	border-bottom:solid 1px #e0e0e0;
+}
+.begin_sign{
+	height:138rpx;
+	display:flex;
+	justify-content:between;
+	align-items:center;
+	width:100%;
+}
+.sign_left{
+	width:68.5%;
+	height:80rpx;
+	text-align:right;
+}
+.sign_right{
+	width:31.5%;
+	height:80rpx;
+	color:#666;
+	line-height:80rpx;
+	text-align:right;
+}
+.sign_now{
+	width:242rpx;
+	height:80rpx;
+	border-radius:30rpx;
+	background:#ffc402;
+	line-height:80rpx;
+	text-align:center;
+	color:#fff;
+	font-size:36rpx;
+	float:right;
+}
+.sign_note{
+	width:100%;
+	text-align:left;
+	margin-top:38rpx;
+	color:#333;
+}
+.sign_note .text1{
+	color:#00c6f7;
+}
+.sign_note .text2{
+	margin-left:20rpx;
+}
+#share{
+	padding:0rpx 40rpx;
+}
+.regular{
+	padding:0rpx 40rpx;
+	background:#fff;
+	margin-top:60rpx;
+
+}
+.regular_cont{
+	width:90%;
+	padding:0 5%;
+	height:auto;
+	border-radius:20rpx;
+	position:relative;
+	border:solid 1px #e0e0e0;
+	border-radius:10rpx;
+	padding-bottom:36rpx;
+}
+.regular_tlt{
+	color:#4c4c4c;
+	position:absolute;
+	top:-25rpx;
+	width:240rpx;
+	height:50rpx;
+	line-height:50rpx;
+	text-align:center;
+	background:#fff;
+	left:50%;
+	margin-left:-120rpx;
+}
+.regular_item{
+	color:#666;
+	margin-top:40rpx;
+	line-height:40rpx;
+}
+.adver{
+	text-align:center;
+	padding:20rpx 0;
+	background:#fff;
+}
+.adver image{
+	width:668rpx;
+	height:300rpx;
+}
