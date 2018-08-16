@@ -141,7 +141,7 @@
     <view class="navbar_item"  bindtap="User">
    
         <view class="nav_img">
-            <image src="/images/navbar4-a.png" style="width:42rpx;height:42rpx;"></image>
+            <image src="/images/navbar3.png" style="width:42rpx;height:42rpx;"></image>
         </view>
         <view class="text this-text" style="{{fonts[2].font}}">我的</view>
 

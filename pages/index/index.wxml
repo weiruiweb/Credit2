@@ -93,7 +93,8 @@
             <image src="/images/product.png"></image>
             <view class="product_infor">
               <view class="product_name" style="{{fonts[3].font}}">
-                泰迪熊
+                泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊
+                泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊
               </view>
               <view class="product_credit">
                 <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
@@ -139,6 +140,9 @@
     </view>
 </view>
 
+<view class="solely" style="{{fonts[1].font}};color:#666;">
+  技术支持:西安纯粹科技有限公司
+</view>
 <view class="navbar">
     
       <view class="navbar_item" bindtap="index">

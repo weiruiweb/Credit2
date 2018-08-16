@@ -154,6 +154,9 @@ swiper{
 .product_name{
 	height:66rpx;
 	line-height:66rpx;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 	color:#666;
 }
 .product_credit{
