@@ -1,15 +1,15 @@
 <!--indexDetail.wxml-->
 <view class="detail_banner">
-  <image src="/images/detail.jpg">
+  <image src="{{web_mainData.mainImg[0].url}}">
   </image >
 </view>
 <view class="detail_cont">
   <view class="detail_tlt">
     <view class="detail_name" style="{{fonts[4].font}}">
-      商品名称商品名称商品名称商品
+      {{web_mainData.title}}
     </view>
     <view class="detail_price" style="{{fonts[2].font}}">
-      <text>¥299.00</text>积分
+      <text>¥{{web_mainData.price}}</text>积分
     </view>
   </view>
   <view class="detail_content">
@@ -17,18 +17,14 @@
           详情:
       </view>
       <view class="content_right"  style="{{fonts[3].font}}">
-        <view>
-        内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描述内容描
-        </view>
-        <view class="content_img">
-        
-            <image src="/images/detail.jpg"></image>
-  
-        </view>
+          <view class="content ql-editor" style="color:#666;font-size:24rpx">
+            <import src="../../wxParse/wxParse.wxml"/>
+              <template is="wxParse" data="{{wxParseData:web_mainData.content}}"/>
+          </view> 
       </view>
   </view>
 </view>
-<view class="case_btn" bindtap="indexDetailOrder">
+<view class="case_btn" bindtap="intoPath" data-path="/pages/indexDetailOrder/indexDetailOrder">
   <view class="submit_info">
     立即兑换
   </view>

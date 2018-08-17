@@ -10,16 +10,12 @@
 </view>
 <view class="date" style="{{fonts[4].font}}">
 	<view class="date_item">
-		<view class="text">全部积分</view>
-		<image src="/images/up_icon1.jpg"></image>
-	</view>
-	<view class="date_item">
 		<view class="date_left" style="color:#00c6f7;">
-			<picker  mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+			<picker  mode="date" value="{{web_startTime}}" data-type="startTime" bindchange="bindTimeChange">
 			    <view class="picker text">
 			      起始日期
 			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{date}}</view>
+			    <view class="text" style="{{fonts[2].font}}">{{web_startTime}}</view>
 			</picker>
 			
 		</view>
@@ -27,16 +23,15 @@
 	</view>
 	<view class="date_item">
 		<view class="date_left">
-			<picker  mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+			<picker  mode="date" value="{{web_endTime}}" data-type="endTime" bindchange="bindTimeChange">
 			    <view class="picker text">
 			      截至日期
 			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{date}}</view>
+			    <view class="text" style="{{fonts[2].font}}">{{web_endTime}}</view>
 			</picker>
 		</view>
 		<image src="/images/up_icon1.jpg"></image>
-	</view>
-	
+	</view>	
 </view>
 <view class="team_all">
 	<view class="team_list">

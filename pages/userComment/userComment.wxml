@@ -1,10 +1,10 @@
 <!--userComment.wxml-->
 <view class="userComment">
 	<view class="comment_save"  style="{{fonts[4].font}}">
-		<view class="has_send" data-id="0" bindtap="has_send" style="{{currentId == 0?'color:#00c6f7':''}}"> 
+		<view class="has_send" data-num="1" bindtap="menuClick" style="{{num == 1?'color:#00c6f7':''}}"> 
 			已发布
 		</view>
-		<view class="will_send" data-id="1" bindtap="has_send" style="{{currentId == 1?'color:#00c6f7':''}}"> 
+		<view class="will_send" data-num="0" bindtap="menuClick" style="{{num == 0?'color:#00c6f7':''}}"> 
 			已保存
 		</view>
 	</view>

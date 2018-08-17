@@ -1,34 +1,87 @@
 //index.js
 //获取应用实例
-const app = getApp()
-
+import {Api} from '../../utils/api.js';
+const api = new Api();
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-  tapCurrent:0,
+
+    mainData:[],
+    isLoadAll:false,
+
+  },
+
+  onLoad(){
+    const self = this;
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getMainData();
+  },
+
+
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);
+    }
+    const postData = api.cloneForm(self.data.paginate);
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      console.log(res);
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      self.setData({
+        web_mainData:self.data.mainData,
+      });
+    };
+    api.addressGet(postData,callback);
+  },
+
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
+
+
+
+  deleteAddress(e){
+    const self = this;
+    const postData = {};
+    postData.id = api.getDataSet(e,'id');
+    postData.token = wx.getStorageSync('token');
+    const callback = res=>{
+      const resType = api.dealRes(res);
+      if(resType){
+        self.data.mainData=[];
+        self.getMainData(true);
+      }
+    };
+    api.addressDelete(postData,callback)
   },
   
-  onLoad: function () {
-   
+
+  updateAddress(e){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.id = api.getDataSet(e,'id');
+    postData.data = {
+      isdefault:1
+    }
+    const callback = res =>{
+      const resType = api.showToast('设置成功','fail');
+      if(resType){
+        self.getMainData(true);
+      }
+    };
+    api.addressUpdate(postData,callback);
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
-  },
-   bindDateChange: function(e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  discount:function(e){
-    var current=e.currentTarget.dataset.current;
-    this.setData({
-      tapCurrent:current
-    })
-  },
-  newAddress:function(){
-    wx.navigateTo({
-      url:'/pages/userAddressnew/userAddressnew'
-    })
-  }
+
 })

@@ -20,11 +20,11 @@
 <view class="date" style="{{fonts[4].font}}">
 	<view class="date_item">
 		<view class="date_left" style="color:#00c6f7;">
-			<picker  mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+			<picker  mode="date" value="{{web_startTime}}" data-type="startTime" bindchange="bindTimeChange">
 			    <view class="picker text">
 			      起始日期
 			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{date}}</view>
+			    <view class="text" style="{{fonts[2].font}}">{{web_startTime}}</view>
 			</picker>
 			
 		</view>
@@ -32,61 +32,32 @@
 	</view>
 	<view class="date_item">
 		<view class="date_left">
-			<picker  mode="date" value="{{date1}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange1">
+			<picker  mode="date" value="{{web_endTime}}" data-type="endTime" bindchange="bindTimeChange">
 			    <view class="picker text">
 			      截至日期
 			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{date1}}</view>
+			    <view class="text" style="{{fonts[2].font}}">{{web_endTime}}</view>
 			</picker>
 		</view>
 		<image src="/images/up_icon1.jpg"></image>
-	</view>
-	
+	</view>	
 </view>
 <view class="credit_cont">
-	<view class="credit_list">
-		<view class="credit_item">
-			<view class="credit_left">
-				<view class="credit_reson" style="{{fonts[3].font}}">
-					签到一天领取积分
+	<block wx:for="{{web_mainData}}" wx:key="id">
+		<view class="credit_list">
+			<view class="credit_item">
+				<view class="credit_left">
+					<view class="credit_reson" style="{{fonts[3].font}}">
+						{{item.trade_info}}
+					</view>
+					<view class="credit_dates" style="{{fonts[2].font}}">
+						{{item.create_time}}
+					</view>
 				</view>
-				<view class="credit_dates" style="{{fonts[2].font}}">
-					2018-4-17
+				<view class="credit_right"  style="{{fonts[3].font}};color:#f6be23;">
+					{{item.count}}
 				</view>
-			</view>
-			<view class="credit_right"  style="{{fonts[3].font}}">
-				+70
 			</view>
 		</view>
-	</view>
-	<view class="credit_list">
-		<view class="credit_item">
-			<view class="credit_left">
-				<view class="credit_reson" style="{{fonts[3].font}}">
-					签到一天领取积分
-				</view>
-				<view class="credit_dates" style="{{fonts[2].font}}">
-					2018-4-17
-				</view>
-			</view>
-			<view class="credit_right"  style="{{fonts[3].font}}">
-				+70
-			</view>
-		</view>
-	</view>
-	<view class="credit_list">
-		<view class="credit_item">
-			<view class="credit_left">
-				<view class="credit_reson" style="{{fonts[3].font}}">
-					购买商品
-				</view>
-				<view class="credit_dates" style="{{fonts[2].font}}">
-					2018-4-17
-				</view>
-			</view>
-			<view class="credit_right"  style="{{fonts[3].font}};color:#f6be23;">
-				+300
-			</view>
-		</view>
-	</view>
+	</block>
 </view>

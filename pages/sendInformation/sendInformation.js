@@ -1,54 +1,132 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+var api = new Api();
 var app = getApp()
+
 Page({
   data: {
-   isTrue:true,
-   files: []
+    files:[],
+    articleData:[],
+    submitData:{
+      content:'',
+      passage1:''
+    }
   },
-  onLoad: function () {
-   this.setData({
-   	 fonts:app.globalData.font
-   })
+
+
+
+  
+  onLoad(){
+    const self = this;
+    self.setData({
+      fonts:getApp().globalData.font
+    });
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getArtData()
   },
-  great:function(){
-  	var isTrue = !this.data.isTrue
-  	console.log(isTrue)
-  	this.setData({
-  		isTrue:isTrue
-  	})
+
+
+
+  messageAdd(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.data = {};
+    postData.data = api.cloneForm(self.data.submitData);
+    const callback = (data)=>{
+      wx.hideLoading();
+      api.dealRes(data);
+    };
+    api.messageAdd(postData,callback);
   },
-   sort:function(){
-     wx.redirectTo({
-      url:'/pages/Send/send'
-    })
+
+
+  submit(num){
+    const self = this;
+    self.data.submitData.passage1 = num;
+    const pass = api.checkComplete(self.data.submitData);
+    if(pass){      
+        wx.showLoading();
+        self.messageAdd(); 
+    }else{
+      api.showToast('请补全信息','fail');
+    };
   },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
+
+  menuClick: function (e) {
+    const self = this;
+    const num = e.currentTarget.dataset.num;
+    self.submit(num);
   },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
+
+
+  changeBind(e){
+    const self = this;
+    api.fillChange(e,self,'submitData');
+    self.setData({
+      web_submitData:self.data.submitData,
+    });  
+    console.log(self.data.submitData)
   },
-  backSend:function(){
-    wx.navigateTo({
-      url:'/pages/Send/send'
-    })
+
+  getArtData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.searchItem = {
+      menu_id:'383',
+      thirdapp_id:'59'
+    };
+    const callback = (res)=>{
+      self.data.artData = res.info.data[0];
+      wx.hideLoading();
+      self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      self.setData({
+        web_artData:self.data.artData,
+      });  
+    };
+    api.articleGet(postData,callback);
   },
-  chooseImage: function (e) {
-        var that = this;
-        wx.chooseImage({
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                that.setData({
-                    files: that.data.files.concat(res.tempFilePaths)
-                });
-            }
+
+
+
+  upLoadImg: function (){
+    var self = this
+    wx.showLoading({
+      mask: true,
+      title: '图片上传中',
+    });
+    wx.chooseImage({
+      count: 1,
+      success: function (res) {
+      console.log(res);
+/*      self.setData({
+       zhengmian:res.tempFilePathsaths[0]
+      });*/
+        wx.uploadFile({
+          url:"https://solelynet.com/public/index.php/api/v1/upload",
+          filePath:'11',
+          name:'file',
+          header: { "Content-Type": "multipart/form-data" },
+          formData: {
+            token:wx.getStorageSync('token')
+          },
+          success: function (res) {
+               wx.hideLoadingng();
+            if(res.solely_code){
+              api.showToast('上传失败','fail')
+            }else{
+              self.data.placeOrder.passage1 = {
+                url:res.data
+              };
+            }     
+          }
         })
-    },
+      }
+    })
+  },
+
 })

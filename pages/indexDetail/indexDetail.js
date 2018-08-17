@@ -1,10 +1,12 @@
-//index.js
-//获取应用实例
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 Page({
   data: {
     background: ['/images/banner1.jpg', '/images/banner2.jpg', '/images/banner3.jpg'],
+    mainData:[],
+
     indicatorDots: true,
     vertical: false,
     autoplay: true,
@@ -14,54 +16,42 @@ Page({
     previousMargin: 0,
     nextMargin: 0,
     currentId:0,
+    id:''
     
   },
   //事件处理函数
  
-  onLoad: function () {
+  onLoad: function (options) {
+    const self = this;
      this.setData({
-          isHidden: false,
-          fonts:app.globalData.font
-        });
-        var that = this;
-        setTimeout(function(){
-          that.setData({
-              isHidden: true
-          });
-         
-        }, 2000);
+        fonts:app.globalData.font
+      });
+    self.data.id = options.id;
+    self.getMainData()
   },
-  indexDetailOrder:function(){
-     wx.navigateTo({
-      url:'/pages/indexDetailOrder/indexDetailOrder'
-    })
-  },sort:function(){
-     wx.redirectTo({
-      url:'/pages/Send/send'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  },
-  click_this:function(e){
 
-    this.setData({
-      currentId:e.currentTarget.dataset.id
-    })
+  getMainData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      id:self.data.id
+    }
+    const callback = (res)=>{
+      self.data.mainData = res.info.data[0]
+      wx.hideLoading();
+      self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      self.setData({
+        web_mainData:self.data.mainData,
+      });     
+    };
+    api.productGet(postData,callback);
   },
-  close:function(){
-    // var isShow == !this.data.isShow
-    this.setData({
-      isShow:true
-    })
-  }
+
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
  
 })
 

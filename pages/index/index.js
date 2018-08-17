@@ -1,5 +1,5 @@
-//index.js
-//获取应用实例
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 Page({
@@ -14,11 +14,17 @@ Page({
     previousMargin: 0,
     nextMargin: 0,
     currentId:0,
-    
+    num:'',
+    isShow:true,
+    searchItem:{
+      category_id:384
+    },
+    mainData:[]
   },
   //事件处理函数
  
   onLoad: function () {
+    const self = this;
      this.setData({
           isHidden: false,
           fonts:app.globalData.font
@@ -27,57 +33,78 @@ Page({
         setTimeout(function(){
           that.setData({
               isHidden: true
-          });
-         
+          });      
         }, 2000);
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getMainData();
+    self.getSliderData()
   },
-  sign:function(){
-     wx.navigateTo({
-      url:'/pages/sign/sign'
-    })
-  },
-  share:function(){
-     wx.navigateTo({
-      url:'/pages/share/share'
-    })
-  }, 
-  ranking:function(){
-     wx.navigateTo({
-      url:'/pages/ranking/ranking'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Send/send'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  },
-  indexDetail:function(){
-     wx.navigateTo({
-      url:'/pages/indexDetail/indexDetail'
-    })
-  },
-  click_this:function(e){
 
-    this.setData({
-      currentId:e.currentTarget.dataset.id
-    })
+
+
+  getSliderData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      menu_id:'381',
+      thirdapp_id:'59'
+    };
+    const callback = (res)=>{ 
+     self.data.sliderData = res.info.data;
+      self.setData({
+        web_sliderData:self.data.sliderData,
+      });
+    };
+    api.articleGet(postData,callback);
   },
-  close:function(){
-    // var isShow == !this.data.isShow
+
+  
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.searchItem = api.cloneForm(self.data.searchItem)
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      console.log(self.data.mainData)
+        wx.hideLoading();
+      self.setData({
+        web_mainData:self.data.mainData,
+      });     
+    };
+    api.productGet(postData,callback);
+  },
+
+  menuClick: function (e) {
+    const self = this;
+    const num = e.currentTarget.dataset.num;
+    self.changeSearch(num);
+  },
+
+
+  changeSearch(num){
+    const self = this;
     this.setData({
-      isShow:true
-    })
-  }
+      num: num
+    });
+    self.data.searchItem.passage1 = num;
+    self.getMainData(true);
+  },
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
+
+
  
 })
 

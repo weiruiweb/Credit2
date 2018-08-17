@@ -1,55 +1,45 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 
 Page({
+
+
   data: {
-    
+  
+    QrData:[]
+
   },
-  onLoad: function () {
+    
+
+  onLoad(){
+    const self = this;
+    self.getQrData();
     this.setData({
       fonts:app.globalData.font
     })
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
-  },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
-  },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
-  },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
-  },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  }
+
+
+  getQrData(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.param = wx.getStorageSync('info').user_no;
+    postData.output = 'url';
+    postData.ext = 'png';
+    const callback = (res)=>{
+      console.log(res);
+      self.data.QrData = res;
+      self.setData({
+        web_QrData:self.data.QrData,
+      });
+     
+      wx.hideLoading();
+    };
+    api.getQrCode(postData,callback);
+ },
+
 })

@@ -14,7 +14,7 @@
 </view>
 
 <view class="module">
-  <view class="module-item" bindtap="sign">
+  <view class="module-item" bindtap="intoPath" data-path="/pages/sign/sign">
      <view class="module_img">
         <image src="/images/index_icon1.png"></image>
      </view>
@@ -23,7 +23,7 @@
      </view>
 
   </view>
-  <view class="module-item" bindtap="share">
+  <view class="module-item" bindtap="intoPath" data-path="/pages/share/share">
      <view class="module_img">
         <image src="/images/index_icon2.png"></image>
      </view>
@@ -32,7 +32,7 @@
      </view>
 
   </view>
-  <view class="module-item" bindtap="ranking">
+  <view class="module-item" bindtap="intoPath" data-path="/pages/ranking/ranking">
      <view class="module_img">
         <image src="/images/index_icon3.png"></image>
      </view>
@@ -42,7 +42,7 @@
 
   </view>
 </view>
-<view class="note">
+<view class="note" bindtap="intoPath" data-path="/pages/userNotice/userNotice">
   <view class="note_list">
     <view class="note_left">
       <image src="/images/note_icon.png"></image>
@@ -66,75 +66,31 @@
     <view class="mall_content">
       <view class="mall_sort">
         <view class="mall_inter" style="{{fonts[4].font}}">
-          <view class="sort_item"  style="{{currentId == 0?'color:#00c6f7':''}}" data-id="0" bindtap="click_this">全部</view>
-          <view class="sort_item"  style="{{currentId == 1?'color:#00c6f7':''}}" data-id="1" bindtap="click_this">实物</view>
-          <view class="sort_item"  style="{{currentId == 2?'color:#00c6f7':''}}" data-id="2" bindtap="click_this">兑换</view>
-          <view class="sort_item"  style="{{currentId == 3?'color:#00c6f7':''}};border-right:none;" data-id="3" bindtap="click_this">线下</view>
+          <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="menuClick">全部</view>
+          <view class="sort_item"  style="{{num == 1?'color:#00c6f7':''}}" data-num="1" bindtap="menuClick">实物</view>
+          <view class="sort_item"  style="{{num == 2?'color:#00c6f7':''}}" data-num="2" bindtap="menuClick">兑换</view>
+          <view class="sort_item"  style="{{num == 3?'color:#00c6f7':''}};border-right:none;" data-num="3" bindtap="menuClick">线下</view>
         </view>
       </view>
       <view class="mall_product">
-        <view class="mall_list" bindtap="indexDetail">
-         <view class="mall_item">
-            <image src="/images/product.png"></image>
-            <view class="product_infor">
-              <view class="product_name" style="{{fonts[3].font}}">
-                泰迪熊
+        <view class="mall_list">
+          <block wx:for="{{web_mainData}}" wx:key="id">
+            <view class="mall_item" bindtap="intoPath" data-path="/pages/indexDetail/indexDetail?id={{item.id}}">
+              <image src="{{item.mainImg[0].url}}"></image>
+              <view class="product_infor">
+                <view class="product_name" style="{{fonts[3].font}}">
+                  {{item.title}}
+                </view>
+                <view class="product_credit">
+                  <view class="product_credit1" style="{{fonts[3].font}}">¥{{item.price}}</view>
+                  <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+                </view>
               </view>
-              <view class="product_credit">
-                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
-                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
-              </view>
-            </view>
-            <view class="cash" style="{{fonts[3].font}}">
-              立即兑现
-            </view>
-          </view>
-          <view class="mall_item">
-            <image src="/images/product.png"></image>
-            <view class="product_infor">
-              <view class="product_name" style="{{fonts[3].font}}">
-                泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊
-                泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊泰迪熊
-              </view>
-              <view class="product_credit">
-                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
-                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
+              <view class="cash" style="{{fonts[3].font}}">
+                立即兑现
               </view>
             </view>
-            <view class="cash" style="{{fonts[3].font}}">
-              立即兑现
-            </view>
-          </view>
-          <view class="mall_item">
-            <image src="/images/product.png"></image>
-            <view class="product_infor">
-              <view class="product_name" style="{{fonts[3].font}}">
-                泰迪熊
-              </view>
-              <view class="product_credit">
-                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
-                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
-              </view>
-            </view>
-            <view class="cash" style="{{fonts[3].font}}">
-              立即兑现
-            </view>
-          </view>
-          <view class="mall_item">
-            <image src="/images/product.png"></image>
-            <view class="product_infor">
-              <view class="product_name" style="{{fonts[3].font}}">
-                泰迪熊
-              </view>
-              <view class="product_credit">
-                <view class="product_credit1" style="{{fonts[3].font}}">¥300</view>
-                <view class="product_credit2" style="{{fonts[1].font}}">积分</view>
-              </view>
-            </view>
-            <view class="cash" style="{{fonts[3].font}}">
-              立即兑现
-            </view>
-          </view>
+          </block>
         </view>
       </view>
     </view>
@@ -154,7 +110,7 @@
 
       </view>
     
-    <view class="navbar_item" bindtap="sort">
+    <view class="navbar_item" bindtap="intoPath" data-path="/pages/Send/send">
    
         <view class="nav_img">
            <image src="/images/navbar2.png" style="width:42rpx;height:42rpx;"></image>
@@ -163,7 +119,7 @@
     
     </view>
   
-    <view class="navbar_item"  bindtap="User">
+    <view class="navbar_item"  bindtap="intoPath" data-path="/pages/User/user">
    
         <view class="nav_img">
             <image src="/images/navbar4.png" style="width:42rpx;height:42rpx;"></image>

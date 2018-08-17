@@ -1,60 +1,69 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 
 Page({
   data: {
-    currentId:0,
+    num:1,
+    searchItem:{
+      thirdapp_id:'59',
+      passage1:''
+    },
+    mainData:[]
   },
-  onLoad: function () {
+  onLoad() {
+    const self = this;
+    self.data.searchItem.passage1 = self.data.num;
     this.setData({
       fonts:app.globalData.font
-    })
+    });
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getMainData()
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
+
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem)
+    postData.order = {
+      create_time:'desc'
+    }
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      wx.hideLoading();
+      self.setData({
+        web_mainData:self.data.mainData,
+        web_totol:res.info.data.length
+      });  
+    };
+    api.messageGet(postData,callback);
   },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
+
+  menuClick: function (e) {
+    const self = this;
+    const num = e.currentTarget.dataset.num;
+    self.changeSearch(num);
   },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
-  },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
-  },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  },
-  has_send:function(e){
+
+
+  changeSearch(num){
+    const self = this;
     this.setData({
-      currentId:e.currentTarget.dataset.id
-    })
-  }
+      num: num
+    });
+    self.data.searchItem.passage1 = num;
+    self.getMainData(true);
+  },
 })

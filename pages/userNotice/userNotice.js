@@ -1,55 +1,49 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 
 Page({
+
+
   data: {
-    
+
+    artData:[]
+
   },
-  onLoad: function () {
+
+
+  onLoad(){
+    const self = this;
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     this.setData({
       fonts:app.globalData.font
-    })
+    });
+    self.getArtData()
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
+
+  getArtData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.searchItem = {
+      menu_id:'380',
+      thirdapp_id:'59'
+    };
+    const callback = (res)=>{
+      self.data.artData = res;
+      wx.hideLoading();
+      self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      self.setData({
+        web_artData:self.data.artData,
+      });  
+    };
+    api.articleGet(postData,callback);
   },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
-  },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
-  },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
-  },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  }
+
+
 })

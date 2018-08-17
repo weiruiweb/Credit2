@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.2",
-	"appid": "wx212611f012b9cf1d",
+	"appid": "wx4c16a5493b7fff43",
 	"projectname": "Credit2",
 	"isGameTourist": false,
 	"condition": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 19,
 			"list": [
 				{
 					"id": -1,
@@ -116,7 +116,43 @@
 				{
 					"id": -1,
 					"name": "ranking",
-					"pathName": "pages/ranking/ranking"
+					"pathName": "pages/ranking/ranking",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加地址",
+					"pathName": "pages/userAddressnew/userAddressnew",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的地址",
+					"pathName": "pages/userAddress/userAddress",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "发布",
+					"pathName": "pages/sendInformation/sendInformation",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的积分",
+					"pathName": "pages/userCredit/userCredit",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的二维码",
+					"pathName": "pages/userPoster/userPoster",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "编写发布",
+					"pathName": "pages/sendInformation/sendInformation"
 				}
 			]
 		}

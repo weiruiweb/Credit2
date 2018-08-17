@@ -1,6 +1,6 @@
 {
   "pages":[
-     "pages/Index/index",
+     "pages/index/index",
      "pages/indexDetail/indexDetail",
      "pages/indexDetailOrder/indexDetailOrder",
       "pages/Send/send",
@@ -11,6 +11,7 @@
       "pages/userAddress/userAddress",
       "pages/userCredit/userCredit",
       "pages/userAddressnew/userAddressnew",
+      "pages/userComplete/userComplete",
       "pages/userNotice/userNotice",
       "pages/userComment/userComment",
       "pages/sendInformation/sendInformation",

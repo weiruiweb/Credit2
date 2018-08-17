@@ -1,11 +1,11 @@
 <!--send.wxml-->
 <view class="send_bg">
-  <image src="/images/send_bg.png">
+  <image src="{{web_artData.bannerImg[0].url}}">
   </image>
 </view>
 <view class="send_cont">
   <view class="send_content">
-    <view class="send_btn" style="{{fonts[3].font}}" bindtap="sendInformation">
+    <view class="send_btn" style="{{fonts[3].font}}" bindtap="intoPath" data-path="/pages/sendInformation/sendInformation">
       编写发布
     </view>
   </view>
@@ -84,13 +84,13 @@
     </view>
 </view>
 </view>
-<view id="send_button"  bindtap="sendInformation">
+<view id="send_button"  bindtap="intoPath" data-path="/pages/sendInformation/sendInformation">
   <view id="send_img"><image src="/images/send_icon.png"></image></view>
   <view id="sent_txt" style="{{fonts[2].font}}">编写发布</view>
 </view>
 <view class="navbar">
     
-      <view class="navbar_item" bindtap="index">
+      <view class="navbar_item" bindtap="intoPath" data-path="/pages/index/index">
       
           <view class="nav_img">
             <image src="/images/navbar1.png" style="width:42rpx;height:42rpx;"></image>
@@ -99,7 +99,7 @@
 
       </view>
     
-    <view class="navbar_item" bindtap="sort">
+    <view class="navbar_item" >
         <view class="nav_img">
            <image src="/images/navbar2-a.png" style="width:42rpx;height:42rpx;"></image>
         </view>
@@ -107,7 +107,7 @@
     
     </view>
   
-    <view class="navbar_item"  bindtap="User">
+    <view class="navbar_item"  bindtap="intoPath" data-path="/pages/User/user">
    
         <view class="nav_img">
             <image src="/images/navbar4.png" style="width:42rpx;height:42rpx;"></image>

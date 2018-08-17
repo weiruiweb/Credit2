@@ -23,9 +23,9 @@
 				</view>
 
 			</view>
-			<view id="comment" bindtap="userComment">
+			<view id="comment" bindtap="intoPath" data-path="/pages/userComment/userComment">
 				<view id="credit_number">
-					0
+					{{web_totol}}
 				</view>
 				<view id="credit_text">
 					我的评论
@@ -37,7 +37,7 @@
 </view>
 </view>
 <view id="user">
-	<view class="order" bindtap="order">
+	<view class="order" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
 		<view class="user_order flexRowBetween">
 			<view class="order_left flexRowBetween">
 				<image src="/images/user_icon1.png"></image>
@@ -53,22 +53,31 @@
 		</view>
 	</view>
 	<view class="process">
-		<view class="peocess_item item_other" bindtap="order">
+		<view class="peocess_item item_other" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
 			<image src="/images/user_icon9.png"></image>
 			<text>已兑换</text>
 		</view>
-		<view class="peocess_item">
+		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
 			<image src="/images/user_icon7.png"></image>
 			<text>待发货</text>
 		</view>
-		<view class="peocess_item">
+		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
 			<image src="/images/user_icon8.png"></image>
 			<text>待收货</text>
 		</view>
 		
 	</view>
 	<view class="user_all">
-		<view class="user_infor flexRowBetween"  bindtap="userInfo">
+		<view class="user_infor flexRowBetween"  bindtap="intoPath" data-path="/pages/userComplete/userComplete">
+			<view class="user_left flexRowBetween">
+				<image src="/images/user_icon2.png"></image>
+				<text>完善信息</text>
+			</view>
+			<view class="next_page">
+				<image src="/images/next_page.jpg"></image>
+			</view>
+		</view>
+		<view class="user_infor flexRowBetween"  bindtap="intoPath" data-path="/pages/userPoster/userPoster">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon2.png"></image>
 				<text>我的海报</text>
@@ -77,7 +86,7 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-		<view class="user_infor flexRowBetween" bindtap="discount">
+		<view class="user_infor flexRowBetween" bindtap="intoPath" data-path="/pages/userTeam/userTeam">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon3.png"></image>
 				<text>我的团队</text>
@@ -86,7 +95,7 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-		<view class="user_infor flexRowBetween" bindtap="address">
+		<view class="user_infor flexRowBetween" bindtap="intoPath" data-path="/pages/userAddress/userAddress">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon4.png"></image>
 				<text>收货地址</text>
@@ -95,7 +104,7 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-		<view class="user_infor flexRowBetween" bindtap="notice">
+		<view class="user_infor flexRowBetween" bindtap="intoPath" data-path="/pages/userNotice/userNotice">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon5.png"></image>
 				<text>公告</text>
@@ -104,7 +113,7 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-		<view class="user_infor flexRowBetween" bindtap="address">
+		<view class="user_infor flexRowBetween" bindtap="calling">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon6.png"></image>
 				<text>联系客服</text>
@@ -120,7 +129,7 @@
 </view>
 <view class="navbar">
     
-      <view class="navbar_item" bindtap="index">
+      <view class="navbar_item" bindtap="intoPath" data-path="/pages/index/index">
       
           <view class="nav_img">
             <image src="/images/navbar1.png" style="width:42rpx;height:42rpx;"></image>
@@ -129,7 +138,7 @@
 
       </view>
     
-    <view class="navbar_item" bindtap="sort">
+    <view class="navbar_item" data-path="/pages/Send/send">
    
         <view class="nav_img">
            <image src="/images/navbar2.png" style="width:42rpx;height:42rpx;"></image>
@@ -138,10 +147,10 @@
     
     </view>
   
-    <view class="navbar_item"  bindtap="User">
+    <view class="navbar_item"  >
    
         <view class="nav_img">
-            <image src="/images/navbar3.png" style="width:42rpx;height:42rpx;"></image>
+            <image src="/images/navbar4-a.png" style="width:42rpx;height:42rpx;"></image>
         </view>
         <view class="text this-text" style="{{fonts[2].font}}">我的</view>
 

@@ -1,36 +1,17 @@
 <!--userNotice.wxml-->
 <view class="userNotice">
 	<view class="notice_tlt" style="{{fonts[4].font}}">
-		<text>如何获取积分</text>
-	</view>
-	<view class="notice1">
-		<image src="/images/notice1.png"></image>
-	</view>
-	<view class="process">
-		<view class="process_tlt" style="{{fonts[4].font}}">
-			操作步骤
-		</view>
-		<view class="notice_cont" style="{{fonts[2].font}}">
-			<view class="notice_one"> 1. 分享您的专属二维码，分享给好友；
-			</view>
-			<view class="notice_one"> 2. 若好友通过二维码成功关注微信公众号，您即可获得     相应的积分奖励；  
-			 </view>
-		  </view>
+		<text>{{web_artData.info.data[0].title}}</text>
 	</view>
 	<view class="notice1">
 		<image src="/images/notice2.png"></image>
 	</view>
 	<view class="process">
-		<view class="process_tlt" style="{{fonts[4].font}}">
-			操作步骤
-		</view>
 		<view class="notice_cont" style="{{fonts[2].font}}">
-			<view class="notice_one">  1. 签到送积分签到送积分签到送积分签到送积分； 
-			</view>
-			<view class="notice_one"> 2. 连续签到积分翻倍连续签到积分翻倍连续签到积分翻   倍连续签到积
-			 </view>
-			 <view class="notice_one"> 3. 连续签到积分翻倍连续签到积分翻倍连续签到积分翻  倍连续签到积
-			 </view>
+			<view class="content ql-editor" >
+	            <import src="../../wxParse/wxParse.wxml"/>
+	            <template is="wxParse" data="{{wxParseData:web_artData.content}}"/>
+          	</view> 
 		  </view>
 	</view>
 </view>

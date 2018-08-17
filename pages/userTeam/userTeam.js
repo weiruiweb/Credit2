@@ -1,61 +1,102 @@
-//logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+var api = new Api();
 const app = getApp()
 
 
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    date:2018-9-9,
+    
+    mainData:[],
+    startTime:'',
+    endTime:'',
+    searchItem:{
+      thirdapp_id:'59',
+      user_type:'0',
+      behavior:'0',
+      parent_no:wx.getStorageSync('info').user_no
+    }
+
   },
-  onLoad: function () {
+    
+
+  onLoad(){
+    const self = this;
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getMainData();
     this.setData({
       fonts:app.globalData.font
-    })
+    });
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
+
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.order = {
+      create_time:'desc'
+    }
+
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      wx.hideLoading();
+      self.setData({
+        web_mainData:self.data.mainData,
+      });  
+    };
+    api.userGet(postData,callback);
   },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
+
+
+  onReachBottom() {
+    const self = this;
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
   },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
+
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
   },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
-  },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  },
-  bindDateChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+
+  bindTimeChange: function(e) {
+    const self = this;
+    var label = api.getDataSet(e,'type');
     this.setData({
-      date: e.detail.value
-    })
+      ['web_'+label]: e.detail.value
+    });
+    self.data[label+'stap'] = new Date(self.data.date+' '+e.detail.value).getTime();
+    if(self.data.endTimestap&&self.data.startTimestap){
+      self.data.searchItem.create_time = ['between',[self.data.startTimestap,self.data.endTimestap]];
+    }else if(self.data.startTimestap){
+      self.data.searchItem.create_time = ['>',self.data.startTimestap];
+    }else{
+      self.data.searchItem.create_time = ['<',self.data.endTimestap];
+    };
+    self.getMainData(true);   
   },
+
+ 
 })
+
+  
+  
+
+ 
+

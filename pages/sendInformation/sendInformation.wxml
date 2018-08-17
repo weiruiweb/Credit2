@@ -1,6 +1,6 @@
 <!--sendInformation.wxml-->
 <view class="textarea">
-  <textarea  type="" placeholder="请输入要发布的内容..." style="{{fonts[3].font}}">
+  <textarea  type="" placeholder="请输入要发布的内容..." style="{{fonts[3].font}}" data-key="content" bindblur="changeBind">
   </textarea>
 </view>
 <view class="uploder">
@@ -14,7 +14,7 @@
           </block>
 
         <view class="uploder_item" >
-          <view class="uploader__input" bindtap="chooseImage">
+          <view class="uploader__input" bindtap="upLoadImg">
            <image src="/images/fabu.png"></image>
           </view>
         </view>
@@ -22,10 +22,10 @@
 </view>
 <view class="fabu">
   <view class="fabu_cont"  style="{{fonts[4].font}}">
-    <view class="fabu_left" bindtap="backSend">
+    <view class="fabu_left" bindtap="menuClick" data-key="passage1" data-num="0">
         保存
     </view>
-    <view class="fabu_right">
+    <view class="fabu_right" bindtap="menuClick" data-key="passage1" data-num="1">
       发布
     </view>
   </view>
@@ -36,8 +36,10 @@
             发布规则
         </view>
         <view class="regular_item"  style="{{fonts[3].font}}">
-          <view>1、发布1条信息可获得30积分，每日可获得信息发布      积分上限为150积分</view>
-          <view>1、发布1条信息可获得30积分，每日可获得信息发布      积分上限为150积分</view>
+          <view class="content ql-editor" >
+            <import src="../../wxParse/wxParse.wxml"/>
+            <template is="wxParse" data="{{wxParseData:web_artData.content}}"/>
+          </view> 
         </view>
     </view>
 </view>
