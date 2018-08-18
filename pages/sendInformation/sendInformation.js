@@ -99,30 +99,21 @@ Page({
       mask: true,
       title: '图片上传中',
     });
+
     wx.chooseImage({
-      count: 1,
-      success: function (res) {
-      console.log(res);
-/*      self.setData({
-       zhengmian:res.tempFilePathsaths[0]
-      });*/
+      success: function(res) {
+        console.log(res);
+        var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
-          url:"https://solelynet.com/public/index.php/api/v1/upload",
-          filePath:'11',
-          name:'file',
-          header: { "Content-Type": "multipart/form-data" },
+          url: 'http://192.168.0.119:88/scoreshop/public/index.php/api/v1/Base/FtpImage/upload', //仅为示例，非真实的接口地址
+          filePath: tempFilePaths[0],
+          name: 'file',
           formData: {
             token:wx.getStorageSync('token')
           },
-          success: function (res) {
-               wx.hideLoadingng();
-            if(res.solely_code){
-              api.showToast('上传失败','fail')
-            }else{
-              self.data.placeOrder.passage1 = {
-                url:res.data
-              };
-            }     
+          success: function(res){
+            var data = res.data
+            //do something
           }
         })
       }
