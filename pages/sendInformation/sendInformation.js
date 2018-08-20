@@ -7,9 +7,12 @@ Page({
   data: {
     files:[],
     articleData:[],
+    imaData:[],
+    mainImg:[],
     submitData:{
       content:'',
-      passage1:''
+      passage1:'',
+      
     }
   },
 
@@ -33,6 +36,7 @@ Page({
     postData.token = wx.getStorageSync('token');
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
+    postData.data.mainImg = self.data.mainImg
     const callback = (data)=>{
       wx.hideLoading();
       api.dealRes(data);
@@ -105,15 +109,24 @@ Page({
         console.log(res);
         var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
-          url: 'http://192.168.0.119:88/scoreshop/public/index.php/api/v1/Base/FtpImage/upload', //仅为示例，非真实的接口地址
+          url: 'https://jzyz.sc2yun.com/public/index.php/api/v1/Base/FtpImage/upload ', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
           name: 'file',
           formData: {
-            token:wx.getStorageSync('token')
+            token:'db3883b0240e8acc7648271649d326ce'
           },
           success: function(res){
-            var data = res.data
-            //do something
+            console.log(res)
+            var arr = [];
+            var obj = res.data;
+            for (let i in obj) {
+              arr.push(obj[i]); 
+            }
+            console.log(arr);
+            wx.hideLoading();
+            self.setData({
+              web_imgData:self.data.mainImg
+            })
           }
         })
       }

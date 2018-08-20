@@ -24,7 +24,7 @@
       </view>
   </view>
 </view>
-<view class="case_btn" bindtap="intoPath" data-path="/pages/indexDetailOrder/indexDetailOrder">
+<view class="case_btn" bindtap="intoPath" data-path="/pages/indexDetailOrder/indexDetailOrder?id={{web_mainData.id}}">
   <view class="submit_info">
     立即兑换
   </view>

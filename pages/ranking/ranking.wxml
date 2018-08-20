@@ -15,11 +15,11 @@
 				<image src="/images/ranking3.png" class="rank_img1"></image>
 			</view>
 			<view class="rank">
-				<image src="/images/team_img.png" class="rank_img"></image>
+				<image src="{{web_mainData[0].headImgUrl}}" class="rank_img"></image>
 			</view>
 		
 				<view class="rank2" style="{{fonts[3].font}}">
-					米桃子
+					{{web_mainData[0].nickName}}
 				</view>
 
 		</view>
@@ -27,102 +27,28 @@
 	</view>
 	<view class="total_credit">
 		<image src="/images/ranking4.png"></image>
-		<text style="{{fonts[2].font}};color:#e7c420">29582
+		<text style="{{fonts[2].font}};color:#e7c420">{{web_mainData[0].score}}
 		</text>
 	</view>
 </view>
-<view class="rank_list">
-	<view class="rank_item">
-		<view class="rank_left">
-			NO.2
-		</view>
-		<view class="rank_right">
-			<view class="rank_imgs">
-				<image src="/images/ranking.png"></image>
+<block wx:for="{{web_mainDataTwo}}" wx:key="id">
+	<view class="rank_list">
+		<view class="rank_item">
+			<view class="rank_left">
+				NO.{{index+2}}
 			</view>
-			<view class="rank_name">
-				<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">某某某</view>
-				<view class="rank_credits" style="height:50%;">
-					<image src="/images/ranking4.png"></image>
-					<text  style="{{fonts[1].font}};color:#ffc402;">22225</text>
+			<view class="rank_right">
+				<view class="rank_imgs">
+					<image src="{{item.headImgUrl}}"></image>
+				</view>
+				<view class="rank_name">
+					<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">{{web_mainData[0].nickName}}</view>
+					<view class="rank_credits" style="height:50%;">
+						<image src="/images/ranking4.png"></image>
+						<text  style="{{fonts[1].font}};color:#ffc402;">{{web_mainData[0].score}}</text>
+					</view>
 				</view>
 			</view>
 		</view>
 	</view>
-</view>
-<view class="rank_list">
-	<view class="rank_item">
-		<view class="rank_left">
-			NO.3
-		</view>
-		<view class="rank_right">
-			<view class="rank_imgs">
-				<image src="/images/ranking.png"></image>
-			</view>
-			<view class="rank_name">
-				<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">某某某</view>
-				<view class="rank_credits" style="height:50%;">
-					<image src="/images/ranking4.png"></image>
-					<text  style="{{fonts[1].font}};color:#ffc402;">22225</text>
-				</view>
-			</view>
-		</view>
-	</view>
-</view>
-<view class="rank_list">
-	<view class="rank_item">
-		<view class="rank_left">
-			NO.4
-		</view>
-		<view class="rank_right">
-			<view class="rank_imgs">
-				<image src="/images/ranking.png"></image>
-			</view>
-			<view class="rank_name">
-				<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">某某某</view>
-				<view class="rank_credits" style="height:50%;">
-					<image src="/images/ranking4.png"></image>
-					<text  style="{{fonts[1].font}};color:#ffc402;">22225</text>
-				</view>
-			</view>
-		</view>
-	</view>
-</view>
-<view class="rank_list">
-	<view class="rank_item">
-		<view class="rank_left">
-			NO.5
-		</view>
-		<view class="rank_right">
-			<view class="rank_imgs">
-				<image src="/images/ranking.png"></image>
-			</view>
-			<view class="rank_name">
-				<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">某某某</view>
-				<view class="rank_credits" style="height:50%;">
-					<image src="/images/ranking4.png"></image>
-					<text  style="{{fonts[1].font}};color:#ffc402;">22225</text>
-				</view>
-			</view>
-		</view>
-	</view>
-</view>
-<view class="rank_list">
-	<view class="rank_item">
-		<view class="rank_left">
-			NO.6
-		</view>
-		<view class="rank_right">
-			<view class="rank_imgs">
-				<image src="/images/ranking.png"></image>
-			</view>
-			<view class="rank_name">
-				<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">某某某</view>
-				<view class="rank_credits" style="height:50%;">
-					<image src="/images/ranking4.png"></image>
-					<text  style="{{fonts[1].font}};color:#ffc402;">22225</text>
-				</view>
-			</view>
-		</view>
-	</view>
-</view>
+</block>

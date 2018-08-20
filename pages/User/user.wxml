@@ -9,12 +9,11 @@
 		</view>
 		 <view class="user_word">
 		 	<view class="user_name"><open-data type="userNickName" lang="zh_CN"></open-data></view>
-		 	<view class="phone">158767678</view>
 		 </view>
 	</view>
 	<view id="sign" style="{{fonts[3].font}}">
 		<view class="credit_cont">
-			<view id="credit" bindtap="userCredit">
+			<view id="credit"  bindtap="intoPath" data-path="/pages/userCredit/userCredit">
 				<view id="credit_number">
 					0
 				</view>
@@ -129,7 +128,7 @@
 </view>
 <view class="navbar">
     
-      <view class="navbar_item" bindtap="intoPath" data-path="/pages/index/index">
+      <view class="navbar_item" bindtap="intoPathRedi" data-path="/pages/index/index">
       
           <view class="nav_img">
             <image src="/images/navbar1.png" style="width:42rpx;height:42rpx;"></image>
@@ -138,7 +137,7 @@
 
       </view>
     
-    <view class="navbar_item" data-path="/pages/Send/send">
+    <view class="navbar_item" data-path="/pages/Send/send" bindtap="intoPathRedi">
    
         <view class="nav_img">
            <image src="/images/navbar2.png" style="width:42rpx;height:42rpx;"></image>

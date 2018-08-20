@@ -64,9 +64,84 @@ class Api extends Base{
         this.request(allParams);
     }
 
+    logGet(param,callback){
+        var allParams ={
+            url:'Common/Log/get',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+
+    logAdd(param,callback){
+        var allParams ={
+            url:'Common/Log/Add',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+
+    getRank(param,callback){
+        var allParams ={
+            url:'Func/Common/getRankByUserInfo',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    } 
+
+    addOrder(param,callback){
+        var allParams ={
+            url:'Func/Order/addOrder',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    } 
+
+
+    signIn(param,callback){
+        var allParams ={
+            url:'Func/Common/signIn',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
     getQrCode(param,callback){
         var allParams ={
             url:'Base/Qr/ProgramQrGet',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);
+    }  
+
+    pay(param,callback){
+        var allParams ={
+            url:'Base/Pay/pay',
             type:'post',
             data:param,
             sCallback: function(data) {
@@ -500,6 +575,42 @@ class Api extends Base{
     messageDelete(param,callback){
         var allParams ={
             url:'Common/Message/delete',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);
+    }
+
+    orderDelete(param,callback){
+        var allParams ={
+            url:'Common/Order/delete',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);
+    }
+
+    orderUpdate(param,callback){
+        var allParams ={
+            url:'Common/Order/update',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);
+    }
+
+    orderGet(param,callback){
+        var allParams ={
+            url:'Common/Order/get',
             type:'post',
             data:param,
             sCallback: function(data) {

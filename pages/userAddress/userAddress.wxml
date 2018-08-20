@@ -1,7 +1,7 @@
 <!--manageAddress.wxml-->
 <view id="address">
 	<block wx:for="{{web_mainData}}" wx:key="id">
-		<view class="address_item flexRowBetween">
+		<view class="address_item flexRowBetween" bindtap="choose" data-id="{{item.id}}">
 			<view class="address_left">
 				<view class="text1">
 					{{item.name}}
@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<view class="address_set flexRowBetween">
-			<view class="default"  bindtap="{{item.isdefault=='0'?'updateAddress':''}}">
+			<view class="default"  bindtap="{{item.isdefault=='0'?'updateAddress':''}}" data-id="{{item.id}}">
 				<image src="{{item.isdefault=='0'?'/images/select.png':'/images/select_active.jpg'}}"></image>
 				<text>{{item.isdefault=='0'?'设为默认地址':'默认地址'}}</text>
 			</view>

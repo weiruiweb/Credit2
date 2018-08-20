@@ -7,12 +7,19 @@ Page({
   data: {
     mainData:[]
   },
+
+  
   onLoad() {
     const self = this;
     this.setData({
       fonts:app.globalData.font
-    })
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    });
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate)
+    
+  },
+
+  onShow(){
+    const self = this;
     self.getMainData()
   },
  
@@ -21,6 +28,12 @@ Page({
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
+
+  intoPathRedi(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'redi');
+  },
+
 
   getMainData(isNew){
     const self = this;

@@ -10,57 +10,25 @@
 	</view>
 </view>
 <view class="comment_cont">
-	<view class="comment_list">
-		<view class="comment_txt" style="{{fonts[3].font}}" >
-			内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
-		</view>
-		<view class="comment_img">
-			<view class="img_list">
-				<image src="/images/order.png"></image>
+	<block wx:for="{{web_mainData}}" wx:key="id">
+		<view class="comment_list">
+			<view class="comment_txt" style="{{fonts[3].font}}" >
+				{{item.content}}
 			</view>
-			<view class="img_list">
-				<image src="/images/order.png"></image>
+			<view class="comment_img">
+				<view class="img_list">
+					<image src="{{item.mainImg[0].url}}"></image>
+				</view>
 			</view>
-			<view class="img_list">
-				<image src="/images/order.png"></image>
-			</view>
-			<view class="img_list">
-				<image src="/images/order.png"></image>
-			</view>
-		</view>
-		<view class="comment_handle" style="{{fonts[4].font}}">	
-			<view class="comment_left">
-				<view class="comment_btn">发布</view>
-				<view class="comment_btn comment_btn1">删除</view>
-			</view>
-			<view class="comment_right" style="{{fonts[4].font}}">
-				2018-8-8
+			<view class="comment_handle" style="{{fonts[4].font}}">	
+				<view class="comment_left">
+					<view class="comment_btn" wx:if="{{item.passage1 == '0'}}" bindtap="messageUpdate" data-id="{{item.id}}">发布</view>
+					<view class="comment_btn comment_btn1" bindtap="messageDelete" data-id="{{item.id}}">删除</view>
+				</view>
+				<view class="comment_right" style="{{fonts[4].font}}">
+					{{item.create_time}}
+				</view>
 			</view>
 		</view>
-	</view>
-	<view class="comment_list">
-		<view class="comment_txt" style="{{fonts[3].font}}" >
-			内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
-		</view>
-		<view class="comment_img">
-			<view class="img_list">
-				<image src="/images/order.png"></image>
-			</view>
-			<view class="img_list">
-				<image src="/images/order.png"></image>
-			</view>
-			<view class="img_list">
-				<image src="/images/order.png"></image>
-			</view>
-		</view>
-		<view class="comment_handle" style="{{fonts[4].font}}">	
-			<view class="comment_left">
-				<view class="comment_btn">发布</view>
-				<view class="comment_btn comment_btn1">删除</view>
-			</view>
-			<view class="comment_right" style="{{fonts[4].font}}">
-				2018-8-8
-			</view>
-		</view>
-	</view>
+	</block>
 </view>

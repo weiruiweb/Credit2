@@ -35,7 +35,7 @@ product表
 | sku_item| varchar(255)| 预留 |
 | spu_array| varchar(255)|关联label（科目和校区） |
 | spu_item| varchar(255)| 关联label（科目和校区） |
-| passage1| varchar(255)| 商品分类：1实物;2兑换;3线下|
+| passage1| varchar(255)| |
 | passage2| varchar(255)|是否专车接送 |
 | passage3| varchar(255)|课程状态 |
 | passage4| varchar(255)|是否住宿 |
@@ -127,11 +127,11 @@ user_info表
 | 字段 | 类型 | 说明 |
 | ------    | ------    | ------   | 
 | id | int(11)| 主键：排课ID|
-| name | 	varchar(255) | 用户名|
+| name |  varchar(255) | 用户名|
 | phone| varchar(255)| 用户手机|
 | mainImg | varchar(9999) |  用户头像 |
 | gender| tinyint(2) | 性别：0女；1男 |
-| idCard| 	varchar(255)| 身份证号 |
+| idCard|   varchar(255)| 身份证号 |
 | email | varchar(255) | 学员原学校 |
 | address |  varchar(500)| 地址 |
 | city| varchar(255)| 预留 |
@@ -147,6 +147,14 @@ user_info表
 | passage2| text |教师科目|
 | sign_time| int(11)|签到时间 |
 | status| tinyint(2) |1正常；2删除 |
+
+
+message表
+
+| 字段 | 类型 | 说明 |
+| ------    | ------    | ------   | 
+| passage1 | int(11)| 1.已发布；2已保存|
+
 
 ---
 **3\. 特殊设计思路说明**

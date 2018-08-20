@@ -1,28 +1,29 @@
 {
-  "pages":[
-     "pages/index/index",
-     "pages/indexDetail/indexDetail",
-     "pages/indexDetailOrder/indexDetailOrder",
-      "pages/Send/send",
-      "pages/User/user",
-      "pages/userOrder/userOrder",
-      "pages/userPoster/userPoster",
-      "pages/userTeam/userTeam",
-      "pages/userAddress/userAddress",
-      "pages/userCredit/userCredit",
-      "pages/userAddressnew/userAddressnew",
-      "pages/userComplete/userComplete",
-      "pages/userNotice/userNotice",
-      "pages/userComment/userComment",
-      "pages/sendInformation/sendInformation",
-      "pages/sign/sign",
-      "pages/share/share",
-      "pages/ranking/ranking"
+  "pages": [
+    "pages/index/index",
+    "pages/indexDetail/indexDetail",
+    "pages/indexDetailOrder/indexDetailOrder",
+    "pages/Send/send",
+    "pages/User/user",
+    "pages/userOrder/userOrder",
+    "pages/userPoster/userPoster",
+    "pages/userTeam/userTeam",
+    "pages/userAddress/userAddress",
+    "pages/userCredit/userCredit",
+    "pages/userAddressnew/userAddressnew",
+    "pages/userComplete/userComplete",
+    "pages/userNotice/userNotice",
+    "pages/userComment/userComment",
+    "pages/sendInformation/sendInformation",
+    "pages/sign/sign",
+    "pages/share/share",
+    "pages/ranking/ranking",
+    "pages/product/product"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "分销积分商城",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }

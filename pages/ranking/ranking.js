@@ -1,55 +1,70 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+const api = new Api();
 const app = getApp()
 
 
 Page({
   data: {
-    
+    mainDataTwo:[],
+    mainData:[]
   },
-  onLoad: function () {
+
+
+  onLoad() {
+    const self = this;
     this.setData({
       fonts:app.globalData.font
-    })
+    });
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getRank();
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
+
+
+  getRank(isNew){
+    const self = this;
+    const postData = {
+      order:{
+        'score':'desc'
+      },
+      limit:30,
+      thirdapp_id:'59',
+      tableName:'score'
+    };
+    postData.paginate = self.data.paginate;
+    const callback = (res)=>{
+     if(res.info.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      self.setData({
+        web_mainData:self.data.mainData,
+      });
+       self.setData({
+        web_mainDataTwo:self.data.mainDataTwo.splice(0,1)
+      });
+
+      wx.hideLoading();
+    };
+    api.getRank(postData,callback);
   },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
+
+
+  onReachBottom() {
+    const self = this;
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
   },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
+
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
   },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
-  },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
-  },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  }
+
+
 })

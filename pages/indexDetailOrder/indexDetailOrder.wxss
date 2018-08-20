@@ -16,7 +16,7 @@ page{
 
 }
 .order_left,.order_right{
-	width:50%;
+	width:100%;
 }
 .order_right{
 	text-align:right;

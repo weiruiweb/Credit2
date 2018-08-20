@@ -3,46 +3,61 @@ var api = new Api();
 const app = getApp()
 
 Page({
-  data: {
 
-    indicatorDots: true,
-    vertical: false,
-    autoplay: true,
-    circular: false,
-    interval: 2000,
-    duration: 500,
-    previousMargin: 0,
-    nextMargin: 0,
-    currentId:0,
-    num:'',
-    isShow:false,
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    mainData:[],
+    labelData:[],
     searchItem:{
       thirdapp_id:59
     },
-    mainData:[],
+    num:'',
     buttonClicked: false
   },
-  //事件处理函数
- 
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad() {
     const self = this;
      this.setData({
-          isHidden: false,
           fonts:app.globalData.font
         });
-        var that = this;
-        setTimeout(function(){
-          that.setData({
-              isHidden: true
-          });      
-        }, 2000);
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData();
-    self.getSliderData();
     self.getLabelData()
   },
 
 
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);
+      self.setData({
+        web_mainData:self.data.mainData
+      });   
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.searchItem = api.cloneForm(self.data.searchItem)
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      console.log(self.data.mainData)
+      wx.hideLoading();
+      self.setData({
+        web_mainData:self.data.mainData,
+      });     
+    };
+    api.productGet(postData,callback);
+  },
+  
 
   getLabelData(){
     const self = this;
@@ -59,69 +74,8 @@ Page({
 
       });
     };
-
-    api.labelGet(postData,callback);
-    
+    api.labelGet(postData,callback)  
   },
-
-
-
-  getSliderData(){
-    const self = this;
-    const postData = {};
-    postData.searchItem = {
-      menu_id:'381',
-      thirdapp_id:'59'
-    };
-    const callback = (res)=>{ 
-     self.data.sliderData = res.info.data[0];
-      self.setData({
-        web_sliderData:self.data.sliderData,
-      });
-    };
-    api.articleGet(postData,callback);
-  },
-
-  
-  getMainData(isNew){
-    const self = this;
-    if(isNew){
-      api.clearPageIndex(self); 
-      self.setData({
-        web_mainData:self.data.mainData
-      }); 
-    };
-    const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
-    postData.searchItem = api.cloneForm(self.data.searchItem)
-    const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.mainData.push.apply(self.data.mainData,res.info.data);
-        if(res.info.data.length>4){
-          self.data.mainData = self.data.mainData.slice(0,4) 
-        }
-      }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','fail');
-      };
-      wx.hideLoading();
-      self.setData({
-        web_mainData:self.data.mainData,
-      });     
-    };
-    api.productGet(postData,callback);
-  },
-
-  
-  onReachBottom() {
-    const self = this;
-    if(!self.data.isLoadAll){
-      self.data.paginate.currentPage++;
-      self.getMainData();
-    };
-  },
-
-
 
   menuClick: function (e) {
     const self = this;
@@ -135,7 +89,6 @@ Page({
     self.setData({
       buttonClicked:true
     })
-    console.log(num)
     if(num!=''){
       self.setData({
         num: num
@@ -148,12 +101,12 @@ Page({
       self.data.searchItem = {
           thirdapp_id:59
       }
-    }    
+    }
     setTimeout(function(){
       self.setData({
         buttonClicked:false
       })
-    }, 1000);
+    }, 1000); 
     self.getMainData(true);
   },
 
@@ -162,26 +115,14 @@ Page({
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
 
-  intoPathRedi(e){
+  
+  onReachBottom() {
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'redi');
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
   },
 
-  show(){
-    const self = this;
-    if(self.data.isShow == false){
-      self.setData({
-        isShow:true
-      })
-    }else{
-      self.setData({
-        isShow:false
-      })
-    }
-  }
 
-
- 
 })
-
-  

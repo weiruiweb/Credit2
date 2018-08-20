@@ -4,9 +4,9 @@
       <swiper
         indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
         interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
-        <block wx:for="{{background}}" wx:key="*this">
+        <block wx:for="{{web_sliderData.bannerImg}}" wx:key="id">
           <swiper-item>
-            <image src="{{item}}"></image>
+            <image src="{{item.url}}"></image>
           </swiper-item>
         </block>
       </swiper>
@@ -61,21 +61,21 @@
         <image src="/images/tlt_bg.png"></image>
         <view  style="{{fonts[4].font}}" class="mall_tlt_txt">积分商城</view>
       </view>
-      <view class="mall_more" style="{{fonts[2].font}}">更多</view>
+      <view class="mall_more" style="{{fonts[2].font}}" bindtap="intoPath" data-path="/pages/product/product">更多</view>
     </view>
     <view class="mall_content">
       <view class="mall_sort">
         <view class="mall_inter" style="{{fonts[4].font}}">
           <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="menuClick">全部</view>
-          <view class="sort_item"  style="{{num == 1?'color:#00c6f7':''}}" data-num="1" bindtap="menuClick">实物</view>
-          <view class="sort_item"  style="{{num == 2?'color:#00c6f7':''}}" data-num="2" bindtap="menuClick">兑换</view>
-          <view class="sort_item"  style="{{num == 3?'color:#00c6f7':''}};border-right:none;" data-num="3" bindtap="menuClick">线下</view>
+            <block wx:for="{{web_labelData}}" wx:key="id">
+              <view data-num="{{item.id}}" class="sort_item" style="{{num==item.id?'color:#00c6f7':''}}" bindtap="menuClick">{{item.title}}</view>
+          </block>
         </view>
       </view>
       <view class="mall_product">
-        <view class="mall_list">
+        <view class="mall_list" style="height:500rpx">
           <block wx:for="{{web_mainData}}" wx:key="id">
-            <view class="mall_item" bindtap="intoPath" data-path="/pages/indexDetail/indexDetail?id={{item.id}}">
+            <view class="mall_item" bindtap="{{item.category_id=='384'?'intoPath':'show'}}" data-path="/pages/indexDetail/indexDetail?id={{item.id}}">
               <image src="{{item.mainImg[0].url}}"></image>
               <view class="product_infor">
                 <view class="product_name" style="{{fonts[3].font}}">
@@ -110,7 +110,7 @@
 
       </view>
     
-    <view class="navbar_item" bindtap="intoPath" data-path="/pages/Send/send">
+    <view class="navbar_item" bindtap="intoPathRedi" data-path="/pages/Send/send">
    
         <view class="nav_img">
            <image src="/images/navbar2.png" style="width:42rpx;height:42rpx;"></image>
@@ -119,7 +119,7 @@
     
     </view>
   
-    <view class="navbar_item"  bindtap="intoPath" data-path="/pages/User/user">
+    <view class="navbar_item"  bindtap="intoPathRedi" data-path="/pages/User/user">
    
         <view class="nav_img">
             <image src="/images/navbar4.png" style="width:42rpx;height:42rpx;"></image>
@@ -128,9 +128,9 @@
 
     </view>
 </view>
-<view class="qcored" style="{{isShow?'display:none':''}}">
+<view class="qcored" style="{{isShow?'display:block':'display:none'}}">
   <view class="qcored_cont">
-    <view class="close" bindtap="close"> 
+    <view class="close" bindtap="show"> 
       <image src="/images/close_icon.png"></image>
     </view>
     <view class="qcored_bg">

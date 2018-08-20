@@ -1,55 +1,125 @@
 //logs.js
-const util = require('../../utils/util.js')
+import {Api} from '../../utils/api.js';
+const api = new Api();
 const app = getApp()
 
 
 Page({
   data: {
+    mainData:[],
+    addressData:[],
+    searchItem:{
+      isdefault:1
+    },
+    buttonClicked: false
+  },
+
+  onLoad: function (options) {
+    const self = this;
+     this.setData({
+        fonts:app.globalData.font
+      });
+    self.data.id = options.id;
+    self.getMainData();
     
+    getApp().globalData.address_id = '';
   },
-  onLoad: function () {
-    this.setData({
-      fonts:app.globalData.font
-    })
+
+  onShow(){
+    const self = this;
+    self.data.searchItem = {};
+    if(getApp().globalData.address_id){
+      self.data.searchItem.id = getApp().globalData.address_id;
+    }else{
+      self.data.searchItem.isdefault = 1;
+    };
+    self.getAddressData();
   },
-  userInfo:function(){
-    wx.navigateTo({
-      url:'/pages/userInfo/userInfo'
-    })
+
+  getAddressData(){
+    const self = this;
+    const postData = {}
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    const callback = (res)=>{
+      self.data.addressData = res;
+      self.setData({
+        web_addressData:self.data.addressData,
+      });
+    };
+    api.addressGet(postData,callback);
   },
-  discount:function(){
-    wx.navigateTo({
-      url:'/pages/discount/discount'
-    })
+
+
+  getMainData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      thirdapp_id:59,
+      id:self.data.id
+    }
+    const callback = (res)=>{
+      self.data.mainData = res.info.data[0]
+      wx.hideLoading();
+      self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      self.setData({
+        web_mainData:self.data.mainData,
+      });     
+    };
+    api.productGet(postData,callback);
   },
-  address:function(){
-    wx.navigateTo({
-      url:'/pages/manageAddress/manageAddress'
-    })
+
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
   },
-  order:function(){
-    wx.navigateTo({
-      url:'/pages/userOrder/userOrder'
-    })
+
+  addOrder(){
+    const self = this;
+    self.setData({
+      buttonClicked: true
+    });
+    const postData = {
+      token:wx.getStorageSync('token'),
+      product:[
+        {id:self.data.id,count:1}
+      ],
+      pay:{score:self.data.mainData.price}
+    };
+    const callback = (res)=>{
+      if(res&&res.solely_code==100000){
+        setTimeout(function(){
+          self.setData({
+            buttonClicked: false
+          })
+        }, 1000)         
+      }; 
+        var id = res.info;
+        self.pay(id);     
+    };
+    api.addOrder(postData,callback);
   },
- shopping:function(){
-     wx.redirectTo({
-      url:'/pages/Shopping/shopping'
-    })
+
+
+
+  pay(id){
+    const self = this;
+    const postData = {
+      token:wx.getStorageSync('token'),
+      searchItem:{
+        id:id
+      },
+      score:self.data.mainData.price
+    };
+    const callback = (res)=>{
+      wx.hideLoading();
+      api.dealRes(res);    
+    };
+    api.pay(postData,callback);
   },
-  sort:function(){
-     wx.redirectTo({
-      url:'/pages/Sort/sort'
-    })
-  },
-  index:function(){
-     wx.redirectTo({
-      url:'/pages/Index/index'
-    })
-  },
-  User:function(){
-     wx.redirectTo({
-      url:'/pages/User/user'
-    })
-  }
+
+
+
+
 })

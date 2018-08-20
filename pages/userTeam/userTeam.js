@@ -44,7 +44,6 @@ Page({
     postData.order = {
       create_time:'desc'
     }
-
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.mainData.push.apply(self.data.mainData,res.info.data);
@@ -55,6 +54,7 @@ Page({
       wx.hideLoading();
       self.setData({
         web_mainData:self.data.mainData,
+        web_total:res.info.total
       });  
     };
     api.userGet(postData,callback);
@@ -85,9 +85,9 @@ Page({
     if(self.data.endTimestap&&self.data.startTimestap){
       self.data.searchItem.create_time = ['between',[self.data.startTimestap,self.data.endTimestap]];
     }else if(self.data.startTimestap){
-      self.data.searchItem.create_time = ['>',self.data.startTimestap];
+      self.data.searchItem.create_time = ['>',self.data.startTimestap/1000];
     }else{
-      self.data.searchItem.create_time = ['<',self.data.endTimestap];
+      self.data.searchItem.create_time = ['<',self.data.endTimestap/1000];
     };
     self.getMainData(true);   
   },

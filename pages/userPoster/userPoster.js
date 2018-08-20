@@ -27,7 +27,10 @@ Page({
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
-    postData.param = wx.getStorageSync('info').user_no;
+    postData.qrInfo = {
+      scene:wx.getStorageSync('info').user_no,
+      path:'pages/index/index',
+    };
     postData.output = 'url';
     postData.ext = 'png';
     const callback = (res)=>{

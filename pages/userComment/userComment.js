@@ -13,6 +13,7 @@ Page({
     },
     mainData:[]
   },
+  
   onLoad() {
     const self = this;
     self.data.searchItem.passage1 = self.data.num;
@@ -66,4 +67,49 @@ Page({
     self.data.searchItem.passage1 = num;
     self.getMainData(true);
   },
+
+
+  messageDelete(e){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id')
+    const callback = res=>{
+      wx.hideLoading();
+      api.dealRes(res);
+      self.getMainData(true); 
+    };
+    api.messageDelete(postData,callback)
+  },
+  
+
+messageUpdate(e){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    postData.data = {
+      passage1:1
+    };
+    const callback = (data)=>{
+
+      wx.hideLoading();
+      api.dealRes(data);
+      self.getMainData(true);
+    };
+    api.messageUpdate(postData,callback);
+  },
+
+  
+  onReachBottom() {
+    const self = this;
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
+  },
+
+
 })

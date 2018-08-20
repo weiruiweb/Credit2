@@ -4,7 +4,7 @@
 		积分商城
 	</view>
 	<view class="poster_img">
-		<image src="/images/qcored.png"></image>
+		<image src="{{web_QrData.info.url}}"></image>
 	</view>
 	<view class="poster_txt2" style="{{fonts[3].font}}">
 		扫一扫二维码，赶快加入我们

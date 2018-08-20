@@ -124,8 +124,8 @@ page{
 	position:fixed;
 	right:0;
 	top:40%;
-	width:124rpx;
-	height:124rpx;
+	width:100rpx;
+	height:100rpx;
 	background:#00c6f7;
 	border-radius:50%;
 	text-align:center;

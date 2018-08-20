@@ -7,12 +7,11 @@
 			</view>
 			 <view class="user_word">
 			 	<view class="user_name"  style="fonts[5].font"><open-data type="userNickName" lang="zh_CN"></open-data></view>
-			 	<view class="phone"  style="fonts[1].font">158767678</view>
 			 </view>
 		</view>
 		<view class="user_cre">
 			<view class="user_cres">
-				积分:1800
+				积分:{{web_userInfoData.info.data[0].score}}
 			</view>
 		</view>
 	</view>

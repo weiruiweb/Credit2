@@ -26,7 +26,8 @@ Page({
     if(isNew){
       api.clearPageIndex(self);
     }
-    const postData = api.cloneForm(self.data.paginate);
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
     postData.token = wx.getStorageSync('token');
     const callback = (res)=>{
       console.log(res);
@@ -41,6 +42,21 @@ Page({
       });
     };
     api.addressGet(postData,callback);
+  },
+
+  choose(e){
+    const self = this;
+    const id = api.getDataSet(e,'id');
+    self.data.id = id;
+    getApp().globalData.address_id = id;
+    self.setData({
+      address_id:self.data.id,
+    });
+    setTimeout(function(){
+      wx.navigateBack({
+        delta: 1
+      });
+    },300);
   },
 
 
@@ -83,5 +99,15 @@ Page({
     };
     api.addressUpdate(postData,callback);
   },
+
+  
+  onReachBottom() {
+    const self = this;
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
+  },
+
 
 })

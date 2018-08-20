@@ -77,9 +77,9 @@
 </view>
 <view class="today_sign">
 	<view class="begin_sign">
-		<view class="sign_left" bindtap="sucssess">
+		<view class="sign_left" bindtap="submit">
 			<view class="sign_now">
-				今日签到
+				{{web_logData?'今日已签到':'签到'}}
 			</view>
 		</view>
 		<view class="sign_right"  style="{{fonts[5].font}}">
@@ -141,12 +141,12 @@
 <view class="adver">
 	<image src="/images/ad.png"></image>
 </view>
-<view class="sign_sucess" style="{{isShow?'display:block':'display:none'}}">
+<view class="sign_sucess" style="{{isShow?'display:block':'display:none'}}" bindtap="sucssess">
 	<view> <image src="/images/sign1.png"></image>
 	</view>
 	<view class="sucess_txt"  style="{{fonts[3].font}}">
 		<text>恭喜你签到成功</text>
-		<text>+5积分</text>
+		<text>+30积分</text>
 	</view>
 </view>
 <view class="mask" style="{{isShow?'display:block':'display:none'}}">

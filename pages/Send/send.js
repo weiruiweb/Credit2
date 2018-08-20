@@ -9,7 +9,13 @@ Page({
 
   data: {
     artData:[],
-    mainData:[]
+    mainData:[],
+    logData:[],
+    searchItem :{
+      thirdapp_id:'59',
+      type:4
+    },
+    id:''
   },
 
 
@@ -27,16 +33,33 @@ Page({
   getMainData(isNew){
     const self = this;
     if(isNew){
-      api.clearPageIndex(self);  
+      api.clearPageIndex(self); 
+      self.setData({
+        web_mainData:self.data.mainData,
+      });  
     };
     const postData = {};
     postData.paginate = api.cloneForm(self.data.paginate);
     postData.token = wx.getStorageSync('token');
     postData.searchItem = {
-      thirdapp_id:'59'
-    }
+      thirdapp_id:'59',
+      passage1:1,
+      user_type:0
+    };
     postData.order = {
       create_time:'desc'
+    };
+    postData.getAfter = {
+      userInfo:{
+        tableName:'user',
+        middleKey:'user_no',
+        key:'user_no',
+        searchItem:{
+          status:1
+        },
+        condition:'=',
+        info:['nickname','headImgUrl']
+      }
     }
     const callback = (res)=>{
       if(res.info.data.length>0){
@@ -65,7 +88,16 @@ Page({
 
   intoPath(e){
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
+    wx.showLoading();
+    const callback = (user,res) =>{
+      api.pathTo(api.getDataSet(e,'path'),'nav');
+    };
+    api.getAuthSetting(callback);  
+  },
+
+  intoPathRedi(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'redi');
   },
 
     
@@ -91,12 +123,73 @@ Page({
     api.articleGet(postData,callback);
   },
 
-  goodClick(e){
+
+  click(e){
+      const self = this;
+      
+      const postData ={};
+      postData.data= {
+        type:4,
+        title:'点赞成功',
+        result:self.data.id
+      };
+      postData.token = wx.getStorageSync('token');
+      const callback = (res)=>{
+        self.data.clickData = res;
+        wx.hideLoading();
+        self.setData({
+          web_clickData:self.data.clickData,
+        });  
+      };
+      api.logAdd(postData,callback);
+    },
+
+
+  getLogData(){
     const self = this;
-    const id = e.currentTarget.dataset.id;
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem)
+    postData.order = {
+      create_time:'desc'
+    }
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.logData.push.apply(self.data.logData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      wx.hideLoading();
+      self.setData({
+        web_logData:self.data.logData,
+      });  
+      console.log(self.data.logData)
+    };
+    api.logGet(postData,callback);
+  },
+  
 
+  submit(e){
+    const self = this;
+    self.data.id = api.getDataSet(e,'id');
+    self.data.searchItem.result = self.data.id;
+    self.getLogData();
+    console.log(self.data.logData.length)
+    if(self.data.logData.length>0){
+      
+      console.log(api.getDataSet(e,'id'))
+      api.showToast('已点赞','fail');
+    }else{
+      wx.showLoading();
+      const callback = (user,res) =>{
+        self.click(user);
+      };
+      api.getAuthSetting(callback);
+    };
+  },
 
-  }
 
 
 

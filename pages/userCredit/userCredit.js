@@ -6,7 +6,7 @@ Page({
   data: {
 
     mainData:[],
-    computeData:[],
+    userInfoData:[],
     startTime:'',
     endTime:'',
     searchItem:{
@@ -23,33 +23,21 @@ Page({
     })
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData();
-    self.getComputeData()
+    self.userInfoGet()
   },
 
-  getComputeData(){
+  userInfoGet(){
     const self = this;
     const postData = {};
-    postData.data = {
-      FlowLog:{
-        compute:{
-          count:'sum',
-        },
-        
-        searchItem:{
-          user_no:wx.getStorageSync('info').user_no,
-          type:3,
-        }
-      }
-    };
+    postData.token = wx.getStorageSync('token');
     const callback = (res)=>{
-      console.log(res);
-      self.data.computeData = res;
+      self.data.userInfoData = res;
       self.setData({
-        web_computeData:self.data.computeData,
+        web_userInfoData:self.data.userInfoData,
       });
       wx.hideLoading();
     };
-    api.flowLogCompute(postData,callback);
+    api.userInfoGet(postData,callback);
   },
 
   getMainData(isNew){
@@ -98,9 +86,9 @@ Page({
     if(self.data.endTimestap&&self.data.startTimestap){
       self.data.searchItem.create_time = ['between',[self.data.startTimestap,self.data.endTimestap]];
     }else if(self.data.startTimestap){
-      self.data.searchItem.create_time = ['>',self.data.startTimestap];
+      self.data.searchItem.create_time = ['>',self.data.startTimestap/1000];
     }else{
-      self.data.searchItem.create_time = ['<',self.data.endTimestap];
+      self.data.searchItem.create_time = ['<',self.data.endTimestap/1000];
     };
     self.getMainData(true);   
   },

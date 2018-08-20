@@ -5,92 +5,51 @@
 </view>
 <view class="send_cont">
   <view class="send_content">
-    <view class="send_btn" style="{{fonts[3].font}}" bindtap="intoPath" data-path="/pages/sendInformation/sendInformation">
+    <button class="send_btn" style="{{fonts[3].font}}"  data-path="/pages/sendInformation/sendInformation"  open-type="getUserInfo" bindgetuserinfo="intoPath" > 
       编写发布
-    </view>
+    </button>
   </view>
 </view>
 <view id="send">
-<view class="serder">
-    <view class="send_user">
-      <view class="sender_left" style="{{fonts[3].font}}">
-          <image src="/images/index_icon1.png"></image>
-          <view class="sender_name">  
-            用户名
+  <block wx:for="{{web_mainData}}" wx:key="id">
+    <view class="serder">
+        <view class="send_user">
+          <view class="sender_left" style="{{fonts[3].font}}">
+              <image src="{{item.userInfo.headImgUrl}}"></image>
+              <view class="sender_name">  
+                {{item.userInfo.nickname}}
+              </view>
+               <view class="sender_bank" style="{{fonts[0].font}}">  
+                VIP
+              </view>
           </view>
-           <view class="sender_bank" style="{{fonts[0].font}}">  
-            VIP
-          </view>
-      </view>
-      <view class="send_time" style="{{fonts[3].font}}">2018-9-8</view>
-    </view>
-    <view class="send_desp" style="{{fonts[3].font}}">
-      内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
-    </view>
-    <view class="send_image">
-        <view class="send_imageItem">
-          <image src="/images/product.png"></image>
+          <view class="send_time" style="{{fonts[3].font}}">{{item.create_time}}</view>
         </view>
-         <view class="send_imageItem">
-          <image src="/images/product.png"></image>
+        <view class="send_desp" style="{{fonts[3].font}}">
+          {{item.content}}
         </view>
-         <view class="send_imageItem">
-          <image src="/images/product.png"></image>
+        <view class="send_image">
+            <view class="send_imageItem">
+              <image src="{{item.mainImg[0].url}}"></image>
+            </view>
         </view>
-    </view>
-    <view class="great" style="{{isTrue?'':'background:#00c6f7'}}" bindtap="great">
-        <view class="great_img">
-          <image src="{{isTrue?'/images/great.png':'/images/great_a.png'}}" ></image>
-        </view>
-        <view class="great_txt" style="{{fonts[2].font}};{{isTrue?'':'color:#fff'}}">
-          点赞
+        <view class="great" style="{{isTrue?'':'background:#00c6f7'}}" bindtap="submit" data-id="{{item.id}}">
+            <view class="great_img">
+              <image src="{{isTrue?'/images/great.png':'/images/great_a.png'}}" ></image>
+            </view>
+            <view class="great_txt" style="{{fonts[2].font}};{{isTrue?'':'color:#fff'}}">
+              点赞
+            </view>
         </view>
     </view>
+  </block>
 </view>
-<view class="serder">
-    <view class="send_user">
-      <view class="sender_left" style="{{fonts[3].font}}">
-          <image src="/images/index_icon1.png"></image>
-          <view class="sender_name">  
-            用户名
-          </view>
-           <view class="sender_bank" style="{{fonts[0].font}}">  
-            VIP
-          </view>
-      </view>
-      <view class="send_time" style="{{fonts[3].font}}">2018-9-8</view>
-    </view>
-    <view class="send_desp" style="{{fonts[3].font}}">
-      内容内容内，容内容内容内容内容内容，内容内容内容内容内容。内容内容内容内容内，容内容内容内。
-    </view>
-    <view class="send_image">
-        <view class="send_imageItem">
-          <image src="/images/product.png"></image>
-        </view>
-         <view class="send_imageItem">
-          <image src="/images/product.png"></image>
-        </view>
-         <view class="send_imageItem">
-          <image src="/images/product.png"></image>
-        </view>
-    </view>
-    <view class="great" style="{{isTrue?'':'background:#00c6f7'}}" bindtap="great">
-        <view class="great_img">
-          <image src="{{isTrue?'/images/great.png':'/images/great_a.png'}}" ></image>
-        </view>
-        <view class="great_txt" style="{{fonts[2].font}};{{isTrue?'':'color:#fff'}}">
-          点赞
-        </view>
-    </view>
-</view>
-</view>
-<view id="send_button"  bindtap="intoPath" data-path="/pages/sendInformation/sendInformation">
-  <view id="send_img"><image src="/images/send_icon.png"></image></view>
-  <view id="sent_txt" style="{{fonts[2].font}}">编写发布</view>
-</view>
+<button id="send_button"  open-type="getUserInfo" bindgetuserinfo="intoPath" data-path="/pages/sendInformation/sendInformation" >
+  <view id="send_img" style="margin-top:8px;margin-left:-2px"><image src="/images/send_icon.png" ></image></view>
+</button>
 <view class="navbar">
     
-      <view class="navbar_item" bindtap="intoPath" data-path="/pages/index/index">
+      <view class="navbar_item" bindtap="intoPathRedi" data-path="/pages/index/index">
       
           <view class="nav_img">
             <image src="/images/navbar1.png" style="width:42rpx;height:42rpx;"></image>
@@ -107,7 +66,7 @@
     
     </view>
   
-    <view class="navbar_item"  bindtap="intoPath" data-path="/pages/User/user">
+    <view class="navbar_item"  bindtap="intoPathRedi" data-path="/pages/User/user">
    
         <view class="nav_img">
             <image src="/images/navbar4.png" style="width:42rpx;height:42rpx;"></image>

@@ -4,7 +4,7 @@
 		我的下级
 	</view>
 	<view class="next_number" style="{{fonts[4].font}}">
-		总计<text >210</text>人
+		总计<text >{{web_total}}</text>人
 	</view>
 	
 </view>
@@ -34,52 +34,22 @@
 	</view>	
 </view>
 <view class="team_all">
-	<view class="team_list">
-		<view class="team_item">
-			<view class="team_left">
-				<image src="/images/team_img.png"></image>
-			</view>
-			<view class="team_right">
-				<view class="team_user flexRowBetween">
-					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
-					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
+	<block wx:for="{{web_mainData}}" wx:key='id'>
+		<view class="team_list">
+			<view class="team_item">
+				<view class="team_left">
+					<image src="/images/team_img.png"></image>
 				</view>
-				<view class="teat_add" style="{{fonts[1].font}}">
-					通过微信分享二维码加入团队
-				</view>
-			</view>
-		</view>
-	</view>
-	<view class="team_list">
-		<view class="team_item">
-			<view class="team_left">
-				<image src="/images/team_img.png"></image>
-			</view>
-			<view class="team_right">
-				<view class="team_user flexRowBetween">
-					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
-					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
-				</view>
-				<view class="teat_add" style="{{fonts[1].font}}">
-					通过微信分享二维码加入团队
+				<view class="team_right">
+					<view class="team_user flexRowBetween">
+						<view class="tuser_name" style="{{fonts[4].font}}">{{item.name}}</view>
+						<view class="tuser_name" style="{{fonts[2].font}};color:#444;">{{item.create_time}}</view>
+					</view>
+					<view class="teat_add" style="{{fonts[1].font}}">
+						通过微信分享二维码加入团队
+					</view>
 				</view>
 			</view>
 		</view>
-	</view>
-	<view class="team_list">
-		<view class="team_item">
-			<view class="team_left">
-				<image src="/images/team_img.png"></image>
-			</view>
-			<view class="team_right">
-				<view class="team_user flexRowBetween">
-					<view class="tuser_name" style="{{fonts[4].font}}">米桃子</view>
-					<view class="tuser_name" style="{{fonts[2].font}};color:#444;">2018-1-8</view>
-				</view>
-				<view class="teat_add" style="{{fonts[1].font}}">
-					通过微信分享二维码加入团队
-				</view>
-			</view>
-		</view>
-	</view>
+	</block>
 </view>
