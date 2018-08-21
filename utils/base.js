@@ -3,10 +3,10 @@
  */
 
 import { Token } from 'token.js';
-//var token = new Token();
+var token = new Token();
 var WxParse = require('../wxParse/wxParse.js');
 
-class Base extends Token{
+class Base{
    
     //http 请求类, 当noRefech为true时，不做未授权重试机制
     request(params) {
@@ -325,6 +325,7 @@ class Base extends Token{
                 wx.hideLoading();
                 this.showToast('授权请点击同意','fail');
               }else{
+                token.getUserInfo();
                 wx.getUserInfo({
                     success: function(user) {
                         callback&&callback(user.userInfo,setting);  
@@ -348,6 +349,7 @@ class Base extends Token{
                         callback&&callback(user.userInfo,setting);  
                     }
                 });
+
                 
               };
             }

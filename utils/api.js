@@ -79,7 +79,31 @@ class Api extends Base{
 
     logAdd(param,callback){
         var allParams ={
-            url:'Common/Log/Add',
+            url:'Common/Log/add',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+    logUpdate(param,callback){
+        var allParams ={
+            url:'Common/Log/update',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+    logDel(param,callback){
+        var allParams ={
+            url:'Common/Log/delete',
             type:'post',
             data:param,
             sCallback: function(data) {

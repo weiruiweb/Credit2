@@ -33,14 +33,15 @@
               <image src="{{item.mainImg[0].url}}"></image>
             </view>
         </view>
-        <view class="great" style="{{isTrue?'':'background:#00c6f7'}}" bindtap="submit" data-id="{{item.id}}">
+        <button class="great" style="{{item.isPraise.id?'background:#00c6f7':''}}"  open-type="getUserInfo" bindgetuserinfo="submit" data-index="{{index}}"  data-id="{{item.id}}" data-log_id="{{item.isPraise.id?item.isPraise.id:''}}">
+
             <view class="great_img">
-              <image src="{{isTrue?'/images/great.png':'/images/great_a.png'}}" ></image>
+              <image src="{{item.isPraise.id?'/images/great.png':'/images/great_a.png'}}" ></image>
             </view>
-            <view class="great_txt" style="{{fonts[2].font}};{{isTrue?'':'color:#fff'}}">
+            <view class="great_txt" style="{{fonts[2].font}};{{item.isPraise.id?'color:#fff':''}}">
               点赞
             </view>
-        </view>
+        </button>
     </view>
   </block>
 </view>

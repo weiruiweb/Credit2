@@ -59,6 +59,35 @@ Page({
         },
         condition:'=',
         info:['nickname','headImgUrl']
+      },
+      praiseCount:{
+        tableName:'log',
+        middleKey:'id',
+        key:'result',
+        searchItem:{
+          status:1,
+        },
+        condition:'=',
+        compute:{
+          pCount:[
+            'count',
+            'any',
+            {
+              status:1,
+            }
+          ]
+        },
+      },
+      isPraise:{
+        tableName:'log',
+        middleKey:'id',
+        key:'result',
+        searchItem:{
+          status:1,
+          user_no:wx.getStorageSync('info').user_no
+        },
+        condition:'=',
+        info:['id']
       }
     }
     const callback = (res)=>{
@@ -124,70 +153,115 @@ Page({
   },
 
 
-  click(e){
-      const self = this;
-      
-      const postData ={};
-      postData.data= {
-        type:4,
-        title:'点赞成功',
-        result:self.data.id
-      };
-      postData.token = wx.getStorageSync('token');
-      const callback = (res)=>{
-        self.data.clickData = res;
-        wx.hideLoading();
+  addLog(message_id){
+    const self = this;
+    
+    const postData ={};
+    postData.data= {
+      type:4,
+      title:'点赞成功',
+      result:message_id,
+
+    };
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      self.data.clickData = res;
+      self.setData({
+        web_clickData:self.data.clickData,
+      });  
+      wx.hideLoading();
+      if(res.solely_code==100000){
+        api.showToast('点赞成功','success');
+        self.data.mainData[index].isPraise.id = res.info.id;
         self.setData({
-          web_clickData:self.data.clickData,
-        });  
+          web_mainData:self.data.mainData
+        });
+      }else{
+        api.showToast('点赞失败','fail');
       };
-      api.logAdd(postData,callback);
-    },
+      
+    };
+    api.logAdd(postData,callback);
+  },
+
+  updateLog(log_id,index,type){
+    const self = this;
+    const postData ={
+      searchItem:{
+        id:log_id
+      },
+      data:{
+        status:type
+      }
+    };
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      self.data.clickData = res;
+      self.setData({
+        web_clickData:self.data.clickData,
+      });  
+      wx.hideLoading();
+      if(res.solely_code==100000){
+        api.showToast('点赞成功','success');
+        if(type==1){
+          self.data.mainData[index].isPraise['id'] = log_id;
+        }else{
+          self.data.mainData[index].isPraise = {}
+        };
+
+        self.setData({
+          web_mainData:self.data.mainData
+        });
+      }else{
+        api.showToast('点赞失败','fail');
+      };
+
+    };
+    api.logUpdate(postData,callback);
+  },
 
 
-  getLogData(){
+  getLogData(message_id,index){
+
     const self = this;
     const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
     postData.token = wx.getStorageSync('token');
-    postData.searchItem = api.cloneForm(self.data.searchItem)
-    postData.order = {
-      create_time:'desc'
-    }
+    postData.searchItem = {
+      result:message_id,
+      type:4,
+      status:['in',[1,-1]]
+    };
     const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.logData.push.apply(self.data.logData,res.info.data);
+      if(res.info.data.length>0&&res.info.data[0].status==1){
+        wx.hideLoading();
+        api.showToast('请勿重复点赞','fail');
+      }else if(res.info.data.length>0&&res.info.data[0].status==-1){
+        self.updateLog(res.info.data[0].id,index,1);
       }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','fail');
+        self.addLog(message_id,index);
       };
-      wx.hideLoading();
-      self.setData({
-        web_logData:self.data.logData,
-      });  
       console.log(self.data.logData)
     };
     api.logGet(postData,callback);
+
   },
   
 
   submit(e){
     const self = this;
-    self.data.id = api.getDataSet(e,'id');
-    self.data.searchItem.result = self.data.id;
-    self.getLogData();
-    console.log(self.data.logData.length)
-    if(self.data.logData.length>0){
-      
-      console.log(api.getDataSet(e,'id'))
-      api.showToast('已点赞','fail');
+    var praiseId = api.getDataSet(e,'log_id');
+    var index = api.getDataSet(e,'index');
+    
+    if(praiseId){
+      self.updateLog(praiseId,index,-1)
     }else{
-      wx.showLoading();
+      var message_id = api.getDataSet(e,'id');
       const callback = (user,res) =>{
-        self.click(user);
+        wx.showLoading();
+        self.getLogData(message_id,index);
       };
       api.getAuthSetting(callback);
-    };
+    }
   },
 
 
