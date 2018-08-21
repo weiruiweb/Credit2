@@ -60,6 +60,10 @@ var integer= function(num){
     return  Math.floor(num);
 }
 
+var inArray= function(value,array){
+    return  array.indexOf(parseInt(value));
+}
+
 
 
 var getArrayByTarget = function(array,targetName,target){
@@ -106,6 +110,7 @@ module.exports = {
   multiply: multiply,
   integer: integer,
   getArrayByTarget: getArrayByTarget,
+  inArray:inArray
 
  
  

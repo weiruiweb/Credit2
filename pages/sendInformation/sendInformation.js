@@ -11,7 +11,8 @@ Page({
     submitData:{
       content:'',
       passage1:'',
-      type:3
+      type:3,
+      mainImg:[]
       
     }
 
@@ -37,7 +38,6 @@ Page({
     postData.token = wx.getStorageSync('token');
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
-    postData.data.mainImg = self.data.mainImg
     const callback = (data)=>{
       wx.hideLoading();
       api.dealRes(data);
@@ -49,10 +49,14 @@ Page({
   submit(num){
     const self = this;
     self.data.submitData.passage1 = num;
+    console.log(self.data.submitData)
     const pass = api.checkComplete(self.data.submitData);
     if(pass){      
         wx.showLoading();
-        self.messageAdd(); 
+        setTimeout(function(){
+          self.messageAdd(); 
+        },500)
+        
     }else{
       api.showToast('请补全信息','fail');
     };
@@ -95,7 +99,11 @@ Page({
 
 
   upLoadImg: function (){
-    var self = this
+    var self = this;
+    if(self.data.submitData.mainImg.length>3){
+      api.showToast('仅限3张','fail');
+      return;
+    };
     wx.showLoading({
       mask: true,
       title: '图片上传中',
@@ -106,32 +114,25 @@ Page({
       success: function(res) {
         console.log(res);
         var tempFilePaths = res.tempFilePaths
-        if (tempFilePaths.length  > 3) {
-          api.showToast('最多上传3张','fail')
-        }else{
-          for (var i = 0; i < tempFilePaths.length; i++) {
-            mainImg.push(tempFilePaths[i])
-          }
-          self.setData({
-            mainImg: mainImg
-          })
-          console.log(mainImg);
-        }
+        
         wx.uploadFile({
-          url: 'https://jzyz.sc2yun.com/public/index.php/api/v1/Base/FtpImage/upload ',
-          filePath:mainImg[i],
+          url: 'http://localhost:88/scoreshop/public/index.php/api/v1/Base/FtpImage/upload ',
+          filePath:tempFilePaths[0],
           name: 'file',
           formData: {
-            token:'d43b83de830986b7900ca86520dd3df3'
+            token:wx.getStorageSync('token')
           },
           success: function(res){
-            var obj = JSON.parse(res.data);
-            self.data.mainImg = obj
-            console.log(self.data.mainImg)
-            wx.hideLoading();
+            res = JSON.parse(res.data);
+            self.data.submitData.mainImg.push({url:res.info.url})
             self.setData({
-              web_imgData:self.data.mainImg
-            })
+              web_imgData:self.data.submitData.mainImg
+            });
+            wx.hideLoading()
+          },
+          fail: function(err){
+            wx.hideLoading();
+            api.showToast('上传失败','fail')
           }
         })
       }

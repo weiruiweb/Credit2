@@ -34,7 +34,13 @@ Page({
     self.getMainData();
     self.getSliderData();
     self.getLabelData();
-    var scene = decodeURIComponent(options.scene)
+    if(options.scene){
+      var scene = decodeURIComponent(options.scene)
+    };
+    if(options.parentNo){
+      var scene = options.parentNo
+    };
+    
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();

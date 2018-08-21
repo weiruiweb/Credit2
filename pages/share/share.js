@@ -12,6 +12,7 @@ Page({
     isshare:''
   },
 
+
   onLoad(){
     const self = this;
     self.setData({
@@ -62,14 +63,14 @@ Page({
      console.log(res)
       if(res.from == 'button'){
         self.data.shareBtn = true;
-
       }else{   
         self.data.shareBtn = false;
       }
       return {
-        title: '分享成功',
-        path: 'pages/index/index',
+        title: '积分商城',
+        path: 'pages/index/index?parentNo'+wx.getStorageSync('info').user_no,
         success: function (res){
+          console.log(res);
           if(res.errMsg == 'shareAppMessage:ok'){
             if (self.data.shareBtn){
               if(res.hasOwnProperty('shareTickets')){
@@ -86,6 +87,9 @@ Page({
             self.data.isshare = 0;
           }
         },
+        fail: function(res) {
+          console.log(res)
+        }
       }
   }
 

@@ -11,21 +11,58 @@ Page({
     searchItem :{
       thirdapp_id:'59',
       type:3
-    }
+    },
+
   },
 
 
 
   onLoad(){
     const self = this;
+    self.data.year = new Date().getFullYear();
+    self.data.month = new Date().getMonth()+1;
+    self.data.totalDay = new Date(self.data.year, self.data.month, 0).getDate();
+    self.computeCalendar();
     self.setData({
       fonts:getApp().globalData.font
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getTime();
-    self.getLogData();
+    
     self.getArtData();
     self.userInfoGet()
+  },
+  changeMonth(e){
+    const self = this;
+    var type = api.getDataSet(e,'type');
+    if(type=='mins'){
+      self.data.month -= 1; 
+    }else{
+      self.data.month += 1; 
+    };
+    self.computeCalendar();
+  },
+
+  computeCalendar(){
+    const self = this;
+    var d = new Date();
+    d.setYear(self.data.year);
+    d.setMonth(self.data.month);
+    d.setDate(1);
+    self.data.diffrence =  d.getDay();
+    self.data.calendar = [];
+    for (var i = 0; i < self.data.diffrence+self.data.totalDay; i++) {
+      if(i<self.data.diffrence-1){
+        self.data.calendar.push(0)
+      }else{
+        self.data.calendar.push(i-self.data.diffrence+1)
+      }
+    };
+    self.setData({
+      web_calendar:self.data.calendar,
+      web_month:self.data.month
+    });
+    self.getLogData();
   },
 
 
@@ -90,11 +127,19 @@ Page({
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000]];
+    
     const callback = (res)=>{
-      self.data.logData = res.info.data
+      self.data.logData = res.info.data;
+      self.data.signData = [];
+      for (var i = 0; i < self.data.logData.length; i++) {
+        self.data.signData.push(parseInt(self.data.logData[i]['create_time'].slice(8,10)));
+      };
+      console.log(self.data.signData);
       wx.hideLoading();
       self.setData({
-        web_logData:self.data.logData
+        web_logData:self.data.logData,
+        web_signData:self.data.signData
       })
       console.log(self.data.logData)
     };

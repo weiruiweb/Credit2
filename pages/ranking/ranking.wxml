@@ -29,11 +29,11 @@
 	</view>
 </view>
 
-<block wx:for="{{web_mainDataTwo}}" wx:key="id">
-	<view class="rank_list">
+<block wx:for="{{web_mainData}}" wx:key="id">
+	<view wx:if="{{index>0}}" class="rank_list">
 		<view class="rank_item">
 			<view class="rank_left">
-				NO.{{index+2}}
+				NO.{{index+1}}
 			</view>
 			<view class="rank_right">
 				<view class="rank_imgs">

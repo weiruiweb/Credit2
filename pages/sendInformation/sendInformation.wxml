@@ -7,12 +7,13 @@
     <view class="uploder_all" style="display:flex">
         <view class="uploder_item" >
           <view class="uploader__input" bindtap="upLoadImg" >
-            <block wx:for="{{web_imgData}}">
-              <image src="{{item.info.url}}"></image>
-            </block>
             <image src="/images/fabu.png"></image>
           </view>
         </view>
+
+        <block wx:for="{{web_imgData}}">
+          <image style="width:30px;height:30px;" src="{{item.url}}"></image>
+        </block>
     </view>
 </view>
 <view class="fabu">

@@ -35,18 +35,17 @@ Page({
     const callback = (res)=>{
      if(res.info.length>0){
         self.data.mainData.push.apply(self.data.mainData,res.info); 
-        self.data.mainDataTwo.push.apply(self.data.mainDataTwo,res.info);
+        
       }else{
         self.data.isLoadAll = true;
         api.showToast('没有更多了','fail');
       };
       self.setData({
         web_mainData:self.data.mainData,
-        web_mainDataTwo:self.data.mainDataTwo.splice(0,1)
+        
       });
      
       console.log(self.data.mainData) 
-      console.log(self.data.mainDataTwo.splice(0,1))
       wx.hideLoading();
     };
     api.getRank(postData,callback);
