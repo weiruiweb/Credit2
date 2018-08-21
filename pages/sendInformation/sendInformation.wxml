@@ -4,18 +4,13 @@
   </textarea>
 </view>
 <view class="uploder">
-    <view class="uploder_all">
-         <block wx:for-items="{{files}}" wx:key="{{index}}">
-            <view class="uploder_item" bindtap="previewImage" id="{{item}}">
-                 <view class="uploader__input">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                 </view>
-           </view>
-          </block>
-
+    <view class="uploder_all" style="display:flex">
         <view class="uploder_item" >
-          <view class="uploader__input" bindtap="upLoadImg">
-           <image src="/images/fabu.png"></image>
+          <view class="uploader__input" bindtap="upLoadImg" >
+            <block wx:for="{{web_imgData}}">
+              <image src="{{item.info.url}}"></image>
+            </block>
+            <image src="/images/fabu.png"></image>
           </view>
         </view>
     </view>

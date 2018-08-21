@@ -20,7 +20,8 @@ Page({
 
   onShow(){
     const self = this;
-    self.getMainData()
+    self.getMainData();
+    self.userInfoGet()
   },
  
 
@@ -37,28 +38,15 @@ Page({
 
   getMainData(isNew){
     const self = this;
-    if(isNew){
-      api.clearPageIndex(self);  
-    };
     const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
     postData.token = wx.getStorageSync('token');
     postData.searchItem = {
-      thirdapp_id:'59'
-    }
-    postData.order = {
-      create_time:'desc'
+      thirdapp_id:'59',
+      user_no:wx.getStorageSync('info').user_no
     }
     const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.mainData.push.apply(self.data.mainData,res.info.data);
-      }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','fail');
-      };
       wx.hideLoading();
       self.setData({
-        web_mainData:self.data.mainData,
         web_totol:res.info.data.length
       });  
     };
@@ -77,5 +65,19 @@ Page({
             console.log("拨打电话失败！")
         }
     })
-  }
+  },
+
+  userInfoGet(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      self.data.userInfoData = res;
+      self.setData({
+        web_userInfoData:self.data.userInfoData,
+      });
+      wx.hideLoading();
+    };
+    api.userInfoGet(postData,callback);
+  },
 })

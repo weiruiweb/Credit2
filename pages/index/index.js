@@ -1,6 +1,7 @@
 import {Api} from '../../utils/api.js';
 var api = new Api();
-const app = getApp()
+const app = getApp();
+import {Token} from '../../utils/token.js';
 
 Page({
   data: {
@@ -15,7 +16,7 @@ Page({
     nextMargin: 0,
     currentId:0,
     num:'',
-    isShow:false,
+    
     searchItem:{
       thirdapp_id:59
     },
@@ -24,22 +25,20 @@ Page({
   },
   //事件处理函数
  
-  onLoad() {
+  onLoad(options) {
     const self = this;
-     this.setData({
-          isHidden: false,
-          fonts:app.globalData.font
-        });
-        var that = this;
-        setTimeout(function(){
-          that.setData({
-              isHidden: true
-          });      
-        }, 2000);
+    self.setData({
+      fonts:app.globalData.font
+    });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData();
     self.getSliderData();
-    self.getLabelData()
+    self.getLabelData();
+    var scene = decodeURIComponent(options.scene)
+    if(scene){
+      var token = new Token({parent_no:scene});
+      token.getUserInfo();
+    }
   },
 
 
@@ -56,12 +55,9 @@ Page({
       wx.hideLoading();
       self.setData({
         web_labelData:self.data.labelData,
-
       });
     };
-
-    api.labelGet(postData,callback);
-    
+    api.labelGet(postData,callback);   
   },
 
 
@@ -166,20 +162,6 @@ Page({
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'redi');
   },
-
-  show(){
-    const self = this;
-    if(self.data.isShow == false){
-      self.setData({
-        isShow:true
-      })
-    }else{
-      self.setData({
-        isShow:false
-      })
-    }
-  }
-
 
  
 })

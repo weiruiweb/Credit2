@@ -23,13 +23,13 @@ Page({
     const self=this;
     if(options.id){
       self.data.id = options.id
-      self.getMainData(self.data.id);
-      
+      self.getMainData(self.data.id); 
     }else{
       self.setData({
         web_region:self.data.region
       })
-    }
+    };
+    self.switch2Change()
     
   },
 
@@ -83,8 +83,8 @@ Page({
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
-    postData.data = {};
-    postData.data = api.cloneForm(self.data.sForm);
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
     const callback = (data)=>{
       wx.hideLoading();
       api.dealRes(data);
@@ -132,8 +132,16 @@ Page({
   },
 
 
+
   switch2Change: function (e){
     const self = this;
+    console.log(e.detail.value)
+    if( e.detail.value == true){
+      self.data.sForm.isdefault = 1
+    }else{
+      self.data.sForm.isdefault = 0
+    }
     
-  },
+  }
+
 })

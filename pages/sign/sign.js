@@ -24,6 +24,8 @@ Page({
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getTime();
     self.getLogData();
+    self.getArtData();
+    self.userInfoGet()
   },
 
 
@@ -41,6 +43,7 @@ Page({
     const callback = (res)=>{
       wx.hideLoading();
       self.sucssess();
+      self.getLogData()
     };
     api.signIn(postData,callback);
   },
@@ -51,6 +54,20 @@ Page({
     this.setData({
       isShow:isShow
     })
+  },
+
+  userInfoGet(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      self.data.userInfoData = res;
+      self.setData({
+        web_userInfoData:self.data.userInfoData,
+      });
+      wx.hideLoading();
+    };
+    api.userInfoGet(postData,callback);
   },
 
   submit(){
@@ -68,29 +85,18 @@ Page({
   },
 
 
-  getLogData(isNew){
+  getLogData(){
     const self = this;
-    if(isNew){
-      api.clearPageIndex(self);  
-    };
     const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
     postData.token = wx.getStorageSync('token');
     postData.searchItem = api.cloneForm(self.data.searchItem);
-    postData.order = {
-      create_time:'desc'
-    }
     const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.logData.push.apply(self.data.logData,res.info.data);
-      }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','fail');
-      };
+      self.data.logData = res.info.data
       wx.hideLoading();
       self.setData({
-        web_logData:self.data.logData,
-      });  
+        web_logData:self.data.logData
+      })
+      console.log(self.data.logData)
     };
     api.logGet(postData,callback);
   },
@@ -102,7 +108,26 @@ Page({
     var timeStampEnd = 
       new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1;
     self.data.searchItem.create_time = ['between',[timeStampStart,timeStampEnd]];
-  }
+  },
+
+
+  getArtData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      menu_id:'390',
+      thirdapp_id:'59'
+    };
+    const callback = (res)=>{
+      self.data.artData = res.info.data[0];
+      wx.hideLoading();
+      self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      self.setData({
+        web_artData:self.data.artData,
+      });  
+    };
+    api.articleGet(postData,callback);
+  },
 
 })
 

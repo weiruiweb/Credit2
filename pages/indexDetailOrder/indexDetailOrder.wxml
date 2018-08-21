@@ -52,7 +52,7 @@
 </view>
 <view class="message">
 	<view class="message_in">
-		<view class="message_left" style="{{fonts[3].font}}">
+		<view class="message_left" style="{{fonts[3].font}}" >
 			买家留言：
 		</view>
 		<view class="message_right" style="{{fonts[2].font}}">
@@ -64,7 +64,7 @@
 	<view class="buy_left" style="{{fonts[3].font}}">
 		合计:<text>¥{{web_mainData.price}}</text>
 	</view>
-	<view class="buy_right" style="{{fonts[3].font}}" bindtap="addOrder">
+	<view class="buy_right" style="{{fonts[3].font}}"  bindtap="{{!buttonClicked?'addOrder':''}}">
 		提交订单
 	</view>
 </view>

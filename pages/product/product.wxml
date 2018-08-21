@@ -3,7 +3,7 @@
     <view class="mall_content">
       <view class="mall_sort">
         <view class="mall_inter" style="{{fonts[4].font}}">
-          <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="menuClick">全部</view>
+          <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="{{!buttonClicked?'menuClick':''}}">全部</view>
             <block wx:for="{{web_labelData}}" wx:key="id">
               <view data-num="{{item.id}}" class="sort_item" style="{{num==item.id?'color:#00c6f7':''}}" bindtap="menuClick">{{item.title}}</view>
           </block>

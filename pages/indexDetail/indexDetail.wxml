@@ -24,8 +24,27 @@
       </view>
   </view>
 </view>
-<view class="case_btn" bindtap="intoPath" data-path="/pages/indexDetailOrder/indexDetailOrder?id={{web_mainData.id}}">
+<view class="case_btn" bindtap="{{web_mainData.category_id=='384'?'intoPath':'addOrder'}}" data-path="/pages/indexDetailOrder/indexDetailOrder?id={{web_mainData.id}}">
   <view class="submit_info">
     立即兑换
+  </view>
+</view>
+<view class="qcored" style="{{isShow?'display:block':'display:none'}}">
+  <view class="qcored_cont">
+    <view class="close" bindtap="show"> 
+      <image src="/images/close_icon.png"></image>
+    </view>
+    <view class="qcored_bg">
+        <image src="/images/qcored_bg.png"></image>
+    </view>
+    <view class="qcored_txt" style="{{fonts[3].font}}">
+    购买成功！长按识别下方客服二维码领取
+    </view>
+    <view class="head_down">
+      <image src="/images/head_down.png"></image>
+    </view>
+    <view class="qcoreds">
+      <image src="{{web_labelData.mainImg[0].url}}"></image>
+    </view>
   </view>
 </view>

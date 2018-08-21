@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 21,
+			"current": 23,
 			"list": [
 				{
 					"id": -1,
@@ -164,7 +164,19 @@
 				{
 					"id": -1,
 					"name": "签到",
-					"pathName": "pages/sign/sign"
+					"pathName": "pages/sign/sign",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分享",
+					"pathName": "pages/share/share",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "pages/userOrder/userOrder"
 				}
 			]
 		}

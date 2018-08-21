@@ -66,16 +66,16 @@
     <view class="mall_content">
       <view class="mall_sort">
         <view class="mall_inter" style="{{fonts[4].font}}">
-          <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="menuClick">全部</view>
+          <view class="sort_item"  style="{{num == ''?'color:#00c6f7':''}}" data-num="" bindtap="{{!buttonClicked?'menuClick':''}}">全部</view>
             <block wx:for="{{web_labelData}}" wx:key="id">
-              <view data-num="{{item.id}}" class="sort_item" style="{{num==item.id?'color:#00c6f7':''}}" bindtap="menuClick">{{item.title}}</view>
+              <view data-num="{{item.id}}" class="sort_item" style="{{num==item.id?'color:#00c6f7':''}}"  bindtap="{{!buttonClicked?'menuClick':''}}">{{item.title}}</view>
           </block>
         </view>
       </view>
-      <view class="mall_product">
-        <view class="mall_list" style="height:500rpx">
+      <view class="mall_product" style="height:auto">
+        <view class="mall_list">
           <block wx:for="{{web_mainData}}" wx:key="id">
-            <view class="mall_item" bindtap="{{item.category_id=='384'?'intoPath':'show'}}" data-path="/pages/indexDetail/indexDetail?id={{item.id}}">
+            <view class="mall_item" bindtap="intoPath" data-path="/pages/indexDetail/indexDetail?id={{item.id}}">
               <image src="{{item.mainImg[0].url}}"></image>
               <view class="product_infor">
                 <view class="product_name" style="{{fonts[3].font}}">

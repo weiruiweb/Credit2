@@ -168,8 +168,7 @@ page{
 }
 .regular_cont{
 	width:90%;
-	padding:0 5%;
-	height:220rpx;
+	padding:0 5%;	
 	border-radius:20rpx;
 	position:relative;
 	border:solid 1px #e0e0e0;

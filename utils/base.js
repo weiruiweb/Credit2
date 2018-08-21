@@ -35,7 +35,7 @@ class Base{
                     if(wx.getStorageSync('threeToken')&&params.data.token == wx.getStorageSync('threeToken')){
                         that.logOff();
                     }else{
-                       that.getUserInfo(params,callback); 
+                       token.getUserInfo(params,callback); 
                     };
                     
                     

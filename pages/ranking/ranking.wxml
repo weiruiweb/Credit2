@@ -17,13 +17,10 @@
 			<view class="rank">
 				<image src="{{web_mainData[0].headImgUrl}}" class="rank_img"></image>
 			</view>
-		
 				<view class="rank2" style="{{fonts[3].font}}">
 					{{web_mainData[0].nickName}}
 				</view>
-
-		</view>
-		
+		</view>	
 	</view>
 	<view class="total_credit">
 		<image src="/images/ranking4.png"></image>
@@ -31,6 +28,7 @@
 		</text>
 	</view>
 </view>
+
 <block wx:for="{{web_mainDataTwo}}" wx:key="id">
 	<view class="rank_list">
 		<view class="rank_item">
@@ -39,13 +37,13 @@
 			</view>
 			<view class="rank_right">
 				<view class="rank_imgs">
-					<image src="{{item.headImgUrl}}"></image>
+					<image src="{{item.headImgUrl}}" style="border-radius:50%"></image>
 				</view>
 				<view class="rank_name">
-					<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">{{web_mainData[0].nickName}}</view>
+					<view style="{{fonts[2].font}};height:50%;line-height:50rpx;">{{item.nickName}}</view>
 					<view class="rank_credits" style="height:50%;">
 						<image src="/images/ranking4.png"></image>
-						<text  style="{{fonts[1].font}};color:#ffc402;">{{web_mainData[0].score}}</text>
+						<text  style="{{fonts[1].font}};color:#ffc402;">{{item.score}}</text>
 					</view>
 				</view>
 			</view>

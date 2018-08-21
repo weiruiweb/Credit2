@@ -15,13 +15,11 @@
     <view class="serder">
         <view class="send_user">
           <view class="sender_left" style="{{fonts[3].font}}">
-              <image src="{{item.userInfo.headImgUrl}}"></image>
+              <image src="{{item.userInfo.headImgUrl}}" style="border-radius:50%"></image>
               <view class="sender_name">  
                 {{item.userInfo.nickname}}
               </view>
-               <view class="sender_bank" style="{{fonts[0].font}}">  
-                VIP
-              </view>
+            
           </view>
           <view class="send_time" style="{{fonts[3].font}}">{{item.create_time}}</view>
         </view>
@@ -34,12 +32,8 @@
             </view>
         </view>
         <button class="great" style="{{item.isPraise.id?'background:#00c6f7':''}}"  open-type="getUserInfo" bindgetuserinfo="submit" data-index="{{index}}"  data-id="{{item.id}}" data-log_id="{{item.isPraise.id?item.isPraise.id:''}}">
-
             <view class="great_img">
-              <image src="{{item.isPraise.id?'/images/great.png':'/images/great_a.png'}}" ></image>
-            </view>
-            <view class="great_txt" style="{{fonts[2].font}};{{item.isPraise.id?'color:#fff':''}}">
-              点赞
+              <image src="{{item.isPraise.id?'/images/great_a.png':'/images/great.png'}}" ></image>
             </view>
         </button>
     </view>

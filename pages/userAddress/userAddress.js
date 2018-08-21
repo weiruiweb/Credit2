@@ -43,6 +43,7 @@ Page({
     };
     api.addressGet(postData,callback);
   },
+  
 
   choose(e){
     const self = this;
@@ -70,7 +71,8 @@ Page({
   deleteAddress(e){
     const self = this;
     const postData = {};
-    postData.id = api.getDataSet(e,'id');
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
     postData.token = wx.getStorageSync('token');
     const callback = res=>{
       const resType = api.dealRes(res);
@@ -87,7 +89,8 @@ Page({
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
-    postData.id = api.getDataSet(e,'id');
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
     postData.data = {
       isdefault:1
     }

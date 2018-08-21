@@ -20,7 +20,7 @@
 		<view class="input_note">所在地区:</view>
 		
 		<picker mode="region" class="" value="{{web_region}}" custom-item="{{customItem}}" bindchange="bindRegionChange" style="width:77%;position:relative;right:0rpx;align-items:center;">
-		<input placeholder="请选择" mode="region" value="{{region[0]}},{{region[1]}},{{region[2]}}" style="width:95%;float:left;"></input>
+		<input placeholder="请选择" mode="region" value="{{web_region}}" style="width:95%;float:left;"></input>
 		<view class="next_page" style="width:5%;float:right;">
 				<image src="/images/next_page.jpg" style=""></image>
 			</view>
@@ -36,7 +36,7 @@
 <view class="user_input flexRowBetween">
 	<view class="input_note address_set">设为默认地址</view>
 	<view class="body-view">
-		<switch bindchange="switch2Change"/>
+		<switch bindchange="switch2Change" />
 	</view>
 </view>
 <view class="submit_info" bindtap="submit" style="border-radius:50rpx;">

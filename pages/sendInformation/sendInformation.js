@@ -5,15 +5,16 @@ var app = getApp()
 
 Page({
   data: {
-    files:[],
+
     articleData:[],
-    imaData:[],
     mainImg:[],
     submitData:{
       content:'',
       passage1:'',
+      type:3
       
     }
+
   },
 
 
@@ -73,13 +74,9 @@ Page({
     console.log(self.data.submitData)
   },
 
-  getArtData(isNew){
+  getArtData(){
     const self = this;
-    if(isNew){
-      api.clearPageIndex(self);  
-    };
     const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
     postData.searchItem = {
       menu_id:'383',
       thirdapp_id:'59'
@@ -103,26 +100,34 @@ Page({
       mask: true,
       title: '图片上传中',
     });
-
+    var mainImg = self.data.mainImg
     wx.chooseImage({
+      count:3,
       success: function(res) {
         console.log(res);
         var tempFilePaths = res.tempFilePaths
+        if (tempFilePaths.length  > 3) {
+          api.showToast('最多上传3张','fail')
+        }else{
+          for (var i = 0; i < tempFilePaths.length; i++) {
+            mainImg.push(tempFilePaths[i])
+          }
+          self.setData({
+            mainImg: mainImg
+          })
+          console.log(mainImg);
+        }
         wx.uploadFile({
-          url: 'https://jzyz.sc2yun.com/public/index.php/api/v1/Base/FtpImage/upload ', //仅为示例，非真实的接口地址
-          filePath: tempFilePaths[0],
+          url: 'https://jzyz.sc2yun.com/public/index.php/api/v1/Base/FtpImage/upload ',
+          filePath:mainImg[i],
           name: 'file',
           formData: {
-            token:'db3883b0240e8acc7648271649d326ce'
+            token:'d43b83de830986b7900ca86520dd3df3'
           },
           success: function(res){
-            console.log(res)
-            var arr = [];
-            var obj = res.data;
-            for (let i in obj) {
-              arr.push(obj[i]); 
-            }
-            console.log(arr);
+            var obj = JSON.parse(res.data);
+            self.data.mainImg = obj
+            console.log(self.data.mainImg)
             wx.hideLoading();
             self.setData({
               web_imgData:self.data.mainImg

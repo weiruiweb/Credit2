@@ -1,7 +1,7 @@
 page{
 	min-height:100%;
 	width:100%;
-	background:#f2f2f2;
+
 
 }
 .order_sort{
@@ -76,7 +76,6 @@ page{
 	overflow:hidden;
 }
 .order_attr{
-	display:flex;
 	justify-content:center;
 	align-items:center;
 	height:37.5%;
@@ -92,24 +91,18 @@ page{
 	text-align:left;
 }
 .order_credit{
-	width:28%;
-	display:flex;
+	width:40%;
 	align-items:center;
 	color:#e62c2c;
 	text-align:right;
 }
-.order_credit text,.order_credit2{
-	float:right;
-}
+
 .order_handle{
 background:#fff;
-	height:100rpx;
-	display:flex;
-	justify-content:center;
-	align-items:center;
+
 }
 .order_del{
-	width:65%;
+
 }
 .order_total{
 	width:35%;
@@ -123,7 +116,7 @@ background:#fff;
 	line-height:60rpx;
 	text-align:center;
 	float:right;
-	margin-right:40rpx;
+	margin-right:20rpx;
 	color:#666;
 }
 .text1{

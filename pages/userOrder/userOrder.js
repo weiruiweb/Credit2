@@ -5,22 +5,26 @@ var app = getApp()
 
 Page({
   data: {
-    num:1,
-   orderData:[],
+   num:1,
+   mainData:[],
    searchItem:{
       thirdapp_id:'59',
     },
   },
 
 
-  onLoad() {
+  onLoad(options){
     const self = this;
+    if(options.num){
+      self.changeSearch(options.num)
+    }
     this.setData({
    	  fonts:app.globalData.font
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData()
   },
+
 
   getMainData(isNew){
     const self = this;
@@ -49,6 +53,37 @@ Page({
     api.orderGet(postData,callback);
   },
 
+  deleteOrder(e){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    const callback  = res=>{
+      api.dealRes(res);
+      self.getMainData(true);
+    };
+    api.orderDelete(postData,callback);
+  },
+
+  pay(e){
+    const self = this;
+    var id = api.getDataSet(e,'id');
+    var score = api.getDataSet(e,'score')
+    const postData = {
+      token:wx.getStorageSync('token'),
+      searchItem:{
+        id:id
+      },
+      score:score
+    };
+    const callback = (res)=>{
+      wx.hideLoading();
+      self.getMainData(true)   
+    };
+    api.pay(postData,callback);
+  },
+
 
   menuClick: function (e) {
     const self = this;
@@ -71,21 +106,13 @@ Page({
       self.data.searchItem.pay_status = '1';
       self.data.searchItem.transport_status = '1';
       self.data.searchItem.order_step = '0';
-      
     }else if(num=='4'){
-      self.data.searchItem.pay_status = '1';
-      self.data.searchItem.transport_status = '2';
-      self.data.searchItem.order_step = '0';
-      self.data.searchItem.remark_status = 'false';
-    }else if(num=='5'){
       self.data.searchItem.order_step = '1';
     };
-
     self.setData({
       web_mainData:[],
     });
     self.getMainData(true);
-
   },
 
   

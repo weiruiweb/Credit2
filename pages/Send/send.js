@@ -171,7 +171,7 @@ Page({
       });  
       wx.hideLoading();
       if(res.solely_code==100000){
-        api.showToast('点赞成功','success');
+
         self.data.mainData[index].isPraise.id = res.info.id;
         self.setData({
           web_mainData:self.data.mainData
@@ -202,7 +202,7 @@ Page({
       });  
       wx.hideLoading();
       if(res.solely_code==100000){
-        api.showToast('点赞成功','success');
+
         if(type==1){
           self.data.mainData[index].isPraise['id'] = log_id;
         }else{

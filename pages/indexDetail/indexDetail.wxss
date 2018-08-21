@@ -53,3 +53,44 @@ page{
 	border-radius:50rpx;
 	margin-top:16rpx;
 }
+.qcored{
+	width:68%;
+	height:670rpx;
+	background:#fff;
+	position:fixed;
+	margin:0px auto;
+	text-align:center;
+	bottom:20%;
+
+	left:16%;
+	box-shadow:0rpx 0rpx 20rpx #666;
+}
+.qcored_bg image{
+	width:281rpx;
+	height:85rpx;
+	margin:20rpx auto 60rpx;
+}
+.head_down{
+	margin:30rpx 0 20rpx;
+}
+.head_down image{
+	width:50rpx;
+	height:58rpx;
+
+}
+.qcoreds image{
+	width:282rpx;
+	height:282rpx;
+}
+.qcored_cont{
+
+	position:relative;
+
+}
+.close image{
+	position:absolute;
+	right:-36rpx;
+	top:-36rpx;
+	width:72rpx;
+	height:72rpx;
+}

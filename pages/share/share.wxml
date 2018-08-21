@@ -1,16 +1,16 @@
 <!--share.wxml-->
 <view class="share_banner">
-	<image src="/images/banner1.png"></image>
+	<image src="{{web_artData.bannerImg[0].url}}"></image>
 </view>
 <view class="today_sign">
 	<view class="begin_sign">
 		<view class="sign_left">
-			<view class="sign_now">
+			<button class="sign_now" bindtap="onShareAppMessage"  open-type="share">
 				立即分享
-			</view>
+			</button>
 		</view>
 		<view class="sign_right"  style="{{fonts[5].font}}">
-			总积分:100
+			总积分:{{web_userInfoData.info.data[0].score}}
 		</view>
 	</view>
 </view>
@@ -27,11 +27,13 @@
             分享积分规则
         </view>
         <view class="regular_item"  style="{{fonts[3].font}}">
-          <view>1、每日签到可获得10积分</view>
-          <view>2、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view> <view>3、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view> <view>4、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view>
+          <view class="content ql-editor" >
+            <import src="../../wxParse/wxParse.wxml"/>
+            <template is="wxParse" data="{{wxParseData:web_artData.content}}"/>
+          </view> 
         </view>
     </view>
 </view>
 <view class="adver">
-	<image src="/images/ad.png"></image>
+	<image src="{{web_artData.mainImg[0].url}}"></image>
 </view>

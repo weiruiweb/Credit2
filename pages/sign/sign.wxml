@@ -78,12 +78,12 @@
 <view class="today_sign">
 	<view class="begin_sign">
 		<view class="sign_left" bindtap="submit">
-			<view class="sign_now">
-				{{web_logData?'今日已签到':'签到'}}
+			<view class="sign_now"  style="{{web_logData.length>'0'?'background:#999':''}}">
+				{{web_logData.length=='0'?'签到':'今日已签到'}}
 			</view>
 		</view>
 		<view class="sign_right"  style="{{fonts[5].font}}">
-			总积分:100
+			总积分:{{web_userInfoData.info.data[0].score}}
 		</view>
 	</view>
 </view>
@@ -133,13 +133,15 @@
             签到积分规则
         </view>
         <view class="regular_item"  style="{{fonts[3].font}}">
-          <view>1、.每日签到可获得10积分</view>
-          <view>2、连续签到相应天数，可获得积分加分，如中断则      从10积分开始重新计算；</view>
+          <view class="content ql-editor" >
+            <import src="../../wxParse/wxParse.wxml"/>
+            <template is="wxParse" data="{{wxParseData:web_artData.content}}"/>
+          </view> 
         </view>
     </view>
 </view>
 <view class="adver">
-	<image src="/images/ad.png"></image>
+	<image src="{{web_artData.mainImg[0].url}}"></image>
 </view>
 <view class="sign_sucess" style="{{isShow?'display:block':'display:none'}}" bindtap="sucssess">
 	<view> <image src="/images/sign1.png"></image>

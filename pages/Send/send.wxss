@@ -100,6 +100,7 @@ page{
 	justify-content:center;
 	display:flex;
 	margin-bottom:30rpx;
+	margin:0
 }
 .great_img image{
 	width:39rpx;
