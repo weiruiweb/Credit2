@@ -56,11 +56,11 @@
 </view>
 <view class="today_sign">
 	<view class="begin_sign">
-		<view class="sign_left" bindtap="submit">
+		<button open-type="getUserInfo" bindgetuserinfo="submit" class="sign_left" >
 			<view class="sign_now"  style="{{web_todayData.length>'0'?'background:#999':''}}">
 				{{web_todayData.length>'0'?'今日已签到':'签到'}}
 			</view>
-		</view>
+		</button>
 		<view class="sign_right"  style="{{fonts[5].font}}">
 			总积分:{{web_computeData.info.FlowLog.countsum}}
 		</view>

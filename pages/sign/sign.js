@@ -31,9 +31,10 @@ Page({
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getTime(); 
-    self.getArtData();
+    
     self.getComputeData();
-    self.checkToday()
+    self.checkToday();
+    
   },
 
 
@@ -74,9 +75,10 @@ Page({
 
   signIn(){
     const self = this;
+    var days = self.checkConstantSignDays(); 
     const postData = {
       reward:{
-        score:10
+        score:self.data.seriesRewardData[days]
       },
       type:3,
       title:'签到成功'
@@ -115,6 +117,7 @@ Page({
   submit(){
     const self = this;
     self.checkToday();
+
     if(self.data.todayData.length>0){
       api.showToast('今日已签到','fail');
     }else{
@@ -147,8 +150,24 @@ Page({
         web_signData:self.data.signData
       })
       console.log(self.data.logData)
+      
+      self.getArtData();
     };
     api.logGet(postData,callback);
+  },
+
+  checkConstantSignDays(){
+    const self = this;
+    var yesterday = new Date().getDate()-1;
+    var num = 1;
+    for (var i = 0; i < self.data.seriesRewardData.length; i++) {
+      if(self.data.signData.indexOf((yesterday-i))>=0){
+        num++
+      }else{
+        break;
+      }
+    };
+    return num;
   },
 
   checkToday(){
@@ -192,7 +211,8 @@ Page({
       self.setData({
         web_artData:self.data.artData,
         web_seriesRewardData:self.data.seriesRewardData
-      });  
+      }); 
+      
     };
     api.articleGet(postData,callback);
   },
