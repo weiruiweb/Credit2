@@ -15,7 +15,7 @@
 		<view class="credit_cont">
 			<view id="credit"  bindtap="intoPath" data-path="/pages/userCredit/userCredit">
 				<view id="credit_number">
-					{{web_userInfoData.info.data[0].score}}
+					{{web_computeData.info.FlowLog.countsum}}
 				</view>
 				<view id="credit_text">
 					我的积分

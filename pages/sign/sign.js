@@ -8,6 +8,9 @@ Page({
   data: {
     isShow:false,
     logData:[],
+    todayData:[],
+    seriesRewardData:[],
+    computeData:[],
     searchItem :{
       thirdapp_id:'59',
       type:3
@@ -27,11 +30,13 @@ Page({
       fonts:getApp().globalData.font
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    self.getTime();
-    
+    self.getTime(); 
     self.getArtData();
-    self.userInfoGet()
+    self.getComputeData();
+    self.checkToday()
   },
+
+
   changeMonth(e){
     const self = this;
     var type = api.getDataSet(e,'type');
@@ -71,7 +76,7 @@ Page({
     const self = this;
     const postData = {
       reward:{
-        score:30
+        score:10
       },
       type:3,
       title:'签到成功'
@@ -109,8 +114,8 @@ Page({
 
   submit(){
     const self = this;
-    self.getLogData();
-    if(self.data.logData.length>0){
+    self.checkToday();
+    if(self.data.todayData.length>0){
       api.showToast('今日已签到','fail');
     }else{
       wx.showLoading();
@@ -119,6 +124,7 @@ Page({
       };
       api.getAuthSetting(callback);
     };
+    self.checkToday();
   },
 
 
@@ -126,9 +132,8 @@ Page({
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
-    postData.searchItem = api.cloneForm(self.data.searchItem);
-    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000]];
-    
+    postData.searchItem = {};
+    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000]];   
     const callback = (res)=>{
       self.data.logData = res.info.data;
       self.data.signData = [];
@@ -142,6 +147,21 @@ Page({
         web_signData:self.data.signData
       })
       console.log(self.data.logData)
+    };
+    api.logGet(postData,callback);
+  },
+
+  checkToday(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    const callback = (res)=>{
+      self.data.todayData = res.info.data;
+      wx.hideLoading();
+      self.setData({
+        web_todayData:self.data.todayData,
+      })
     };
     api.logGet(postData,callback);
   },
@@ -165,13 +185,41 @@ Page({
     };
     const callback = (res)=>{
       self.data.artData = res.info.data[0];
+      self.data.seriesRewardData = res.info.data[0].keywords.split(',');
+      console.log(self.data.seriesRewardData)
       wx.hideLoading();
       self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
       self.setData({
         web_artData:self.data.artData,
+        web_seriesRewardData:self.data.seriesRewardData
       });  
     };
     api.articleGet(postData,callback);
+  },
+
+  getComputeData(){
+    const self = this;
+    const postData = {};
+    postData.data = {
+      FlowLog:{
+        compute:{
+          count:'sum',
+        },
+        
+        searchItem:{
+          user_no:wx.getStorageSync('info').user_no,
+          type:3,
+        }
+      }
+    };
+    const callback = (res)=>{
+      self.data.computeData = res;
+      self.setData({
+        web_computeData:self.data.computeData,
+      });
+      wx.hideLoading();
+    };
+    api.flowLogCompute(postData,callback);
   },
 
 })

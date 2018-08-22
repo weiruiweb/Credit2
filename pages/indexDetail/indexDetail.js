@@ -58,38 +58,52 @@ Page({
 
   addOrder(){
     const self = this;
-    self.setData({
-      buttonClicked: true
-    });
-    const postData = {
-      token:wx.getStorageSync('token'),
-      product:[
-        {id:self.data.id,count:1}
-      ],
-      pay:{score:self.data.mainData.price},
-    };
-    const callback = (res)=>{
-      if(res&&res.solely_code==100000){
-        setTimeout(function(){
-          self.setData({
-            buttonClicked: false
-          })
-        }, 1000)         
-      }; 
-        var id = res.info;
-        self.pay(id);     
-    };
-    api.addOrder(postData,callback);
+    if(wx.getStorageSync('info').info.length==0){
+      api.showToast('请完善信息');
+      setTimeout(function(){
+           api.pathTo('/pages/userComplete/userComplete','nav');
+        },800)
+    }else if(!self.data.order_id){
+      self.setData({
+        buttonClicked: true
+      });
+      const postData = {
+        token:wx.getStorageSync('token'),
+        product:[
+          {id:self.data.id,count:1}
+        ],
+        pay:{score:self.data.mainData.price},
+      };
+      const callback = (res)=>{
+        if(res&&res.solely_code==100000){
+          setTimeout(function(){
+            self.setData({
+              buttonClicked: false
+            })
+          }, 1000)         
+        }; 
+        self.data.order_id = res.info
+        self.pay(self.data.order_id);     
+      };
+      api.addOrder(postData,callback);
+    }else{
+      self.pay(self.data.order_id)
+    }   
   },
 
 
 
-  pay(id){
+ 
+
+
+
+  pay(order_id){
     const self = this;
+    var order_id = self.data.order_id;
     const postData = {
       token:wx.getStorageSync('token'),
       searchItem:{
-        id:id
+        id:order_id
       },
       score:self.data.mainData.price
     };

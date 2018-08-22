@@ -8,10 +8,12 @@ Page({
   data: {
     mainData:[],
     addressData:[],
+    userInfoData:[],
     searchItem:{
       isdefault:1
     },
-    buttonClicked: false
+    buttonClicked: false,
+    order_id:''
   },
 
   onLoad: function (options) {
@@ -21,7 +23,7 @@ Page({
       });
     self.data.id = options.id;
     self.getMainData();
-    
+ 
     getApp().globalData.address_id = '';
   },
 
@@ -76,48 +78,68 @@ Page({
 
   addOrder(){
     const self = this;
-    self.setData({
-      buttonClicked: true
-    });
-    const postData = {
-      token:wx.getStorageSync('token'),
-      product:[
-        {id:self.data.id,count:1}
-      ],
-      pay:{score:self.data.mainData.price},
-      snap_address:self.data.addressData.info.data[0]
-    };
-    const callback = (res)=>{
-      if(res&&res.solely_code==100000){
-        setTimeout(function(){
-          self.setData({
-            buttonClicked: false
-          })
-        }, 1000)         
-      }; 
-        var id = res.info;
-        self.pay(id);     
-    };
-    api.addOrder(postData,callback);
+    if(wx.getStorageSync('info').info.length==0){
+      api.showToast('请完善信息');
+      setTimeout(function(){
+           api.pathTo('/pages/userComplete/userComplete','nav');
+        },800)
+    }else if(!self.data.order_id){
+      self.setData({
+        buttonClicked: true
+      });
+      const postData = {
+        token:wx.getStorageSync('token'),
+        product:[
+          {id:self.data.id,count:1}
+        ],
+        pay:{score:self.data.mainData.price},
+        snap_address:self.data.addressData.info.data[0]
+      };
+      const callback = (res)=>{
+        if(res&&res.solely_code==100000){
+          setTimeout(function(){
+            self.setData({
+              buttonClicked: false
+            })
+          }, 1000)         
+        }; 
+        self.data.order_id = res.info
+        self.pay(self.data.order_id);     
+      };
+      api.addOrder(postData,callback);
+    }else{
+      self.pay(self.data.order_id)
+    }   
   },
 
 
 
-  pay(id){
+  pay(order_id){
     const self = this;
+    var order_id = self.data.order_id;
     const postData = {
       token:wx.getStorageSync('token'),
       searchItem:{
-        id:id
+        id:order_id
       },
       score:self.data.mainData.price
     };
     const callback = (res)=>{
       wx.hideLoading();
-      api.dealRes(res);    
+      api.dealRes(res);
+      if(res.solely_code==100000){
+        setTimeout(function(){
+          api.pathTo('/pages/userOrder/userOrder','redi');
+        },800) 
+      }else{
+        api.showToast('支付失败','fail')
+      }
+         
     };
     api.pay(postData,callback);
   },
+
+
 
 
 

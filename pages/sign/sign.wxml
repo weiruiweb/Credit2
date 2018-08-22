@@ -10,9 +10,9 @@
 		<view class="year">
 			<view class="year_in">
 				<view class="date_year flexRowBetween"  style="{{fonts[3].font}}">
-					<view bindtap="changeMonth" data-type="mins" >  <image src="/images/left.png"></image> </view>
-					<view> {{web_month}} </view>
-					<view bindtap="changeMonth" data-type="add">  <image src="/images/right.png"></image> </view>
+					<view bindtap="changeMonth" data-type="mins" style="width:50rpx">  <image src="/images/left.png"></image> </view>
+					<view> {{web_month}} 月</view>
+					<view bindtap="changeMonth" data-type="add" style="width:50rpx">  <image src="/images/right.png"></image> </view>
 				</view>
 			</view>
 		</view>
@@ -43,7 +43,7 @@
 				</view>
 				<view class="sign_day" style="{{fonts[2].font}}">
 					<block wx:for="{{web_calendar}}" >
-						<view class="weak_day {{(web_signData&&func.inArray(item,web_signData)!=-1)?'this_day':''}}">
+						<view class="{{(web_signData&&func.inArray(item,web_signData)!=-1)?'this_day':'weak_day'}}">
 						
 							<view>{{item>0?item:''}}</view>
 						</view>
@@ -57,12 +57,12 @@
 <view class="today_sign">
 	<view class="begin_sign">
 		<view class="sign_left" bindtap="submit">
-			<view class="sign_now"  style="{{web_logData.length>'0'?'background:#999':''}}">
-				{{web_logData.length=='0'?'签到':'今日已签到'}}
+			<view class="sign_now"  style="{{web_todayData.length>'0'?'background:#999':''}}">
+				{{web_todayData.length>'0'?'今日已签到':'签到'}}
 			</view>
 		</view>
 		<view class="sign_right"  style="{{fonts[5].font}}">
-			总积分:{{web_userInfoData.info.data[0].score}}
+			总积分:{{web_computeData.info.FlowLog.countsum}}
 		</view>
 	</view>
 </view>
@@ -74,34 +74,13 @@
 		</view>
 		<view class="continuous">
 			<view class="continuous_day">
-				<view class="continuous_item" style="{{fonts[5].font}}">	
-					<view class="item1 this_item">
-						10
+				<block wx:for="{{web_seriesRewardData}}" wx:key="id">
+					<view class="continuous_item" style="{{fonts[5].font}}">	
+						<view class="item1">
+							+{{item}}
+						</view>
 					</view>
-					<view class="choose_day">
-						<image src="/images/sign_icon.png"></image>
-					</view>
-				</view>
-				<view class="continuous_item" style="{{fonts[5].font}}">	
-					<view class="item1">
-						+20
-					</view>
-				</view>
-				<view class="continuous_item" style="{{fonts[5].font}}">	
-					<view class="item1">
-						+50
-					</view>
-				</view>
-				<view class="continuous_item" style="{{fonts[5].font}}">	
-					<view class="item1">
-						+300
-					</view>
-				</view>
-				<view class="continuous_item" style="{{fonts[5].font}}">	
-					<view class="item1">
-						+300
-					</view>
-				</view>
+				</block>
 			</view>
 		</view>
 	</view>

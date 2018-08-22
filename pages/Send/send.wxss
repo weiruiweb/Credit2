@@ -87,8 +87,8 @@ page{
 	flex-wrap:wrap;
 }
 .send_imageItem image{
-	width:224rpx;
-	height:158rpx;
+	width:90%;
+	height:170rpx;
 	border-radius:20rpx;
 }
 .great{

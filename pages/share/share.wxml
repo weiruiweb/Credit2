@@ -10,7 +10,7 @@
 			</button>
 		</view>
 		<view class="sign_right"  style="{{fonts[5].font}}">
-			总积分:{{web_userInfoData.info.data[0].score}}
+			总积分:{{web_computeData.info.FlowLog.countsum}}
 		</view>
 	</view>
 </view>

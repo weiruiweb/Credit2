@@ -6,7 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-
+    computeData:[],
     artData:[],
     shareBtn:'',
     isshare:''
@@ -23,7 +23,7 @@ Page({
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getArtData();
-    self.userInfoGet()
+    self.getComputeData()
   },
 
   getArtData(){
@@ -44,18 +44,29 @@ Page({
     api.articleGet(postData,callback);
   },
 
-  userInfoGet(){
+  getComputeData(){
     const self = this;
     const postData = {};
-    postData.token = wx.getStorageSync('token');
+    postData.data = {
+      FlowLog:{
+        compute:{
+          count:'sum',
+        },
+        
+        searchItem:{
+          user_no:wx.getStorageSync('info').user_no,
+          type:3,
+        }
+      }
+    };
     const callback = (res)=>{
-      self.data.userInfoData = res;
+      self.data.computeData = res;
       self.setData({
-        web_userInfoData:self.data.userInfoData,
+        web_computeData:self.data.computeData,
       });
       wx.hideLoading();
     };
-    api.userInfoGet(postData,callback);
+    api.flowLogCompute(postData,callback);
   },
 
   onShareAppMessage(res){

@@ -82,7 +82,7 @@ class Token {
                 };
 
                 wx.request({
-                    url: 'http://solelycloud.com/scoreshop/public/api/v1/Base/ProgrameToken/get',
+                    url: 'https://dmgnm.com/scoreshop/public/index.php/api/v1/Base/ProgrameToken/get',
                     method:'POST',
                     data:postData,
                     success:function(res){
@@ -123,7 +123,7 @@ class Token {
             }
 
             wx.request({
-                url: 'http://solelycloud.com/scoreshop/public/api/v1/Func/Common/loginByUp',
+                url: 'https://dmgnm.com/scoreshop/public/index.php/api/v1/Func/Common/loginByUp',
                 method:'POST',
                 data:postData,
                 success:function(res){

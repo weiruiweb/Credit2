@@ -5,15 +5,18 @@
 </view>
 <view class="uploder">
     <view class="uploder_all" style="display:flex">
-        <view class="uploder_item" >
+      <block wx:for="{{web_imgData}}">
+        <view class="uploder_item" style="display:flex">
+              <image class="uploader__input" src="{{item.url}}"></image>
+        </view>
+      </block>
+        <view class="uploder_item" wx:if="{{web_imgData.length<3}}">
           <view class="uploader__input" bindtap="upLoadImg" >
             <image src="/images/fabu.png"></image>
           </view>
         </view>
 
-        <block wx:for="{{web_imgData}}">
-          <image style="width:30px;height:30px;" src="{{item.url}}"></image>
-        </block>
+
     </view>
 </view>
 <view class="fabu">

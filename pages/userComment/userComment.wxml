@@ -16,9 +16,11 @@
 				{{item.content}}
 			</view>
 			<view class="comment_img">
-				<view class="img_list">
-					<image src="{{item.mainImg[0].url}}"></image>
-				</view>
+				<block wx:for="{{item.mainImg}}" wx:key="id">
+            		<view class="img_list">
+              			<image src="{{item.url}}"></image>
+            		</view>
+          		</block>
 			</view>
 			<view class="comment_handle" style="{{fonts[4].font}}">	
 				<view class="comment_left">

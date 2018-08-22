@@ -27,7 +27,11 @@ Page({
       fonts:getApp().globalData.font
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    self.getArtData()
+    self.getArtData();
+    self.setData({
+      web_imgData:self.data.submitData.mainImg
+    });
+
   },
 
 
@@ -100,6 +104,7 @@ Page({
 
   upLoadImg: function (){
     var self = this;
+
     if(self.data.submitData.mainImg.length>3){
       api.showToast('仅限3张','fail');
       return;
@@ -116,7 +121,7 @@ Page({
         var tempFilePaths = res.tempFilePaths
         
         wx.uploadFile({
-          url: 'http://localhost:88/scoreshop/public/index.php/api/v1/Base/FtpImage/upload ',
+          url: 'https://dmgnm.com/scoreshop/public/index.php/api/v1/Base/FtpImage/upload ',
           filePath:tempFilePaths[0],
           name: 'file',
           formData: {
@@ -129,6 +134,9 @@ Page({
               web_imgData:self.data.submitData.mainImg
             });
             wx.hideLoading()
+            setTimeout(function(){
+              api.pathTo('/pages/Send/send','redi');
+          },300);
           },
           fail: function(err){
             wx.hideLoading();

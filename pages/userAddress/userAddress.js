@@ -74,7 +74,7 @@ Page({
     postData.searchItem = {};
     postData.searchItem.id = api.getDataSet(e,'id');
     postData.token = wx.getStorageSync('token');
-    const callback = res=>{
+    const callback = (res)=>{
       const resType = api.dealRes(res);
       if(resType){
         self.data.mainData=[];
@@ -94,9 +94,10 @@ Page({
     postData.data = {
       isdefault:1
     }
-    const callback = res =>{
-      const resType = api.showToast('设置成功','fail');
+    const callback = (res) =>{
+      const resType = api.dealRes(res);
       if(resType){
+        self.data.mainData=[];
         self.getMainData(true);
       }
     };

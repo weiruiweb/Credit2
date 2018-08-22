@@ -171,15 +171,13 @@ Page({
       });  
       wx.hideLoading();
       if(res.solely_code==100000){
-
         self.data.mainData[index].isPraise.id = res.info.id;
         self.setData({
           web_mainData:self.data.mainData
-        });
+        }); 
       }else{
         api.showToast('点赞失败','fail');
       };
-      
     };
     api.logAdd(postData,callback);
   },

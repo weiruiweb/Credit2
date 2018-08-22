@@ -27,13 +27,16 @@
           {{item.content}}
         </view>
         <view class="send_image">
+          <block wx:for="{{item.mainImg}}" wx:key="id">
             <view class="send_imageItem">
-              <image src="{{item.mainImg[0].url}}"></image>
+              <image src="{{item.url}}"></image>
             </view>
+          </block>
         </view>
         <button class="great" style="{{item.isPraise.id?'background:#00c6f7':''}}"  open-type="getUserInfo" bindgetuserinfo="submit" data-index="{{index}}"  data-id="{{item.id}}" data-log_id="{{item.isPraise.id?item.isPraise.id:''}}">
             <view class="great_img">
               <image src="{{item.isPraise.id?'/images/great_a.png':'/images/great.png'}}" ></image>
+              <text style="{{fonts[2].font}}">{{item.praiseCount.totalCount}}</text>
             </view>
         </button>
     </view>

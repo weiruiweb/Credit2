@@ -11,7 +11,7 @@
 
 **1\. 功能概述**
 
-&emsp;&emsp;项目主要是以对教师的排课，对学员的课时，以及明确两者之间费用的往来。达到对培训机构对所属教师和学员的动态管理，以及自身收入盈利情况的分析的目的。
+&emsp;&emsp;项目是一个虚拟积分商城，主要功能有签到，分享，点赞，商城基本功能等。
 
 ---
 **2\. 数据对照表**
@@ -154,39 +154,133 @@ message表
 | 字段 | 类型 | 说明 |
 | ------    | ------    | ------   | 
 | passage1 | int(11)| 1.已发布；2已保存|
+| content | varchar(255)| 发布内容|
+| mainImg | varchar(999)| 发布图片|
+
+
+
+log表
+
+| 字段 | 类型 | 说明 |
+| ------    | ------    | ------   | 
+| type | int(11)| 3签到；4点赞|
 
 
 ---
 **3\. 特殊设计思路说明**
-- 利用wx.scanCode得到二维码中学员user_no信息，将他作为flowlogAdd参数增加一条课程流水，减少学员相应的课时，其中price为平均课时费，将总费用除以总课时得到。
+- 利用message表log表，message表中的ID即为log点赞数据的result，来判断是否点赞。
 ``` javascript
-{
-  scan(){
+  getMainData(isNew){
     const self = this;
-    wx.scanCode({
-      success: (res) => {
-        const callback = (child_res)=>{
-        var price = child_res.info.FlowLog.pricesum/child_res.info.FlowLog.countsum;
-        const postData = {
-            token:wx.getStorageSync('token'),
-            data:{
-              user_no:res.result,
-              type:6,
-              price:price,
-              count:-1,
-              trade_info:'已上课',
-              product_no:self.data.mainData.info.data[0].product_no
+    if(isNew){
+      api.clearPageIndex(self); 
+      self.setData({
+        web_mainData:self.data.mainData,
+      });  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = {
+      thirdapp_id:'59',
+      passage1:1,
+      user_type:0
+    };
+    postData.order = {
+      create_time:'desc'
+    };
+    postData.getAfter = {
+      userInfo:{
+        tableName:'user',
+        middleKey:'user_no',
+        key:'user_no',
+        searchItem:{
+          status:1
+        },
+        condition:'=',
+        info:['nickname','headImgUrl']
+      },
+      praiseCount:{
+        tableName:'log',
+        middleKey:'id',
+        key:'result',
+        searchItem:{
+          status:1,
+        },
+        condition:'=',
+        compute:{
+          pCount:[
+            'count',
+            'any',
+            {
+              status:1,
             }
-         };
-          const callback = (res)=>{
-            api.dealRes(res);
-          };
-          api.flowLogAdd(postData,callback)
-        };
-        self.getComputeData(res.result,callback);     
+          ]
+        },
+      },
+      isPraise:{
+        tableName:'log',
+        middleKey:'id',
+        key:'result',
+        searchItem:{
+          status:1,
+          user_no:wx.getStorageSync('info').user_no
+        },
+        condition:'=',
+        info:['id']
       }
-    })  
+    }
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','fail');
+      };
+      wx.hideLoading();
+      self.setData({
+        web_mainData:self.data.mainData,
+      });  
+    };
+    api.messageGet(postData,callback);
   },
-}
+
+
+  updateLog(log_id,index,type){
+    const self = this;
+    const postData ={
+      searchItem:{
+        id:log_id
+      },
+      data:{
+        status:type
+      }
+    };
+    postData.token = wx.getStorageSync('token');
+    const callback = (res)=>{
+      self.data.clickData = res;
+      self.setData({
+        web_clickData:self.data.clickData,
+      });  
+      wx.hideLoading();
+      if(res.solely_code==100000){
+
+        if(type==1){
+          self.data.mainData[index].isPraise['id'] = log_id;
+        }else{
+          self.data.mainData[index].isPraise = {}
+        };
+
+        self.setData({
+          web_mainData:self.data.mainData
+        });
+      }else{
+        api.showToast('点赞失败','fail');
+      };
+
+    };
+    api.logUpdate(postData,callback);
+  },
+
 ```
 **4\. 备注**
