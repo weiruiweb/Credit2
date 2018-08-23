@@ -200,16 +200,15 @@ Page({
       });  
       wx.hideLoading();
       if(res.solely_code==100000){
-
         if(type==1){
           self.data.mainData[index].isPraise['id'] = log_id;
         }else{
           self.data.mainData[index].isPraise = {}
         };
-
         self.setData({
           web_mainData:self.data.mainData
         });
+
       }else{
         api.showToast('点赞失败','fail');
       };
@@ -220,7 +219,6 @@ Page({
 
 
   getLogData(message_id,index){
-
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
@@ -238,7 +236,9 @@ Page({
       }else{
         self.addLog(message_id,index);
       };
-      console.log(self.data.logData)
+      self.setData({
+        web_mainData:self.data.mainData
+      });
     };
     api.logGet(postData,callback);
 
