@@ -56,14 +56,19 @@
 </view>
 <view class="today_sign">
 	<view class="begin_sign">
-		<button open-type="getUserInfo" bindgetuserinfo="submit" class="sign_left" >
-			<view class="sign_now"  style="{{web_todayData.length>'0'?'background:#999':''}}">
-				{{web_todayData.length>'0'?'今日已签到':'签到'}}
+			<view class="sign_left">
+				<view class="sign_now">
+					<button open-type="getUserInfo" bindgetuserinfo="submit"   style="{{web_todayData.length>'0'?'background:#fff;':'background:#00c6f7;color:#fff;'}};height:80rpx;line-height:80rpx;font-size:30rpx;">
+						
+							{{web_todayData.length>'0'?'今日已签到':'签到'}}
+						
+					</button>
+				</view>
 			</view>
-		</button>
-		<view class="sign_right"  style="{{fonts[5].font}}">
-			总积分:{{web_computeData.info.FlowLog.countsum}}
-		</view>
+			<view class="sign_right"  style="{{fonts[5].font}}">
+				总积分:{{web_computeData.info.FlowLog.countsum}}
+			</view>
+
 	</view>
 </view>
 <view class="sign_days">
