@@ -41,7 +41,7 @@
 						六
 					</view>
 				</view>
-				<view class="sign_day" style="{{fonts[2].font}}">
+				<view class="sign_day" style="{{fonts[3].font}}">
 					<block wx:for="{{web_calendar}}" >
 						<view class="{{(web_signData&&func.inArray(item,web_signData)!=-1)?'this_day':'weak_day'}}">
 						

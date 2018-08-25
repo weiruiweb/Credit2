@@ -126,7 +126,7 @@ Page({
     };
     const callback = (res)=>{
       wx.hideLoading();
-      api.dealRes(res);
+      api.showToast('订单已兑换','fail')
       if(res.solely_code==100000){
         setTimeout(function(){
           api.pathTo('/pages/userOrder/userOrder','redi');

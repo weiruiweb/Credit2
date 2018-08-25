@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 25,
 			"list": [
 				{
 					"id": -1,
@@ -182,7 +182,13 @@
 				{
 					"id": -1,
 					"name": "首页",
-					"pathName": "pages/index/index"
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "发布主页",
+					"pathName": "pages/Send/send"
 				}
 			]
 		}

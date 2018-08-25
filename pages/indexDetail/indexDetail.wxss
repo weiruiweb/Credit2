@@ -26,7 +26,6 @@ page{
 .detail_content{
 	color:#666;
 	display:flex;
-	justify-content:center;
 	padding:30rpx 20rpx;
 
 }
@@ -69,7 +68,6 @@ page{
 .qcored_bg image{
 	width:281rpx;
 	height:85rpx;
-	margin:20rpx auto 60rpx;
 }
 .head_down{
 	margin:30rpx 0 20rpx;

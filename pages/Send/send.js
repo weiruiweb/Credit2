@@ -153,7 +153,7 @@ Page({
   },
 
 
-  addLog(message_id){
+  addLog(message_id,index){
     const self = this;
     const postData ={};
     postData.data= {
@@ -169,7 +169,9 @@ Page({
       });  
       wx.hideLoading();
       if(res.solely_code==100000){
+        self.data.mainData[index].isPraise = {};
         self.data.mainData[index].isPraise.id = res.info.id;
+        self.data.mainData[index].praiseCount.totalCount++;
         self.setData({
           web_mainData:self.data.mainData
         }); 
@@ -200,13 +202,14 @@ Page({
       if(res.solely_code==100000){
         if(type==1){
           self.data.mainData[index].isPraise['id'] = log_id;
+          self.data.mainData[index].praiseCount.totalCount++;
         }else{
-          self.data.mainData[index].isPraise = {}
+          self.data.mainData[index].isPraise = {};
+          self.data.mainData[index].praiseCount.totalCount--;
         };
         self.setData({
           web_mainData:self.data.mainData
         });
-
       }else{
         api.showToast('点赞失败','fail');
       };
@@ -227,8 +230,7 @@ Page({
     };
     const callback = (res)=>{
       if(res.info.data.length>0&&res.info.data[0].status==1){
-        wx.hideLoading();
-        api.showToast('请勿重复点赞','fail');
+        self.updateLog(res.info.data[0].id,index,-1);
       }else if(res.info.data.length>0&&res.info.data[0].status==-1){
         self.updateLog(res.info.data[0].id,index,1);
       }else{

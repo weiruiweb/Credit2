@@ -12,16 +12,11 @@
       <text>¥{{web_mainData.price}}</text>积分
     </view>
   </view>
-  <view class="detail_content">
-      <view class="content_left"  style="{{fonts[4].font}}">
-          详情:
-      </view>
-      <view class="content_right"  style="{{fonts[3].font}}">
-          <view class="content ql-editor" style="color:#666;font-size:24rpx">
-            <import src="../../wxParse/wxParse.wxml"/>
-              <template is="wxParse" data="{{wxParseData:web_mainData.content}}"/>
-          </view> 
-      </view>
+  <view class="detail_content" style="border:none">
+    <view class="content ql-editor" style="color:#666;font-size:24rpx">
+      <import src="../../wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:web_mainData.content}}"/>
+    </view> 
   </view>
 </view>
 <view class="case_btn" bindtap="{{web_mainData.category_id=='384'?'intoPath':'addOrder'}}" data-path="/pages/indexDetailOrder/indexDetailOrder?id={{web_mainData.id}}">
@@ -30,16 +25,19 @@
   </view>
 </view>
 <view class="qcored" style="{{isShow?'display:block':'display:none'}}">
-  <view class="qcored_cont">
+  <view class="qcored_cont" style="margin-top:20rpx">
     <view class="close" bindtap="show"> 
       <image src="/images/close_icon.png"></image>
     </view>
-    <view class="qcored_bg">
-        <image src="/images/qcored_bg.png"></image>
+    <view style="font-size:20px;color:red;position:relative;width:280rpx;height:85rpx;margin:0 auto 20rpx">
+      <view class="qcored_bg">
+          <image src="/images/qcored_bg.png"></image>
+      </view>
+      <view style="font-size:20px;color:red;position:absolute;width:280rpx;height:85rpx;top:0;left:0;line-height:85rpx;text-align:center">兑换成功</view>
     </view>
     <view class="qcored_txt" style="{{fonts[3].font}}">
-    购买成功！长按识别下方客服二维码领取
-    </view>
+    兑换成功！长按识别下方客服二维码领取
+    </view> 
     <view class="head_down">
       <image src="/images/head_down.png"></image>
     </view>

@@ -56,9 +56,7 @@ page{
 	align-items:center;
 
 }
-.weak_day view{
-	font-size:26rpx;
-}
+
 .sign_day{
 	display:flex;
 	flex-wrap:wrap;

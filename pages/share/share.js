@@ -83,6 +83,7 @@ Page({
         success: function (res){
           console.log(res);
           if(res.errMsg == 'shareAppMessage:ok'){
+            console.log('分享成功')
             if (self.data.shareBtn){
               if(res.hasOwnProperty('shareTickets')){
               console.log(res.shareTickets[0]);

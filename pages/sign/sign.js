@@ -87,7 +87,7 @@ Page({
     const callback = (res)=>{
       wx.hideLoading();
       self.sucssess();
-      self.getLogData()
+      self.checkToday()
     };
     api.signIn(postData,callback);
   },
@@ -117,7 +117,6 @@ Page({
   submit(){
     const self = this;
     self.checkToday();
-
     if(self.data.todayData.length>0){
       api.showToast('今日已签到','fail');
     }else{
@@ -127,7 +126,6 @@ Page({
       };
       api.getAuthSetting(callback);
     };
-    self.checkToday();
   },
 
 
