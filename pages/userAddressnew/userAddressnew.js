@@ -29,8 +29,7 @@ Page({
         web_region:self.data.region
       })
     };
-    self.switch2Change()
-    
+    self.switch2Change()  
   },
 
   getMainData(id){

@@ -42,13 +42,12 @@ swiper{
 .note_left{
 	display:flex;
 	align-items:center;
-	justify-content:center;
-	width:50%;
+	width:90%;
 	overflow:hidden;
 	height:60rpx;
 }
 .note_next{
-	width:50%;
+	width:10%;
 	overflow:hidden;
 	text-align:right;
 }

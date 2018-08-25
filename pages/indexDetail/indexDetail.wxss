@@ -48,6 +48,7 @@ page{
 	align-items:center;
 	background:#fff;
 	box-shadow:5rpx 0 15rpx #84ddf3;
+	position:fixed
 }
 .submit_info{
 	border-radius:50rpx;

@@ -42,9 +42,11 @@
     </view>
   </block>
 </view>
+
 <button id="send_button"  open-type="getUserInfo" bindgetuserinfo="intoPath" data-path="/pages/sendInformation/sendInformation" >
   <view id="send_img" style="margin-top:8px;margin-left:-2px"><image src="/images/send_icon.png" ></image></view>
 </button>
+
 <view class="navbar">
     
       <view class="navbar_item" bindtap="intoPathRedi" data-path="/pages/index/index">

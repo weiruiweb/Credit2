@@ -121,7 +121,6 @@ class Token {
                 login_name:wx.getStorageSync('login').login_name,
                 password:wx.getStorageSync('login').password,
             }
-
             wx.request({
                 url: 'https://dmgnm.com/scoreshop/public/index.php/api/v1/Func/Common/loginByUp',
                 method:'POST',

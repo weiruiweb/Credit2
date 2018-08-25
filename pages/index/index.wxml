@@ -47,7 +47,7 @@
     <view class="note_left">
       <image src="/images/note_icon.png"></image>
       <view class="note_txt" style="{{fonts[3].font}}">
-        怎样快速兑换更多积分
+        {{web_artData.info.data[0].title}}
       </view>
     </view>
     <view class="note_next">
@@ -57,7 +57,7 @@
 </view>
 <view class="mall">
     <view class="mallTilte">
-      <view class="mall_tlt">
+      <view class="mall_tlt" style="margin-left:290rpx">
         <image src="/images/tlt_bg.png"></image>
         <view  style="{{fonts[4].font}}" class="mall_tlt_txt">积分商城</view>
       </view>
@@ -96,7 +96,7 @@
     </view>
 </view>
 
-<view class="solely" style="{{fonts[1].font}};color:#666;">
+<view class="solely" style="{{fonts[1].font}};color:#666;text-align:center">
   技术支持:西安纯粹科技有限公司
 </view>
 <view class="navbar">

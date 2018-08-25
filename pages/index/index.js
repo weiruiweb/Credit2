@@ -35,6 +35,7 @@ Page({
     self.getMainData();
     self.getSliderData();
     self.getLabelData();
+    self.getArtData()
     if(options.scene){
       var scene = decodeURIComponent(options.scene)
     };
@@ -113,6 +114,22 @@ Page({
       });     
     };
     api.productGet(postData,callback);
+  },
+
+  getArtData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      menu_id:'380',
+      thirdapp_id:'59'
+    };
+    const callback = (res)=>{
+      self.data.artData = res;
+      self.setData({
+        web_artData:self.data.artData,
+      });  
+    };
+    api.articleGet(postData,callback);
   },
 
   

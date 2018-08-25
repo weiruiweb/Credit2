@@ -102,6 +102,10 @@ page{
 	margin-bottom:30rpx;
 	margin:0
 }
+.great_img{
+	display:flex;
+	align-items:center
+}
 .great_img image{
 	width:39rpx;
 	height:38rpx;
@@ -124,7 +128,7 @@ page{
 #send_button{
 	position:fixed;
 	right:0;
-	top:40%;
+	top:65%;
 	width:100rpx;
 	height:100rpx;
 	background:#00c6f7;

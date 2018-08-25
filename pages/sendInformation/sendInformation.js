@@ -44,7 +44,7 @@ Page({
     postData.data = api.cloneForm(self.data.submitData);
     const callback = (data)=>{
       wx.hideLoading();
-      api.dealRes(data);
+      api.showToast('发布成功','fail');
     };
     api.messageAdd(postData,callback);
   },
@@ -58,9 +58,9 @@ Page({
     if(pass){      
         wx.showLoading();
         setTimeout(function(){
+          api.pathTo('/pages/Send/send','redi');
           self.messageAdd(); 
         },500)
-        
     }else{
       api.showToast('请补全信息','fail');
     };
@@ -134,9 +134,7 @@ Page({
               web_imgData:self.data.submitData.mainImg
             });
             wx.hideLoading()
-            setTimeout(function(){
-              api.pathTo('/pages/Send/send','redi');
-          },300);
+
           },
           fail: function(err){
             wx.hideLoading();

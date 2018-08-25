@@ -102,7 +102,7 @@ Page({
         }
           
           setTimeout(function(){
-            api.pathTo('/pages/User/user','nav')
+            api.pathTo('/pages/User/user','redi')
           },1000);  
       }
     }else{

@@ -1,6 +1,6 @@
 <!--sendInformation.wxml-->
 <view class="textarea">
-  <textarea  type="" placeholder="请输入要发布的内容..." style="{{fonts[3].font}}" data-key="content" bindblur="changeBind">
+  <textarea  type="" placeholder="请输入要发布的内容..." style="{{fonts[3].font}}" data-key="content" bindblur="changeBind" style="font-size:16px">
   </textarea>
 </view>
 <view class="uploder">

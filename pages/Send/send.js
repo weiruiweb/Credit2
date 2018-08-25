@@ -155,13 +155,11 @@ Page({
 
   addLog(message_id){
     const self = this;
-    
     const postData ={};
     postData.data= {
       type:4,
       title:'点赞成功',
       result:message_id,
-
     };
     postData.token = wx.getStorageSync('token');
     const callback = (res)=>{
