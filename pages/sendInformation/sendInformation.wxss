@@ -87,7 +87,7 @@ page{
 	border-radius:10rpx;
 }
 .regular_tlt{
-	color:#4c4c4c;
+	color:#333;
 	position:absolute;
 	top:-25rpx;
 	width:240rpx;
@@ -101,5 +101,9 @@ page{
 .regular_item{
 	color:#666;
 	margin-top:40rpx;
+	line-height:40rpx;
+}
+.wxParse-inline{
+	color:#666;
 	line-height:40rpx;
 }

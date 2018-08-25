@@ -3,17 +3,19 @@
 <view class="users">
 <view class="user_top">
 	<image src="/images/user_icon.jpg" class="banner">	</image>
-	<view class="user_info flexRowBetween">
-		<view class="user_img">
-			<open-data type="userAvatarUrl"></open-data>
+	<view id="users" class="flexRowBetween">
+		<view class="user_info" style="width:28%;text-align:center;" bindtap="intoPath" data-path="/pages/userCredit/userCredit">
+			<view class="user_img">
+					<open-data type="userAvatarUrl"></open-data>
+			</view>
 		</view>
-		 <view class="user_word">
-		 	<view class="user_name"><open-data type="userNickName" lang="zh_CN"></open-data></view>
-		 </view>
-	</view>
-	<view id="sign" style="{{fonts[3].font}}">
-		<view class="credit_cont">
-			<view id="credit"  bindtap="intoPath" data-path="/pages/userCredit/userCredit">
+		<view class="user_word" style="width:25%;" bindtap="intoPath" data-path="/pages/userCredit/userCredit">
+		 	<view class="user_name" style="height:50rpx;line-height:50rpx;"><open-data type="userNickName" lang="zh_CN"></open-data></view>
+		 	<view class="phone" style="height:50rpx;line-height:50rpx;">14345545645</view>
+		</view>
+		
+		<view id="sign" style="{{fonts[3].font}};width:47%;text-align:left;" class="flexRowBetween">
+			<view id="credit"  bindtap="intoPath" data-path="/pages/userCredit/userCredit" style="height:80rpx;">
 				<view id="credit_number">
 					{{web_computeData.info.FlowLog.countsum}}
 				</view>
@@ -22,7 +24,7 @@
 				</view>
 
 			</view>
-			<view id="comment" bindtap="intoPath" data-path="/pages/userComment/userComment">
+			<view id="comment" bindtap="intoPath" data-path="/pages/userComment/userComment" style="height:80rpx;">
 				<view id="credit_number">
 					{{web_totol}}
 				</view>
@@ -31,8 +33,7 @@
 				</view>
 			</view>
 		</view>
-	</view>
- 
+ 	</view>
 </view>
 </view>
 <view id="user">
@@ -69,7 +70,7 @@
 	<view class="user_all">
 		<view class="user_infor flexRowBetween"  bindtap="intoPath" data-path="/pages/userComplete/userComplete">
 			<view class="user_left flexRowBetween">
-				<image src="/images/user_icon2.png"></image>
+				<image src="/images/user_icon.png"></image>
 				<text>完善信息</text>
 			</view>
 			<view class="next_page">
@@ -94,6 +95,7 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
+		
 		<view class="user_infor flexRowBetween" bindtap="intoPath" data-path="/pages/userAddress/userAddress">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon4.png"></image>

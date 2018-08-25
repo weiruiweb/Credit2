@@ -18,50 +18,44 @@ overflow:hidden;}
 	width:100%;
 	height:300rpx;}
 .user_info{
+
+}
+#users{
+	height:140rpx;
 	position:absolute;
 	top:80rpx;
-	left:0rpx;
-	width:41%;
-	padding-left:7%;
+	width:100%;
+	align-items:center;
 }
-#credit{
-	
-}
-.credit_cont{
-	width:80%;
-	float:right;
-	margin-right:5%;
-	display:flex;
-	justify-content:center;
-}
+
 #sign{
-	position:absolute;
-	top:116rpx;
-	right:0;
 	width:50%;
 	color:#fff;
 	
 }
 #credit{
-	width:52%;
+	width:50%;
 	text-align:center;
-
+	overflow:hidden;
 }
 #comment{
 	width:50%;
 	text-align:center;
 	border-left:solid 1px #fff;
+	overflow:hidden;
+}
+#credit_number,#credit_text{
+	height:50%;
 }
 .user_img{
 	width:140rpx;
 	height:140rpx;
 	border-radius:50%;
-	margin-right:30rpx;
 	overflow:hidden;
+	margin:0px auto;
 }
 .user_word{
-	margin-top:40rpx;
-	
+	height:100rpx;
 }
 .user_name{
 	font-size:34rpx;
