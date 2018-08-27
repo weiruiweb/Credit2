@@ -16,25 +16,23 @@ Page({
       thirdapp_id:'59',
       type:3
     },
-
   },
-
 
 
   onLoad(){
     const self = this;
-    self.data.year = new Date().getFullYear();
-    self.data.month = new Date().getMonth()+1;
-    self.data.totalDay = new Date(self.data.year, self.data.month, 0).getDate();
-    self.computeCalendar();
     self.setData({
       fonts:getApp().globalData.font
-    });
+    });   
+    self.data.year = new Date().getFullYear();
+    self.data.month = new Date().getMonth()+1;
+    self.computeCalendar();
+    
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getTime(); 
-     self.setData({
+    self.setData({
       web_rewardScore:self.data.rewardScore,
-      web_rewardDay:self.data.days+1
+      web_rewardDay:self.data.constantSignDaysExcludeToday+1
     }),
     self.getComputeData();
     self.checkToday();
@@ -46,21 +44,36 @@ Page({
   changeMonth(e){
     const self = this;
     var type = api.getDataSet(e,'type');
+
     if(type=='mins'){
-      self.data.month -= 1; 
+      if(self.data.month==1){
+        self.data.year--;
+        self.data.month = 12;
+      }else{
+        self.data.month -= 1; 
+      };
     }else{
-      self.data.month += 1; 
+      if(self.data.month==12){
+        self.data.year++;
+        self.data.month = 1;
+      }else{
+        self.data.month += 1;  
+      };
+      
     };
     self.computeCalendar();
   },
 
   computeCalendar(){
     const self = this;
+    self.data.totalDay = new Date(self.data.year, self.data.month, 0).getDate();
     var d = new Date();
     d.setYear(self.data.year);
     d.setMonth(self.data.month);
     d.setDate(1);
     self.data.diffrence =  d.getDay();
+    console.log(self.data.diffrence)
+    console.log(self.data.totalDay)
     self.data.calendar = [];
     for (var i = 0; i < self.data.diffrence+self.data.totalDay; i++) {
       if(i<self.data.diffrence-1){
@@ -75,20 +88,20 @@ Page({
       web_year:self.data.year
     });
     console.log(self.data.calendar)
-    self.getLogData();
+    self.getMainData();
   },
 
 
 
   signIn(){
     const self = this;
-    self.data.days = self.checkConstantSignDays(); 
+    
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
       firstDayReward = self.data.seriesRewardData[1]
     };
-    if(self.data.seriesRewardData[self.data.days+1]){
-      self.data.rewardScore = self.data.seriesRewardData[self.data.days+1]
+    if(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]){
+      self.data.rewardScore = self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]
     };
     if(!self.data.rewardScore){
       self.data.rewardScore = firstDayReward;
@@ -107,7 +120,7 @@ Page({
       self.checkToday()
       self.setData({
         web_rewardScore:self.data.rewardScore,
-        web_rewardDay:self.data.days+1
+        web_rewardDay:self.data.constantSignDays+1
       })
     };
     api.signIn(postData,callback);
@@ -152,7 +165,7 @@ Page({
   },
 
 
-  getLogData(){
+  getMainData(){
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
@@ -179,7 +192,8 @@ Page({
   checkConstantSignDays(){
     const self = this;
     var yesterday = new Date().getDate()-1;
-    var num = 1;
+    var num = 0;
+    var constantSignDays = 0;
     var maxNum = 0;
     for (var item  in self.data.seriesRewardData) {
       if(item > maxNum){
@@ -193,7 +207,21 @@ Page({
         break;
       }
     };
-
+    for (var i = 0; i < maxNum-1; i++) {
+      if(self.data.signData.indexOf((yesterday-i+1))>=0){
+        constantSignDays++
+      }else{
+        break;
+      }
+    };
+    if(num>=maxNum){
+      num = num - maxNum;
+      constantSignDays = constantSignDays - maxNum;
+    };
+    self.data.constantSignDays = constantSignDays;
+    self.setData({
+        web_rewardDay:self.data.constantSignDays
+    });
     return num;
   },
 
@@ -245,6 +273,7 @@ Page({
         web_keyDay:Object.keys(self.data.seriesRewardData)
       }); 
       console.log(Object.keys(self.data.seriesRewardData))
+      self.checkConstantSignDays(); 
     };
     api.articleGet(postData,callback);
   },
