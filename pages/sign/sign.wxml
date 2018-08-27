@@ -82,7 +82,7 @@
 						<view class="item1">
 							+{{item}}
 						</view>
-						<view>{{index}}天</view>
+						<view style="color:#666">{{index}}天</view>
 					</view>
 				</block>
 			</view>

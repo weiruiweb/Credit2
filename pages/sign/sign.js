@@ -11,6 +11,7 @@ Page({
     todayData:[],
     seriesRewardData:[],
     computeData:[],
+    rewardScore:'',
     searchItem :{
       thirdapp_id:'59',
       type:3
@@ -31,7 +32,10 @@ Page({
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getTime(); 
-    
+     self.setData({
+      web_rewardScore:self.data.rewardScore,
+      web_rewardDay:self.data.days+1
+    }),
     self.getComputeData();
     self.checkToday();
 
@@ -77,34 +81,33 @@ Page({
 
   signIn(){
     const self = this;
-    var days = self.checkConstantSignDays(); 
+    self.data.days = self.checkConstantSignDays(); 
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
       firstDayReward = self.data.seriesRewardData[1]
-      
     };
-    if(self.data.seriesRewardData[days+1]){
-      var rewardScore = self.data.seriesRewardData[days+1]
+    if(self.data.seriesRewardData[self.data.days+1]){
+      self.data.rewardScore = self.data.seriesRewardData[self.data.days+1]
     };
-    if(!rewardScore){
-       var rewardScore = firstDayReward;
+    if(!self.data.rewardScore){
+      self.data.rewardScore = firstDayReward;
     };
     const postData = {
       reward:{
-        score:rewardScore
+        score:self.data.rewardScore
       },
       type:3,
       title:'签到成功'
     };
-    postData.token = wx.getStorageSync('token');
-    self.setData({
-      web_rewardScore:rewardScore,
-      web_rewardDay:days+1
-    })
+    postData.token = wx.getStorageSync('token'); 
     const callback = (res)=>{
       wx.hideLoading();
       self.sucssess();
       self.checkToday()
+      self.setData({
+        web_rewardScore:self.data.rewardScore,
+        web_rewardDay:self.data.days+1
+      })
     };
     api.signIn(postData,callback);
   },
