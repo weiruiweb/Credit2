@@ -11,7 +11,7 @@
 			<view class="year_in">
 				<view class="date_year flexRowBetween"  style="{{fonts[3].font}}">
 					<view bindtap="changeMonth" data-type="mins" style="width:50rpx">  <image src="/images/left.png"></image> </view>
-					<view> {{web_month}} 月</view>
+					<view> {{web_year}}年{{web_month}}月</view>
 					<view bindtap="changeMonth" data-type="add" style="width:50rpx">  <image src="/images/right.png"></image> </view>
 				</view>
 			</view>
@@ -59,9 +59,7 @@
 			<view class="sign_left">
 				<view class="sign_now">
 					<button open-type="getUserInfo" bindgetuserinfo="submit"   style="{{web_todayData.length>'0'?'background:#fff;':'background:#00c6f7;color:#fff;'}};height:80rpx;line-height:80rpx;font-size:30rpx;">
-						
-							{{web_todayData.length>'0'?'今日已签到':'签到'}}
-						
+						{{web_todayData.length>'0'?'今日已签到':'签到'}}
 					</button>
 				</view>
 			</view>
@@ -73,9 +71,9 @@
 </view>
 <view class="sign_days">
 	<view class="sign_daysIn">
-		<view class="sign_note" style="{{fonts[5].font}}">
-			<text>今日已签到<text  class="text1">+5</text>！</text>
-			<text class="text2">连续签到<text  class="text1">1</text>天</text>
+		<view class="sign_note" style="{{fonts[5].font}}" wx:if="{{web_rewardScore&&web_rewardDay}}">
+			<text>今日已签到<text  class="text1">+{{web_rewardScore}}积分</text>！</text>
+			<text class="text2">连续签到<text  class="text1">{{web_rewardDay}}</text>天</text>
 		</view>
 		<view class="continuous">
 			<view class="continuous_day">
@@ -84,6 +82,7 @@
 						<view class="item1">
 							+{{item}}
 						</view>
+						<view>{{index}}天</view>
 					</view>
 				</block>
 			</view>
@@ -111,7 +110,7 @@
 	</view>
 	<view class="sucess_txt"  style="{{fonts[3].font}}">
 		<text>恭喜你签到成功</text>
-		<text>+30积分</text>
+		<text>+{{web_rewardScore}}积分</text>
 	</view>
 </view>
 <view class="mask" style="{{isShow?'display:block':'display:none'}}">

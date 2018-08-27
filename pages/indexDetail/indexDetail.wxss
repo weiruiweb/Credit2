@@ -1,4 +1,7 @@
 /**index.wxss**/
+
+@import "../../wxParse/wxParse.wxss"; 
+
 page{
 	min-height:100%;
 	width:100%;
@@ -24,10 +27,12 @@ page{
 	padding:0 20rpx 30rpx;
 }
 .detail_content{
-	color:#666;
-	display:flex;
-	padding:30rpx 20rpx;
 
+}
+
+.detail_content image{
+	
+	max-width:100%!important;
 }
 .content_left{
 	width:12.5%

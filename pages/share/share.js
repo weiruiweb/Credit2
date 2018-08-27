@@ -79,9 +79,10 @@ Page({
       }
       return {
         title: '积分商城',
-        path: 'pages/index/index?parentNo'+wx.getStorageSync('info').user_no,
+        path: 'pages/index/index?parentNo='+wx.getStorageSync('info').user_no,
         success: function (res){
           console.log(res);
+          console.log(parentNo)
           if(res.errMsg == 'shareAppMessage:ok'){
             console.log('分享成功')
             if (self.data.shareBtn){

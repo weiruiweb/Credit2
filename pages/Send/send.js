@@ -163,15 +163,11 @@ Page({
     };
     postData.token = wx.getStorageSync('token');
     const callback = (res)=>{
-      self.data.clickData = res;
-      self.setData({
-        web_clickData:self.data.clickData,
-      });  
-      wx.hideLoading();
       if(res.solely_code==100000){
         self.data.mainData[index].isPraise = {};
         self.data.mainData[index].isPraise.id = res.info.id;
         self.data.mainData[index].praiseCount.totalCount++;
+        wx.hideLoading();
         self.setData({
           web_mainData:self.data.mainData
         }); 
@@ -181,6 +177,7 @@ Page({
     };
     api.logAdd(postData,callback);
   },
+
 
   updateLog(log_id,index,type){
     const self = this;
@@ -194,11 +191,6 @@ Page({
     };
     postData.token = wx.getStorageSync('token');
     const callback = (res)=>{
-      self.data.clickData = res;
-      self.setData({
-        web_clickData:self.data.clickData,
-      });  
-      wx.hideLoading();
       if(res.solely_code==100000){
         if(type==1){
           self.data.mainData[index].isPraise['id'] = log_id;
@@ -264,9 +256,28 @@ Page({
 
 
 
+  previewImage(e){
+    const self = this;
+    var url = api.getDataSet(e,'url');
+    var index = api.getDataSet(e,'index');
+    console.log(index)
+    var imgList = [];
+    for (var i = self.data.mainData[index].mainImg.length - 1; i >= 0; i--) {
+      imgList.push(self.data.mainData[index].mainImg[i].url)
+    };
+    console.log(imgList)
+    wx.previewImage({
+      current: url, 
+      urls: imgList
+    });
+  }
 
 
   
+
+
+
+ 
 })
 
 

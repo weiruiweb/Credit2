@@ -184,3 +184,13 @@ border-radius:50%;}
 	width:668rpx;
 	height:300rpx;
 }
+.img-plus-style {  
+  height: 80rpx;  
+
+  
+  bottom: 220rpx;  
+  right: 30rpx;  
+  opacity: 0.9
+}  
+.zindex100{z-index: 100}
+.yc{opacity: 0}

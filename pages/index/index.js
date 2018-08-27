@@ -42,7 +42,7 @@ Page({
     if(options.parentNo){
       var scene = options.parentNo
     };
-    
+    console.log(scene)
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();

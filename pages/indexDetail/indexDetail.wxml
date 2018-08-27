@@ -24,8 +24,9 @@
     立即兑换
   </view>
 </view>
+
 <view class="qcored" style="{{isShow?'display:block':'display:none'}}">
-  <view class="qcored_cont" style="margin-top:20rpx">
+  <view class="qcored_cont" >
     <view class="close" bindtap="show"> 
       <image src="/images/close_icon.png"></image>
     </view>
@@ -35,14 +36,14 @@
       </view>
       <view style="font-size:20px;color:red;position:absolute;width:280rpx;height:85rpx;top:0;left:0;line-height:85rpx;text-align:center">兑换成功</view>
     </view>
-    <view class="qcored_txt" style="{{fonts[3].font}}">
-    兑换成功！长按识别下方客服二维码领取
+    <view class="qcored_txt" style="{{fonts[3].font}};padding:0 20rpx">
+      长按识别下方客服二维码领取
     </view> 
     <view class="head_down">
       <image src="/images/head_down.png"></image>
     </view>
     <view class="qcoreds">
-      <image src="{{web_labelData.mainImg[0].url}}"></image>
+      <image src="{{web_labelData.mainImg[0].url}}" data-url="{{web_labelData.mainImg[0].url}}"  bindtap="previewImage"></image>
     </view>
   </view>
 </view>

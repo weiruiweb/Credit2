@@ -14,13 +14,7 @@
 		</view>
 	</view>
 </view>
-<view id="share">
-	<view class="sign_note" style="{{fonts[5].font}}">
-		<text>通过我的海报分享已经有<text  class="text1">5</text>个好友使用本商城
-		连续签到，并获<text  class="text1">100</text>得积分
-		</text>
-	</view>
-</view>
+
 <view class="regular">
     <view class="regular_cont">
         <view class="regular_tlt" style="{{fonts[4].font}}">

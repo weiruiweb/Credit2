@@ -122,7 +122,7 @@ Page({
           self.addressAdd();
         }
         setTimeout(function(){
-          api.pathTo('/pages/userAddress/userAddress','nav')
+          api.pathTo('/pages/userAddress/userAddress','redi')
         },1000);  
       }
     }else{

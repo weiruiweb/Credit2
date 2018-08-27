@@ -34,6 +34,7 @@ Page({
     
     self.getComputeData();
     self.checkToday();
+
     
   },
 
@@ -66,7 +67,8 @@ Page({
     };
     self.setData({
       web_calendar:self.data.calendar,
-      web_month:self.data.month
+      web_month:self.data.month,
+      web_year:self.data.year
     });
     self.getLogData();
   },
@@ -76,14 +78,29 @@ Page({
   signIn(){
     const self = this;
     var days = self.checkConstantSignDays(); 
+    var firstDayReward = 0;
+    if(self.data.seriesRewardData[1]){
+      firstDayReward = self.data.seriesRewardData[1]
+      
+    };
+    if(self.data.seriesRewardData[days+1]){
+      var rewardScore = self.data.seriesRewardData[days+1]
+    };
+    if(!rewardScore){
+       var rewardScore = firstDayReward;
+    };
     const postData = {
       reward:{
-        score:self.data.seriesRewardData[days]
+        score:rewardScore
       },
       type:3,
       title:'签到成功'
     };
     postData.token = wx.getStorageSync('token');
+    self.setData({
+      web_rewardScore:rewardScore,
+      web_rewardDay:days+1
+    })
     const callback = (res)=>{
       wx.hideLoading();
       self.sucssess();
@@ -116,6 +133,8 @@ Page({
 
   submit(){
     const self = this;
+    self.signIn();
+    return
     self.checkToday();
     if(self.data.todayData.length>0){
       api.showToast('今日已签到','fail');
@@ -158,13 +177,20 @@ Page({
     const self = this;
     var yesterday = new Date().getDate()-1;
     var num = 1;
-    for (var i = 0; i < self.data.seriesRewardData.length; i++) {
+    var maxNum = 0;
+    for (var item  in self.data.seriesRewardData) {
+      if(item > maxNum){
+        maxNum = item 
+      };
+    };
+    for (var i = 0; i < maxNum-1; i++) {
       if(self.data.signData.indexOf((yesterday-i))>=0){
         num++
       }else{
         break;
       }
     };
+
     return num;
   },
 
@@ -202,7 +228,11 @@ Page({
     };
     const callback = (res)=>{
       self.data.artData = res.info.data[0];
-      self.data.seriesRewardData = res.info.data[0].keywords.split(',');
+      self.data.seriesRewardData = {};
+      for (var i = 0; i < res.info.data[0].keywords.split(',').length; i++) {
+        var c_num = res.info.data[0].keywords.split(',')[i].split(':')[0];
+        self.data.seriesRewardData[c_num] = res.info.data[0].keywords.split(',')[i].split(':')[1]
+      };
       console.log(self.data.seriesRewardData)
       wx.hideLoading();
       self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;

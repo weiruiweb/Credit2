@@ -27,9 +27,9 @@
           {{item.content}}
         </view>
         <view class="send_image">
-          <block wx:for="{{item.mainImg}}" wx:key="id">
+          <block wx:for="{{item.mainImg}}" wx:key="id" wx:for-item="c_item" wx:for-index="c_index">
             <view class="send_imageItem">
-              <image src="{{item.url}}"></image>
+              <image src="{{c_item.url}}" bindtap="previewImage" data-url="{{c_item.url}}" data-index="{{index}}"></image>
             </view>
           </block>
         </view>

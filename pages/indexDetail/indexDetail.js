@@ -87,13 +87,10 @@ Page({
       };
       api.addOrder(postData,callback);
     }else{
-      self.pay(self.data.order_id)
+       api.showToast('支付失败','fail')
     }   
   },
 
-
-
- 
 
 
 
@@ -109,8 +106,13 @@ Page({
     };
     const callback = (res)=>{
       wx.hideLoading();
-      api.dealRes(res);
-      self.show()
+      if(res.solely_code==100000){
+        api.showToast('订单已兑换','fail'),
+        self.show()
+      }else{
+        api.showToast('支付失败','fail')
+      }
+         
     };
     api.pay(postData,callback);
   },
@@ -145,6 +147,20 @@ Page({
     };
     api.labelGet(postData,callback);  
   },
+
+  previewImage(e){
+    const self = this;
+    var url = api.getDataSet(e,'url')
+    var imgList = [];
+    for (var i = self.data.labelData.mainImg.length - 1; i >= 0; i--) {
+      imgList.push(self.data.labelData.mainImg[i].url)
+    };
+    console.log(imgList)
+    wx.previewImage({
+      current: url, 
+      urls: imgList
+    });
+  }
 
 
  

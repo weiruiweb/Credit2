@@ -66,6 +66,25 @@ Page({
     api.orderDelete(postData,callback);
   },
 
+  orderUpdate(e){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.data ={
+      transport_status:2,
+      order_step:3
+    }
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    const callback  = res=>{
+      api.showToast('已确认收货','fail');
+      self.getMainData(true);
+    };
+    api.orderUpdate(postData,callback);
+  },
+
+
+
   pay(e){
     const self = this;
     var id = api.getDataSet(e,'id');
@@ -104,11 +123,15 @@ Page({
       self.data.searchItem.order_step = '0';
     }else if(num=='3'){
       self.data.searchItem.pay_status = '1';
-      self.data.searchItem.transport_status = '1';
+      self.data.searchItem.transport_status = '0';
       self.data.searchItem.order_step = '0';
     }else if(num=='4'){
-      self.data.searchItem.order_step = '1';
-    };
+      self.data.searchItem.pay_status = '1';
+      self.data.searchItem.transport_status = '1';
+      self.data.searchItem.order_step = '0';
+    }else if(num=='5'){
+      self.data.searchItem.order_step = '3';
+    }
     self.setData({
       web_mainData:[],
     });

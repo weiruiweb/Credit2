@@ -269,12 +269,12 @@ class Base{
 
         var pass = true;
         for(var key in obj){
-          if(!obj[key]){
+          if(!obj[key]||JSON.stringify(obj[key])=='[]'){
             pass = false;
           };
         };
         return pass;
-        console.log(pass);
+
     };
 
 

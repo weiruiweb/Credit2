@@ -100,10 +100,9 @@ Page({
           wx.showLoading();
           self.userInfoUpdate();
         }
-          
-          setTimeout(function(){
-            api.pathTo('/pages/User/user','redi')
-          },1000);  
+        setTimeout(function(){
+          api.pathTo('/pages/User/user','redi')
+        },1000);  
       }
     }else{
       api.showToast('请补全信息','fail');

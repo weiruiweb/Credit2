@@ -4,14 +4,13 @@
 <view class="user_top">
 	<image src="/images/user_icon.jpg" class="banner">	</image>
 	<view id="users" class="flexRowBetween">
-		<view class="user_info" style="width:28%;text-align:center;" bindtap="intoPath" data-path="/pages/userCredit/userCredit">
+		<view class="user_info" style="width:28%;text-align:center;">
 			<view class="user_img">
 					<open-data type="userAvatarUrl"></open-data>
 			</view>
 		</view>
-		<view class="user_word" style="width:25%;" bindtap="intoPath" data-path="/pages/userCredit/userCredit">
-		 	<view class="user_name" style="height:50rpx;line-height:50rpx;"><open-data type="userNickName" lang="zh_CN"></open-data></view>
-		 	<view class="phone" style="height:50rpx;line-height:50rpx;">14345545645</view>
+		<view class="user_word" style="width:25%;" >
+		 	<view class="user_name" style="line-height:100rpx;"><open-data type="userNickName" lang="zh_CN"></open-data></view>
 		</view>
 		
 		<view id="sign" style="{{fonts[3].font}};width:47%;text-align:left;" class="flexRowBetween">
@@ -53,7 +52,7 @@
 		</view>
 	</view>
 	<view class="process">
-		<view class="peocess_item item_other" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=4">
+		<view class="peocess_item item_other" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=5">
 			<image src="/images/user_icon9.png"></image>
 			<text>已兑换</text>
 		</view>
@@ -61,7 +60,7 @@
 			<image src="/images/user_icon7.png"></image>
 			<text>待付款</text>
 		</view>
-		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=3">
+		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=4">
 			<image src="/images/user_icon8.png"></image>
 			<text>待收货</text>
 		</view>
@@ -114,10 +113,39 @@
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-		<view class="user_infor flexRowBetween" bindtap="calling">
+		<view class="user_infor flexRowBetween" >
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon6.png"></image>
 				<text>联系客服</text>
+				
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
+			</view>
+			<view >
+				<contact-button type="default-dark" size="30" session-from="weapp" class="img-plus-style zindex100 yc" >
+				</contact-button>
 			</view>
 			<view class="next_page">
 				<image src="/images/next_page.jpg"></image>

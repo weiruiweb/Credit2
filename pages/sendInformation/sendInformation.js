@@ -6,7 +6,7 @@ var app = getApp()
 Page({
   data: {
 
-    articleData:[],
+    artData:[],
     mainImg:[],
     submitData:{
       content:'',
@@ -36,17 +36,43 @@ Page({
 
 
 
+
+
   messageAdd(){
     const self = this;
+    if(!self.data.artData.small_title){
+      api.showToast('积分奖励设置有误','fail');
+      return ;
+    };
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
+    postData.saveAfter = [
+      {
+        tableName:'FlowLog',
+        FuncName:'add',
+        data:{
+          count:self.data.artData.small_title,
+          trade_info:'推荐积分奖励',
+          user_no:wx.getStorageSync('info').user_no,
+          type:3,
+          thirdapp_id:getApp().globalData.thirdapp_id
+        }
+      }
+    ];
     const callback = (data)=>{
       wx.hideLoading();
-      api.showToast('发布成功','fail');
+      if(data.solely_code == 100000){
+        api.showToast('发布成功','fail');
+        api.pathTo('/pages/Send/send','redi');
+      }else{
+        api.showToast('发布失败','fail');
+      };
+       
     };
     api.messageAdd(postData,callback);
+      
   },
 
 
@@ -55,12 +81,15 @@ Page({
     self.data.submitData.passage1 = num;
     console.log(self.data.submitData)
     const pass = api.checkComplete(self.data.submitData);
+
     if(pass){      
         wx.showLoading();
-        setTimeout(function(){
-          api.pathTo('/pages/Send/send','redi');
+        if(!self.data.artData.small_tittle){
+          self.getArtData(self.messageAdd());
+        }else{      
           self.messageAdd(); 
-        },500)
+        };
+        
     }else{
       api.showToast('请补全信息','fail');
     };
@@ -82,22 +111,25 @@ Page({
     console.log(self.data.submitData)
   },
 
-  getArtData(){
+  getArtData(c_callback){
     const self = this;
     const postData = {};
     postData.searchItem = {
       menu_id:'383',
       thirdapp_id:'59'
     };
+    
     const callback = (res)=>{
       self.data.artData = res.info.data[0];
       wx.hideLoading();
       self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
       self.setData({
         web_artData:self.data.artData,
-      });  
+      }); 
+      c_callback&&c_callback();
     };
     api.articleGet(postData,callback);
+
   },
 
 
@@ -105,7 +137,7 @@ Page({
   upLoadImg: function (){
     var self = this;
 
-    if(self.data.submitData.mainImg.length>3){
+    if(self.data.submitData.mainImg.length>2){
       api.showToast('仅限3张','fail');
       return;
     };
@@ -115,7 +147,7 @@ Page({
     });
     var mainImg = self.data.mainImg
     wx.chooseImage({
-      count:3,
+      count:1,
       success: function(res) {
         console.log(res);
         var tempFilePaths = res.tempFilePaths
@@ -141,6 +173,9 @@ Page({
             api.showToast('上传失败','fail')
           }
         })
+      },
+      fail: function(err){
+        wx.hideLoading();
       }
     })
   },
