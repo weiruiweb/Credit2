@@ -74,6 +74,7 @@ Page({
       web_month:self.data.month,
       web_year:self.data.year
     });
+    console.log(self.data.calendar)
     self.getLogData();
   },
 
@@ -169,7 +170,6 @@ Page({
         web_logData:self.data.logData,
         web_signData:self.data.signData
       })
-      console.log(self.data.logData)
       
       self.getArtData();
     };
@@ -241,9 +241,10 @@ Page({
       self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
       self.setData({
         web_artData:self.data.artData,
-        web_seriesRewardData:self.data.seriesRewardData
+        web_seriesRewardData:self.data.seriesRewardData,
+        web_keyDay:Object.keys(self.data.seriesRewardData)
       }); 
-      
+      console.log(Object.keys(self.data.seriesRewardData))
     };
     api.articleGet(postData,callback);
   },

@@ -78,10 +78,9 @@
 		<view class="continuous">
 			<view class="continuous_day">
 				<block wx:for="{{web_seriesRewardData}}" wx:key="id">
-					<view class="continuous_item" style="{{fonts[5].font}}">	
-						<view class="item1">
-							+{{item}}
-						</view>
+					<view class="continuous_item" style="{{fonts[5].font}}">
+						<image src="{{(web_keyDay&&func.inArray(web_rewardDay,web_keyDay))?'/images/day_active.png':'/images/day.png'}}" style="width:116rpx;height:116rpx;"></image>
+							<view style="position:absolute;top:36rpx;left:36rpx">+{{item}}</view>
 						<view style="color:#666">{{index}}天</view>
 					</view>
 				</block>
