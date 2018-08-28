@@ -10,27 +10,45 @@
 </view>
 <view class="date" style="{{fonts[4].font}}">
 	<view class="date_item">
-		<view class="date_left" style="color:#00c6f7;">
-			<picker  mode="date" value="{{web_startTime}}" data-type="startTime" bindchange="bindTimeChange">
-			    <view class="picker text">
-			      起始日期
-			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{web_startTime}}</view>
-			</picker>
+		<view style="width:45%;display:flex;align-items:center;">
+			<view class="date_left" style="color:#00c6f7;width:100%;">
+				<picker  mode="date" value="{{web_startTime}}" data-type="startTime" bindchange="bindTimeChange" >
+					<view style="display:flex;align-items:center;width:100%;">
+						<view style="width:85%;height:70rpx;">
+						    <view class="picker text">
+						      起始日期
+						    </view>
+						    <view class="text" style="{{fonts[2].font}}">{{web_startTime}}</view>
+						</view>
+						<view style="width:15%;height:70rpx;">
+							<image src="/images/up_icon2.jpg"></image>
+						</view>
+					</view>	
+				</picker>
+			    
+			</view>
 			
-		</view>
-		<image src="/images/up_icon2.jpg"></image>
+		</view>	
 	</view>
-	<view class="date_item">
-		<view class="date_left">
-			<picker  mode="date" value="{{web_endTime}}" data-type="endTime" bindchange="bindTimeChange">
-			    <view class="picker text">
-			      截至日期
-			    </view>
-			    <view class="text" style="{{fonts[2].font}}">{{web_endTime}}</view>
-			</picker>
-		</view>
-		<image src="/images/up_icon1.jpg"></image>
+	<view class="date_item" style="border:none;">
+		<view style="width:45%;display:flex;align-items:center;">
+			<view class="date_left" style="color:#2e2e2e;width:100%;">
+				<picker  mode="date" value="{{web_endTime}}" data-type="endTime" bindchange="bindTimeChange" >
+					<view style="display:flex;align-items:center;width:100%;">
+						<view style="width:85%;height:70rpx;">
+						    <view class="picker text">
+						      截至日期
+						    </view>
+						    <view class="text" style="{{fonts[2].font}}">{{web_endTime}}</view>
+					    </view>
+					    <view style="width:15%;height:70rpx;">
+							<image src="/images/up_icon1.jpg"></image>
+						</view>
+					</view>
+				</picker>
+			</view>
+			
+		</view>	
 	</view>	
 </view>
 <view class="team_all">

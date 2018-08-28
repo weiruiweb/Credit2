@@ -14,6 +14,14 @@ page{
 	padding:40rpx 25rpx;
 	background:#fff;
 }
+.address_left{
+	width:70%;
+	overflow:hidden;
+}
+.address_right{
+	width:30%;
+	text-align:right;
+}
 .address_left .text1{
 	color:#262626;
 	font-size:34rpx;}
@@ -31,7 +39,17 @@ page{
 	justify-content:center;
 	}
 .address_set text{font-size:24rpx;}
-.address_set .default{color:#2c9fe1;width:71%;}
+
+.address_set .default {
+	color:#2c9fe1;
+	width:71%;
+	align-items:center;
+	height:30rpx;
+	display:flex;
+	align-items:center;
+}
+
+
 .address_set .default image{
 	margin-right:15px;
 	width:29rpx;
@@ -41,7 +59,12 @@ page{
 	height:26rpx;
 	margin-right:10rpx;
 }
-.edit{color:#7d7d7d;width:15%}
+.edit{
+	color:#7d7d7d;
+	width:15%;
+	display:flex;
+	align-items:center;
+}
 .de_color{color:#7d7d7d}
 .submit_info{
 margin-top:0rpx;

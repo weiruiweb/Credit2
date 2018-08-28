@@ -13,9 +13,14 @@
 	flex-direction:row;
 	justify-content:space-between;
 }
+.avoidOverflow{
+	overflow-y:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
 /***********navbar***********/
 .navbar{
-	height:120rpx;
+	height:110rpx;
 	width:100%;
 	position:fixed;
 	bottom:0rpx;

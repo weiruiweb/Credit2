@@ -76,7 +76,7 @@ swiper{
 }
 .mall{
 	background:#fff;
-	margin-bottom:200rpx;
+	margin-bottom:20rpx;
 }
 .mallTilte{
 	width:100%;
