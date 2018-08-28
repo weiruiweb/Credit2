@@ -95,7 +95,6 @@ Page({
 
   signIn(){
     const self = this;
-    
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
       firstDayReward = self.data.seriesRewardData[1]
@@ -114,6 +113,19 @@ Page({
       title:'签到成功'
     };
     postData.token = wx.getStorageSync('token'); 
+    postData.saveAfter = [
+      {
+        tableName:'FlowLog',
+        FuncName:'add',
+        data:{
+          count:10,
+          trade_info:'推荐积分奖励',
+          user_no:wx.getStorageSync('info').user_no,
+          type:3,
+          thirdapp_id:getApp().globalData.thirdapp_id
+        }
+      }
+    ]
     const callback = (res)=>{
       wx.hideLoading();
       self.sucssess();
@@ -150,8 +162,6 @@ Page({
 
   submit(){
     const self = this;
-    self.signIn();
-    return
     self.checkToday();
     if(self.data.todayData.length>0){
       api.showToast('今日已签到','fail');
@@ -264,15 +274,14 @@ Page({
         var c_num = res.info.data[0].keywords.split(',')[i].split(':')[0];
         self.data.seriesRewardData[c_num] = res.info.data[0].keywords.split(',')[i].split(':')[1]
       };
-      console.log(self.data.seriesRewardData)
       wx.hideLoading();
       self.data.artData.content = api.wxParseReturn(res.info.data[0].content).nodes;
       self.setData({
         web_artData:self.data.artData,
         web_seriesRewardData:self.data.seriesRewardData,
-        web_keyDay:Object.keys(self.data.seriesRewardData)
+        web_distributionRewardData:self.data.distributionRewardData
       }); 
-      console.log(Object.keys(self.data.seriesRewardData))
+      console.log(self.data.distributionRewardData)
       self.checkConstantSignDays(); 
     };
     api.articleGet(postData,callback);
