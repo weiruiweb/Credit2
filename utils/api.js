@@ -113,6 +113,57 @@ class Api extends Base{
         this.request(allParams);       
     }
 
+    distributionGet(param,callback){
+        var allParams ={
+            url:'Common/Distribution/Get',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }    
+
+
+    distributionUpdate(param,callback){
+        var allParams ={
+            url:'Common/Distribution/update',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }    
+
+
+    distributionDelete(param,callback){
+        var allParams ={
+            url:'Common/Distribution/delete',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }    
+
+
+    distributionAdd(param,callback){
+        var allParams ={
+            url:'Common/Distribution/add',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
 
     getRank(param,callback){
         var allParams ={

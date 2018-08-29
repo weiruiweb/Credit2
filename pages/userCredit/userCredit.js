@@ -20,25 +20,13 @@ Page({
     const self = this;
     self.setData({
      fonts:app.globalData.font
-    })
+    });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData();
-    self.userInfoGet()
+    self.getComputeData()
   },
 
-  userInfoGet(){
-    const self = this;
-    const postData = {};
-    postData.token = wx.getStorageSync('token');
-    const callback = (res)=>{
-      self.data.userInfoData = res;
-      self.setData({
-        web_userInfoData:self.data.userInfoData,
-      });
-      wx.hideLoading();
-    };
-    api.userInfoGet(postData,callback);
-  },
+
 
   getMainData(isNew){
     const self = this;
@@ -91,6 +79,31 @@ Page({
       self.data.searchItem.create_time = ['<',self.data.endTimestap/1000];
     };
     self.getMainData(true);   
+  },
+
+  getComputeData(){
+    const self = this;
+    const postData = {};
+    postData.data = {
+      FlowLog:{
+        compute:{
+          count:'sum',
+        },
+        
+        searchItem:{
+          user_no:wx.getStorageSync('info').user_no,
+          type:3,
+        }
+      }
+    };
+    const callback = (res)=>{
+      self.data.computeData = res;
+      self.setData({
+        web_computeData:self.data.computeData,
+      });
+      wx.hideLoading();
+    };
+    api.flowLogCompute(postData,callback);
   },
 
  

@@ -16,7 +16,6 @@ Page({
     searchItem:{
       thirdapp_id:'59',
       user_type:'0',
-      behavior:'0',
       parent_no:wx.getStorageSync('info').user_no
     }
 
@@ -44,6 +43,18 @@ Page({
     postData.order = {
       create_time:'desc'
     }
+    postData.getAfter = {
+      userInfo:{
+        tableName:'user',
+        middleKey:'child_no',
+        key:'user_no',
+        searchItem:{
+          status:1
+        },
+        condition:'=',
+        info:['nickname','headImgUrl']
+      },
+    }
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.mainData.push.apply(self.data.mainData,res.info.data);
@@ -57,7 +68,7 @@ Page({
         web_total:res.info.total
       });  
     };
-    api.userGet(postData,callback);
+    api.distributionGet(postData,callback);
   },
 
 
@@ -74,6 +85,7 @@ Page({
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
+
 
   bindTimeChange: function(e) {
     const self = this;

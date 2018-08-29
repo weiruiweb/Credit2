@@ -13,7 +13,6 @@ Page({
       passage1:'',
       type:3,
       mainImg:[]
-      
     }
 
   },
@@ -54,7 +53,7 @@ Page({
         FuncName:'add',
         data:{
           count:self.data.artData.small_title,
-          trade_info:'推荐积分奖励',
+          trade_info:'发布积分奖励',
           user_no:wx.getStorageSync('info').user_no,
           type:3,
           thirdapp_id:getApp().globalData.thirdapp_id
@@ -65,7 +64,7 @@ Page({
       wx.hideLoading();
       if(data.solely_code == 100000){
         api.showToast('发布成功','fail');
-        api.pathTo('/pages/Send/send','redi');
+        api.pathTo('/pages/Send/send','rela');
       }else{
         api.showToast('发布失败','fail');
       };
@@ -81,7 +80,6 @@ Page({
     self.data.submitData.passage1 = num;
     console.log(self.data.submitData)
     const pass = api.checkComplete(self.data.submitData);
-
     if(pass){      
         wx.showLoading();
         if(!self.data.artData.small_tittle){
