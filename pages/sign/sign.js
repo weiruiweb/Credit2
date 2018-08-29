@@ -108,23 +108,43 @@ Page({
       title:'签到成功'
     };
     postData.token = wx.getStorageSync('token'); 
-    postData.saveAfter = []
+    postData.saveAfter = [];
     const callback = (res)=>{
       if(self.data.distributionData.info.data.length>0){
-        postData.saveAfter.push.apply(postData.saveAfter,[
-          {
-            tableName:'FlowLog',
-            FuncName:'add',
-            data:{
-              count:10,
-              trade_info:'下级签到积分奖励',
-              user_no:wx.getStorageSync('info').user_no,
-              type:3,
-              thirdapp_id:getApp().globalData.thirdapp_id
-            }
+        var transitionArray = self.data.distributionData.info.data;
+        for (var i = 0; i < transitionArray.length; i++) {
+          if(transitionArray[i].level==1){
+            postData.saveAfter.push(postData.saveAfter,[
+              {
+                tableName:'FlowLog',
+                FuncName:'add',
+                data:{
+                  count:10,
+                  trade_info:'下级签到积分奖励',
+                  user_no:transitionArray[i].parent_no,
+                  type:3,
+                  thirdapp_id:getApp().globalData.thirdapp_id
+                }
+              }
+            ]);
+          }else if(transitionArray[i].level==2){
+            postData.saveAfter.push(postData.saveAfter,[
+              {
+                tableName:'FlowLog',
+                FuncName:'add',
+                data:{
+                  count:20,
+                  trade_info:'下级签到积分奖励',
+                  user_no:transitionArray[i].parent_no,
+                  type:3,
+                  thirdapp_id:getApp().globalData.thirdapp_id
+                }
+              }
+            ]);
           }
-        ])
-      }
+        }
+        
+      };
       wx.hideLoading();
       self.sucssess();
       self.checkToday()
@@ -156,10 +176,6 @@ Page({
     }
     const callback = (res)=>{
       self.data.distributionData = res;
-      for (var i = 0; i < self.data.distributionData.info.data.length; i++) {
-            
-        }
-
       self.setData({
         web_distributionData:self.data.distributionData,
       });
