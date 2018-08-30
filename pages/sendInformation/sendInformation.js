@@ -78,19 +78,13 @@ Page({
   submit(num){
     const self = this;
     self.data.submitData.passage1 = num;
-    console.log(self.data.submitData)
-    const pass = api.checkComplete(self.data.submitData);
-    if(pass){      
+    console.log(self.data.submitData)    
         wx.showLoading();
         if(!self.data.artData.small_tittle){
           self.getArtData(self.messageAdd());
         }else{      
           self.messageAdd(); 
         };
-        
-    }else{
-      api.showToast('请补全信息','fail');
-    };
   },
 
   menuClick: function (e) {
