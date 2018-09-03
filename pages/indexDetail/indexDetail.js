@@ -17,7 +17,7 @@ Page({
     nextMargin: 0,
     currentId:0,
     id:'',
-    isShow:true,
+    isShow:false,
     
   },
   //事件处理函数

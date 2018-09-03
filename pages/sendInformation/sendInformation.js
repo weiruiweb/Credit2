@@ -5,7 +5,7 @@ var app = getApp()
 
 Page({
   data: {
-
+    todayData:[],
     artData:[],
     mainImg:[],
     submitData:{
@@ -13,6 +13,11 @@ Page({
       passage1:'',
       type:3,
       mainImg:[]
+    },
+    searchItem:{
+      thirdapp_id:'59',
+      passage1:1,
+      user_type:0
     }
 
   },
@@ -33,6 +38,22 @@ Page({
 
   },
 
+  checkToday(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.create_time = ['between',[new Date(new Date().setHours(0, 0, 0, 0)) / 1000,new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1]]
+    const callback = (res)=>{
+      self.data.todayData = res.info.data;
+      wx.hideLoading();
+      self.setData({
+        web_todayData:self.data.todayData,
+      })
+    };
+    api.messageGet(postData,callback);
+  },
+
 
 
 
@@ -47,28 +68,31 @@ Page({
     postData.token = wx.getStorageSync('token');
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
-    postData.saveAfter = [
-      {
-        tableName:'FlowLog',
-        FuncName:'add',
-        data:{
-          count:self.data.artData.small_title,
-          trade_info:'发布积分奖励',
-          user_no:wx.getStorageSync('info').user_no,
-          type:3,
-          thirdapp_id:getApp().globalData.thirdapp_id
-        }
-      }
-    ];
+    postData.saveAfter = [];
     const callback = (data)=>{
-      wx.hideLoading();
+      self.checkToday();
+      if(self.data.todayData.length<5){
+        postData.saveAfter.push(postData.saveAfter,[
+          {
+            tableName:'FlowLog',
+            FuncName:'add',
+            data:{
+              count:self.data.artData.small_title,
+              trade_info:'发布积分奖励',
+              user_no:wx.getStorageSync('info').user_no,
+              type:3,
+              thirdapp_id:getApp().globalData.thirdapp_id
+            }
+           }
+        ]);                  
+      };
       if(data.solely_code == 100000){
         api.showToast('发布成功','fail');
         api.pathTo('/pages/Send/send','rela');
       }else{
         api.showToast('发布失败','fail');
       };
-       
+      wx.hideLoading(); 
     };
     api.messageAdd(postData,callback);
       
@@ -77,14 +101,21 @@ Page({
 
   submit(num){
     const self = this;
-    self.data.submitData.passage1 = num;
-    console.log(self.data.submitData)    
-        wx.showLoading();
-        if(!self.data.artData.small_tittle){
-          self.getArtData(self.messageAdd());
-        }else{      
-          self.messageAdd(); 
-        };
+    if(wx.getStorageSync('info').info.length<=0){
+      api.showToast('请补全信息','fail');
+      setTimeout(function(){
+        api.pathTo('/pages/userComplete/userComplete','redi');
+      },1000);
+    }else{
+      self.data.submitData.passage1 = num;
+      console.log(self.data.submitData)    
+      wx.showLoading();
+      if(!self.data.artData.small_tittle){
+        self.getArtData(self.messageAdd());
+      }else{      
+        self.messageAdd(); 
+      };
+    } 
   },
 
   menuClick: function (e) {

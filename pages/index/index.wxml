@@ -99,6 +99,7 @@
 <view class="solely" style="{{fonts[1].font}};color:#666;text-align:center;margin-bottom:120rpx;">
   技术支持:西安纯粹科技有限公司
 </view>
+<view style="height:120rpx;"></view>
 <view class="navbar">
     
       <view class="navbar_item" bindtap="index">

@@ -51,35 +51,6 @@ Page({
     api.getRank(postData,callback);
   },
 
-/*  getRankTwo(isNew){
-    const self = this;
-    const postData = {
-      order:{
-        'score':'desc'
-      },
-      limit:30,
-      thirdapp_id:'59',
-      tableName:'score'
-    };
-    postData.paginate = self.data.paginate;
-    const callback = (res)=>{
-     if(res.info.length>0){
-        self.data.mainData.push.apply(self.data.mainData,res.info);
-      }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','fail');
-      };
-      self.setData({
-        web_mainData:self.data.mainData,
-        web_mainDataTwo:self.data.mainData.splice(0,1)
-      });
-     
-      console.log(self.data.mainData.splice(0,1))
-  
-      wx.hideLoading();
-    };
-    api.getRank(postData,callback);
-  },*/
 
 
   onReachBottom() {
@@ -95,6 +66,8 @@ Page({
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
+
+
 
 
 })

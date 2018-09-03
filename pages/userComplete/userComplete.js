@@ -64,7 +64,11 @@ Page({
     postData.data = api.cloneForm(self.data.sForm);
     const callback = (data)=>{
       wx.hideLoading();
-      api.dealRes(data);
+      if(data.solely_code==100000){
+        api.showToast('完善成功','fail')
+      }else{
+        api.showToast('网络故障','fail')
+      };
     };
     api.userInfoUpdate(postData,callback);
   },
@@ -78,7 +82,11 @@ Page({
     postData.data = api.cloneForm(self.data.sForm);
     const callback = (data)=>{
       wx.hideLoading();
-      api.dealRes(data);
+      if(data.solely_code==100000){
+        api.showToast('完善成功','fail')
+      }else{
+        api.showToast('网络故障','fail')
+      }
     };
     api.userInfoAdd(postData,callback);
   },

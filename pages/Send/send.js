@@ -247,7 +247,7 @@ Page({
     }else{
       var message_id = api.getDataSet(e,'id');
       const callback = (user,res) =>{
-        wx.showLoading();
+        
         self.getLogData(message_id,index);
       };
       api.getAuthSetting(callback);

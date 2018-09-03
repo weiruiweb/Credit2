@@ -20,6 +20,17 @@ Page({
     }
 
   },
+
+  onPullDownRefresh:function(){
+    const self = this;
+    wx.showNavigationBarLoading(); 
+    delete self.data.searchItem.create_time;
+    self.setData({
+      web_startTime:'',
+      web_endTime:'',
+    });
+    self.getMainData(true);
+  },
     
 
   onLoad(){

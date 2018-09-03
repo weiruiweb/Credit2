@@ -83,9 +83,25 @@ Page({
     };
     api.messageDelete(postData,callback)
   },
+
+  checkToday(){
+    const self = this;
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.create_time = ['between',[new Date(new Date().setHours(0, 0, 0, 0)) / 1000,new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1]]
+    const callback = (res)=>{
+      self.data.todayData = res.info.data;
+      wx.hideLoading();
+      self.setData({
+        web_todayData:self.data.todayData,
+      })
+    };
+    api.messageGet(postData,callback);
+  },
   
 
-messageUpdate(e){
+  messageUpdate(e){
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
@@ -94,10 +110,31 @@ messageUpdate(e){
     postData.data = {
       passage1:1
     };
+    postData.saveAfter=[]
     const callback = (data)=>{
-
+      self.checkToday();
+      if(self.data.todayData.length<5){
+        postData.saveAfter.push(postData.saveAfter,[
+          {
+            tableName:'FlowLog',
+            FuncName:'add',
+            data:{
+              count:self.data.artData.small_title,
+              trade_info:'发布积分奖励',
+              user_no:wx.getStorageSync('info').user_no,
+              type:3,
+              thirdapp_id:getApp().globalData.thirdapp_id
+            }
+           }
+        ]);                  
+      };
       wx.hideLoading();
-      api.dealRes(data);
+      if(data.solely_code == 100000){
+        api.showToast('发布成功','fail');
+        api.pathTo('/pages/Send/send','rela');
+      }else{
+        api.showToast('发布失败','fail');
+      };
       self.getMainData(true);
     };
     api.messageUpdate(postData,callback);

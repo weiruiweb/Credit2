@@ -28,6 +28,7 @@ Page({
     self.data.month = new Date().getMonth()+1;
     self.computeCalendar();
     self.distributionGet();
+    self.getMainData();
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.setData({
       web_rewardScore:self.data.rewardScore,
@@ -66,7 +67,7 @@ Page({
     self.data.totalDay = new Date(self.data.year, self.data.month, 0).getDate();
     var d = new Date();
     d.setYear(self.data.year);
-    d.setMonth(self.data.month);
+    d.setMonth(self.data.month-1);
     d.setDate(1);
     self.data.diffrence =  d.getDay();
     self.data.calendar = [];
@@ -82,7 +83,7 @@ Page({
       web_month:self.data.month,
       web_year:self.data.year
     });
-    console.log(self.data.calendar)
+    console.log( self.data.diffrence)
     self.getMainData();
   },
 
@@ -90,6 +91,7 @@ Page({
 
   signIn(){
     const self = this;
+
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
       firstDayReward = self.data.seriesRewardData[1]
@@ -119,7 +121,7 @@ Page({
                 tableName:'FlowLog',
                 FuncName:'add',
                 data:{
-                  count:10,
+                  count:self.data.levelOne,
                   trade_info:'下级签到积分奖励',
                   user_no:transitionArray[i].parent_no,
                   type:3,
@@ -133,7 +135,7 @@ Page({
                 tableName:'FlowLog',
                 FuncName:'add',
                 data:{
-                  count:20,
+                  count:self.data.levelTwo,
                   trade_info:'下级签到积分奖励',
                   user_no:transitionArray[i].parent_no,
                   type:3,
@@ -142,8 +144,7 @@ Page({
               }
             ]);
           }
-        }
-        
+        }       
       };
       wx.hideLoading();
       self.sucssess();
@@ -186,16 +187,23 @@ Page({
 
   submit(){
     const self = this;
-    self.checkToday();
-    if(self.data.todayData.length>0){
-      api.showToast('今日已签到','fail');
+     if(wx.getStorageSync('info').info.length<=0){
+      api.showToast('请补全信息','fail');
+      setTimeout(function(){
+        api.pathTo('/pages/userComplete/userComplete','redi');
+      },1000);
     }else{
-      wx.showLoading();
-      const callback = (user,res) =>{
-        self.signIn(user);
+      self.checkToday();
+      if(self.data.todayData.length>0){
+        api.showToast('今日已签到','fail');
+      }else{
+        wx.showLoading();
+        const callback = (user,res) =>{
+          self.signIn(user);
+        };
+        api.getAuthSetting(callback);
       };
-      api.getAuthSetting(callback);
-    };
+    }  
   },
 
 
@@ -204,14 +212,13 @@ Page({
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.searchItem = api.cloneForm(self.data.searchItem);
-    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000]];   
+    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000+86399]];   
     const callback = (res)=>{
       self.data.logData = res.info.data;
       self.data.signData = [];
       for (var i = 0; i < self.data.logData.length; i++) {
         self.data.signData.push(parseInt(self.data.logData[i]['create_time'].slice(8,10)));
       };
-      console.log(self.data.signData);
       wx.hideLoading();
       self.setData({
         web_logData:self.data.logData,
@@ -288,7 +295,7 @@ Page({
       thirdapp_id:'59'
     };
     const callback = (res)=>{
-      self.data.levelOne = res.info.data[0].description;
+      self.data.levelTwo = res.info.data[0].description;
       self.data.levelOne = res.info.data[0].small_title;
       self.data.artData = res.info.data[0];
       self.data.seriesRewardData = {};

@@ -49,7 +49,6 @@ page{
 	align-items:center;
 }
 
-
 .address_set .default image{
 	margin-right:15px;
 	width:29rpx;
