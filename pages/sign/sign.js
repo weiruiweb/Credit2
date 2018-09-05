@@ -111,41 +111,44 @@ Page({
     };
     postData.token = wx.getStorageSync('token'); 
     postData.saveAfter = [];
-    const callback = (res)=>{
-      if(self.data.distributionData.info.data.length>0){
-        var transitionArray = self.data.distributionData.info.data;
-        for (var i = 0; i < transitionArray.length; i++) {
-          if(transitionArray[i].level==1){
-            postData.saveAfter.push(postData.saveAfter,[
-              {
-                tableName:'FlowLog',
-                FuncName:'add',
-                data:{
-                  count:self.data.levelOne,
-                  trade_info:'下级签到积分奖励',
-                  user_no:transitionArray[i].parent_no,
-                  type:3,
-                  thirdapp_id:getApp().globalData.thirdapp_id
-                }
+
+    if(self.data.distributionData.info.data.length>0){
+      var transitionArray = self.data.distributionData.info.data;
+      console.log(transitionArray);
+      for (var i = 0; i < transitionArray.length; i++) {
+        if(transitionArray[i].level==1){
+          postData.saveAfter.push(
+            {
+              tableName:'FlowLog',
+              FuncName:'add',
+              data:{
+                count:self.data.levelOne,
+                trade_info:'下级签到积分奖励',
+                user_no:transitionArray[i].parent_no,
+                type:3,
+                thirdapp_id:getApp().globalData.thirdapp_id
               }
-            ]);
-          }else if(transitionArray[i].level==2){
-            postData.saveAfter.push(postData.saveAfter,[
-              {
-                tableName:'FlowLog',
-                FuncName:'add',
-                data:{
-                  count:self.data.levelTwo,
-                  trade_info:'下级签到积分奖励',
-                  user_no:transitionArray[i].parent_no,
-                  type:3,
-                  thirdapp_id:getApp().globalData.thirdapp_id
-                }
+            }
+          );
+        }else if(transitionArray[i].level==2){
+          postData.saveAfter.push(
+            {
+              tableName:'flowLog',
+              FuncName:'add',
+              data:{
+                count:self.data.levelTwo,
+                trade_info:'下级签到积分奖励',
+                user_no:transitionArray[i].parent_no,
+                type:3,
+                thirdapp_id:getApp().globalData.thirdapp_id
               }
-            ]);
-          }
-        }       
-      };
+            }
+          );
+        }
+      }       
+    };
+    console.log(postData);
+    const callback = (res)=>{ 
       wx.hideLoading();
       self.sucssess();
       self.checkToday()
@@ -182,6 +185,7 @@ Page({
       });
       wx.hideLoading();
     };
+    console.log('distri');
     api.distributionGet(postData,callback);
   },
 

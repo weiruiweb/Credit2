@@ -32,6 +32,7 @@ Page({
     });
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getArtData();
+    self.checkToday();
     self.setData({
       web_imgData:self.data.submitData.mainImg
     });
@@ -46,6 +47,7 @@ Page({
     postData.searchItem.create_time = ['between',[new Date(new Date().setHours(0, 0, 0, 0)) / 1000,new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1]]
     const callback = (res)=>{
       self.data.todayData = res.info.data;
+
       wx.hideLoading();
       self.setData({
         web_todayData:self.data.todayData,
@@ -69,23 +71,24 @@ Page({
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
     postData.saveAfter = [];
+    if(self.data.todayData.length<6&&postData.data.passage1==1){
+      postData.saveAfter.push(
+        {
+          tableName:'FlowLog',
+          FuncName:'add',
+          data:{
+            count:self.data.artData.small_title,
+            trade_info:'发布积分奖励',
+            user_no:wx.getStorageSync('info').user_no,
+            type:3,
+            thirdapp_id:getApp().globalData.thirdapp_id
+          }
+         }
+      );                  
+    };
     const callback = (data)=>{
       self.checkToday();
-      if(self.data.todayData.length<5){
-        postData.saveAfter.push(postData.saveAfter,[
-          {
-            tableName:'FlowLog',
-            FuncName:'add',
-            data:{
-              count:self.data.artData.small_title,
-              trade_info:'发布积分奖励',
-              user_no:wx.getStorageSync('info').user_no,
-              type:3,
-              thirdapp_id:getApp().globalData.thirdapp_id
-            }
-           }
-        ]);                  
-      };
+      
       if(data.solely_code == 100000){
         api.showToast('发布成功','fail');
         api.pathTo('/pages/Send/send','rela');

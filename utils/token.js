@@ -37,6 +37,7 @@ class Token {
                     }
                 },
                 fail: res=>{
+                    
                     wx.showToast({
                         title:'拉取微信失败',
                         icon:'fail',
