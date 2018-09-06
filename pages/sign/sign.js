@@ -32,7 +32,7 @@ Page({
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.setData({
       web_rewardScore:self.data.rewardScore,
-      web_rewardDay:self.data.constantSignDaysExcludeToday+1
+      web_rewardDay:self.data.constantSignDays+1
     }),
     self.getComputeData();
     self.checkToday();  
@@ -94,14 +94,18 @@ Page({
 
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
-      firstDayReward = self.data.seriesRewardData[1]
+      firstDayReward = Number(self.data.seriesRewardData[1]);
     };
-    if(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]){
-      self.data.rewardScore = self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]
+    if(self.data.seriesRewardData[self.data.constantSignDays+1]){
+      self.data.rewardScore = Number(self.data.seriesRewardData[self.data.constantSignDays+1]);
     };
+    
     if(!self.data.rewardScore){
       self.data.rewardScore = firstDayReward;
+    }else if(self.data.constantSignDays>0){
+      self.data.rewardScore += firstDayReward;
     };
+    console.log(self.data.rewardScore)
     const postData = {
       reward:{
         score:self.data.rewardScore
@@ -147,18 +151,24 @@ Page({
         }
       }       
     };
+    
     console.log(postData);
     const callback = (res)=>{ 
       wx.hideLoading();
-      self.sucssess();
-      self.checkToday()
-      self.setData({
-        web_rewardScore:self.data.rewardScore,
-        web_rewardDay:self.data.constantSignDays+1
-      })
-      self.getMainData();
+      if(res.solely_code==100000){
+        self.sucssess();
+        self.checkToday()
+        self.setData({
+          web_rewardScore:self.data.rewardScore,
+          web_rewardDay:self.data.constantSignDays+1
+        })
+        self.getMainData();        
+      }else{
+        api.showToast('网络故障','none')
+      }
+
     };
-    api.signIn(postData,callback);
+    /*api.signIn(postData,callback);*/
   },
 
 
@@ -191,6 +201,8 @@ Page({
 
   submit(){
     const self = this;
+    self.signIn();
+    return ;
      if(wx.getStorageSync('info').info.length<=0){
       api.showToast('请补全信息','fail');
       setTimeout(function(){
@@ -264,7 +276,7 @@ Page({
       constantSignDays = constantSignDays - maxNum;
     };
     self.data.constantSignDays = constantSignDays;
-    console.log(self.data.constantSignDays)
+  
     self.setData({
         web_rewardDay:self.data.constantSignDays
     });

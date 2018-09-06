@@ -44,10 +44,11 @@ Page({
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.user_no = wx.getStorageSync('info').user_no;
     postData.searchItem.create_time = ['between',[new Date(new Date().setHours(0, 0, 0, 0)) / 1000,new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1]]
     const callback = (res)=>{
       self.data.todayData = res.info.data;
-
+      console.log(self.data.todayData)
       wx.hideLoading();
       self.setData({
         web_todayData:self.data.todayData,
@@ -71,7 +72,8 @@ Page({
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
     postData.saveAfter = [];
-    if(self.data.todayData.length<6&&postData.data.passage1==1){
+    if(self.data.todayData.length<5&&postData.data.passage1==1){
+
       postData.saveAfter.push(
         {
           tableName:'FlowLog',
@@ -87,8 +89,7 @@ Page({
       );                  
     };
     const callback = (data)=>{
-      self.checkToday();
-      
+      self.checkToday();   
       if(data.solely_code == 100000){
         api.showToast('发布成功','fail');
         api.pathTo('/pages/Send/send','rela');
