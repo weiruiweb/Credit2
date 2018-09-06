@@ -58,8 +58,8 @@
 	<view class="begin_sign">
 			<view class="sign_left">
 				<view class="sign_now">
-					<button open-type="getUserInfo" bindgetuserinfo="submit"   style="{{web_todayData.length>'0'?'background:#fff;':'background:#00c6f7;color:#fff;'}};height:80rpx;line-height:80rpx;font-size:30rpx;">
-						{{web_todayData.length>'0'?'今日已签到':'签到'}}
+					<button open-type="getUserInfo" bindgetuserinfo="submit"   style="{{isSign?'background:#fff;':'background:#00c6f7;color:#fff;'}};height:80rpx;line-height:80rpx;font-size:30rpx;">
+						{{isSign?'今日已签到':'签到'}}
 					</button>
 				</view>
 			</view>

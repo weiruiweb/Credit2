@@ -8,7 +8,7 @@ Page({
   data: {
     isShow:false,
     logData:[],
-    todayData:[],
+
     seriesRewardData:[],
     computeData:[],
     rewardScore:'',
@@ -16,6 +16,7 @@ Page({
       thirdapp_id:'59',
       type:3
     },
+    isSign:false
   },
 
 
@@ -28,14 +29,13 @@ Page({
     self.data.month = new Date().getMonth()+1;
     self.computeCalendar();
     self.distributionGet();
-    self.getMainData();
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.setData({
       web_rewardScore:self.data.rewardScore,
-      web_rewardDay:self.data.constantSignDays+1
+      
     }),
     self.getComputeData();
-    self.checkToday();  
+    
   },
 
 
@@ -84,7 +84,7 @@ Page({
       web_year:self.data.year
     });
     console.log( self.data.diffrence)
-    self.getMainData();
+    self.getArtData();
   },
 
 
@@ -96,13 +96,13 @@ Page({
     if(self.data.seriesRewardData[1]){
       firstDayReward = Number(self.data.seriesRewardData[1]);
     };
-    if(self.data.seriesRewardData[self.data.constantSignDays+1]){
-      self.data.rewardScore = Number(self.data.seriesRewardData[self.data.constantSignDays+1]);
+    if(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]){
+      self.data.rewardScore = Number(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]);
     };
-    
+    console.log('constantSignDays',self.data.constantSignDaysExcludeToday)
     if(!self.data.rewardScore){
       self.data.rewardScore = firstDayReward;
-    }else if(self.data.constantSignDays>0){
+    }else if(self.data.constantSignDaysExcludeToday>0){
       self.data.rewardScore += firstDayReward;
     };
     console.log(self.data.rewardScore)
@@ -113,9 +113,9 @@ Page({
       type:3,
       title:'签到成功'
     };
+
     postData.token = wx.getStorageSync('token'); 
     postData.saveAfter = [];
-
     if(self.data.distributionData.info.data.length>0){
       var transitionArray = self.data.distributionData.info.data;
       console.log(transitionArray);
@@ -157,18 +157,21 @@ Page({
       wx.hideLoading();
       if(res.solely_code==100000){
         self.sucssess();
-        self.checkToday()
         self.setData({
           web_rewardScore:self.data.rewardScore,
-          web_rewardDay:self.data.constantSignDays+1
-        })
-        self.getMainData();        
+          web_rewardDay:self.data.constantSignDaysExcludeToday+1
+        });
+        self.data.isSign = true;
+        self.setData({
+          isSign:self.data.isSign
+        });
+        self.checkToday();   
+        self.getComputeData();     
       }else{
         api.showToast('网络故障','none')
-      }
-
+      };
     };
-    /*api.signIn(postData,callback);*/
+    api.signIn(postData,callback);
   },
 
 
@@ -201,89 +204,78 @@ Page({
 
   submit(){
     const self = this;
-    self.signIn();
-    return ;
-     if(wx.getStorageSync('info').info.length<=0){
+  
+    if(wx.getStorageSync('info').info.length<=0){
       api.showToast('请补全信息','fail');
       setTimeout(function(){
-        api.pathTo('/pages/userComplete/userComplete','redi');
+      api.pathTo('/pages/userComplete/userComplete','redi');
       },1000);
     }else{
-      self.checkToday();
-      if(self.data.todayData.length>0){
-        api.showToast('今日已签到','fail');
-      }else{
-        wx.showLoading();
-        const callback = (user,res) =>{
-          self.signIn(user);
+      if(self.data.todayData){
+        if(self.data.todayData.length>0){
+          api.showToast('今日已签到','fail');
+        }else{
+          wx.showLoading();
+          const callback = (user,res) =>{
+            self.signIn(user);
+          };
+          api.getAuthSetting(callback);
         };
-        api.getAuthSetting(callback);
+      }else{
+        self.checkToday(self.submit());
       };
-    }  
+    };  
   },
 
 
-  getMainData(){
+  getMainData(maxNum){
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.searchItem = api.cloneForm(self.data.searchItem);
-    postData.searchItem.create_time = ['between',[new Date(self.data.year, self.data.month - 1, 1).getTime()/1000,new Date(self.data.year, self.data.month, 0).getTime()/1000+86399]];   
+    postData.searchItem.create_time = ['between',
+      [    
+        new Date(new Date().toLocaleDateString()).getTime()/1000 - (maxNum-1)*86400,
+        new Date(new Date().toLocaleDateString()).getTime()/1000
+      ]
+    ];   
     const callback = (res)=>{
       self.data.logData = res.info.data;
+      console.log('logData',self.data.logData)
       self.data.signData = [];
       for (var i = 0; i < self.data.logData.length; i++) {
         self.data.signData.push(parseInt(self.data.logData[i]['create_time'].slice(8,10)));
       };
+      console.log('signData',self.data.signData)
       wx.hideLoading();
       self.setData({
-        web_logData:self.data.logData,
-        web_signData:self.data.signData
-      })
+        web_logData:self.data.logData
+      });
+      self.checkConstantSignDays(); 
       
-      self.getArtData();
     };
     api.logGet(postData,callback);
   },
 
   checkConstantSignDays(){
+    console.log('checkTimes');
     const self = this;
-    var yesterday = new Date().getDate()-1;
-    var num = 0;
-    var constantSignDays = 0;
-    var maxNum = 0;
-    for (var item  in self.data.seriesRewardData) {
-      if(item > maxNum){
-        maxNum = item 
+    var constantSignDaysExcludeToday = 0;
+
+    for (var i = 0; i < self.data.logData.length; i++) {
+      var startTime = new Date(new Date().toLocaleDateString()).getTime()/1000 - 86400*(i+1);
+      var endTime = new Date(new Date().toLocaleDateString()).getTime()/1000 - 86400*i;
+      var testTime = new Date(self.data.logData[i].create_time)/1000;
+      if(testTime>=startTime&&testTime<=endTime){
+        constantSignDaysExcludeToday++
       };
     };
-    for (var i = 0; i < maxNum-1; i++) {
-      if(self.data.signData.indexOf((yesterday-i))>=0){
-        num++
-      }else{
-        break;
-      }
-    };
-    for (var i = 0; i < maxNum-1; i++) {
-      if(self.data.signData.indexOf((yesterday-i+1))>=0){
-        constantSignDays++
-      }else{
-        break;
-      }
-    };
-    if(num>=maxNum){
-      num = num - maxNum;
-      constantSignDays = constantSignDays - maxNum;
-    };
-    self.data.constantSignDays = constantSignDays;
-  
-    self.setData({
-        web_rewardDay:self.data.constantSignDays
-    });
-    return num;
+    self.data.constantSignDaysExcludeToday = constantSignDaysExcludeToday;
+    console.log(constantSignDaysExcludeToday);
+    self.checkToday();  
   },
 
-  checkToday(){
+  checkToday(c_callback){
     const self = this;
     const postData = {};
     postData.token = wx.getStorageSync('token');
@@ -291,10 +283,22 @@ Page({
     postData.searchItem.create_time = ['between',[new Date(new Date().setHours(0, 0, 0, 0)) / 1000,new Date(new Date().setHours(0, 0, 0, 0)) / 1000 + 24 * 60 * 60-1]]
     const callback = (res)=>{
       self.data.todayData = res.info.data;
+      if(self.data.todayData.length>0){
+        self.data.signData.push(parseInt(self.data.todayData[0]['create_time'].slice(8,10)))
+        self.data.isSign = true;
+        self.setData({
+          web_signData:self.data.signData,
+          web_rewardDay:self.data.constantSignDaysExcludeToday+1,
+          isSign:self.data.isSign
+        });
+      }else{
+        self.setData({
+          web_rewardDay:self.data.constantSignDaysExcludeToday,
+          web_signData:self.data.signData
+        });
+      };
       wx.hideLoading();
-      self.setData({
-        web_todayData:self.data.todayData,
-      })
+      c_callback&&c_callback();
     };
     api.logGet(postData,callback);
   },
@@ -325,7 +329,14 @@ Page({
         web_artData:self.data.artData,
         web_seriesRewardData:self.data.seriesRewardData,
       }); 
-      self.checkConstantSignDays(); 
+      var maxNum = 0;
+      for (var item  in self.data.seriesRewardData) {
+        if(item > maxNum){
+          maxNum = item 
+        };
+      };
+      self.getMainData(maxNum);
+      
     };
     api.articleGet(postData,callback);
   },
