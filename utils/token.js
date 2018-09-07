@@ -81,7 +81,7 @@ class Token {
                 if(wx.getStorageSync('openidP')){
                     postData.openid = wx.getStorageSync('openidP');
                 };
-
+                console.log(postData)
                 wx.request({
                     url: 'https://dmgnm.com/scoreshop/public/index.php/api/v1/Base/ProgrameToken/get',
                     method:'POST',

@@ -77,7 +77,12 @@ Page({
       self.setData({
         web_mainData:self.data.mainData,
         web_total:res.info.total
-      });  
+      });
+      setTimeout(function()
+      {
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+      },300);  
     };
     api.distributionGet(postData,callback);
   },

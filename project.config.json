@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 26,
+			"current": 27,
 			"list": [
 				{
 					"id": -1,
@@ -194,7 +194,14 @@
 				{
 					"id": -1,
 					"name": "wode ",
-					"pathName": "pages/User/user"
+					"pathName": "pages/User/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "模拟",
+					"pathName": "pages/index/index",
+					"query": "scene=U905563124943548"
 				}
 			]
 		}

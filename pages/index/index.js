@@ -46,6 +46,7 @@ Page({
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();
+      self.userUpdate(scene)
     }
   },
 
@@ -66,6 +67,32 @@ Page({
       });
     };
     api.labelGet(postData,callback);   
+  },
+
+  userUpdate(scene){
+    const self = this;
+    var nowTimestamp =new Date().getTime();
+    const postData = {};
+    postData.token = wx.getStorageSync('token');
+    postData.data = {
+      update_time:nowTimestamp
+    };
+    postData.saveAfter=
+      {
+        tableName:'FlowLog',
+        FuncName:'add',
+        data:{
+          count:20,
+          trade_info:'分享积分奖励',
+          user_no:scene,
+          type:3,
+          thirdapp_id:getApp().globalData.thirdapp_id
+        }
+      }   
+    const callback = (data)=>{
+      wx.hideLoading();   
+    };
+    api.userUpdate(postData,callback);
   },
 
 

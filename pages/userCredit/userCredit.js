@@ -62,6 +62,11 @@ Page({
       self.setData({
         web_mainData:self.data.mainData,
       });
+      setTimeout(function()
+      {
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+      },300);
       wx.hideLoading();
     };
     api.flowLogGet(postData,callback);

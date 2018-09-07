@@ -269,9 +269,14 @@ Page({
       if(testTime>=startTime&&testTime<=endTime){
         constantSignDaysExcludeToday++
       };
+      console.log(i);
+      console.log(testTime);
+    console.log(startTime);
+    console.log(endTime)
+    console.log(constantSignDaysExcludeToday)
     };
     self.data.constantSignDaysExcludeToday = constantSignDaysExcludeToday;
-    console.log(constantSignDaysExcludeToday);
+
     self.checkToday();  
   },
 
