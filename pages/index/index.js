@@ -46,7 +46,7 @@ Page({
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();
-      self.userUpdate(scene)
+      //self.userUpdate(scene)
     }
   },
 
