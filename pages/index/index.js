@@ -46,10 +46,12 @@ Page({
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();
-    }else{
+    };
+
+    if(!wx.getStorageSync('token')){
       var token = new Token();
       token.getUserInfo();
-    }
+    };
   },
 
 

@@ -2,6 +2,7 @@ import {Api} from '../../utils/api.js';
 var api = new Api();
 const app = getApp()
 
+import {Token} from '../../utils/token.js';
 
 Page({
   data: {
@@ -11,6 +12,10 @@ Page({
   
   onLoad() {
     const self = this;
+    if(!wx.getStorageSync('token')){
+      var token = new Token();
+      token.getUserInfo();
+    };
     this.setData({
       fonts:app.globalData.font
     });

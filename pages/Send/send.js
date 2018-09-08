@@ -2,7 +2,7 @@
 import {Api} from '../../utils/api.js';
 const api = new Api();
 var app = getApp()
-
+import {Token} from '../../utils/token.js';
 
 
 Page({
@@ -21,6 +21,10 @@ Page({
 
   onLoad(){
     const self = this;
+    if(!wx.getStorageSync('token')){
+      var token = new Token();
+      token.getUserInfo();
+    };
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getMainData();
     self.getArtData();
