@@ -21,54 +21,37 @@ Page({
   onShow(){
     const self = this;
     self.getMainData();
-    self.getComputeData()
+    self.getComputeData();
+
   },
  
 
-  intoPath(e){
-    const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
-  },
 
-  intoPathRedi(e){
+  getMainData(){
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'redi');
-  },
-
-
-  getMainData(isNew){
-    const self = this;
+    console.log()
     const postData = {};
     postData.token = wx.getStorageSync('token');
     postData.searchItem = {
       thirdapp_id:'59',
       user_no:wx.getStorageSync('info').user_no
     }
-    const callback = (res)=>{
-      wx.hideLoading();
+    const callback = (res)=>{  
       self.setData({
-        web_totol:res.info.data.length
+         web_totol:res.info.data.length
       });  
-    };
+       wx.hideLoading(); 
+    }
     api.messageGet(postData,callback);
   },
 
-  calling() {
-    const self = this;
-    var phone = '18064655944';
-    wx.makePhoneCall({
-        phoneNumber: phone,
-        success: function () {
-            console.log("拨打电话成功！")
-        },
-        fail: function () {
-            console.log("拨打电话失败！")
-        }
-    })
-  },
+
 
   getComputeData(){
     const self = this;
+    if(!wx.getStorageSync('token')){
+      return;
+    };
     const postData = {};
     postData.data = {
       FlowLog:{
@@ -90,6 +73,16 @@ Page({
       wx.hideLoading();
     };
     api.flowLogCompute(postData,callback);
+  },
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
+
+  intoPathRedi(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'redi');
   },
   
 })

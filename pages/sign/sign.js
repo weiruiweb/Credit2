@@ -265,18 +265,13 @@ Page({
     for (var i = 0; i < self.data.logData.length; i++) {
       var startTime = new Date(new Date().toLocaleDateString()).getTime()/1000 - 86400*(i+1);
       var endTime = new Date(new Date().toLocaleDateString()).getTime()/1000 - 86400*i;
-      var testTime = new Date(self.data.logData[i].create_time)/1000;
+      var itemTime = self.data.logData[i].create_time.replace('-', '/').replace('-', '/'); 
+      var testTime = new Date(itemTime)/1000;
       if(testTime>=startTime&&testTime<=endTime){
         constantSignDaysExcludeToday++
       };
-      console.log(i);
-      console.log(testTime);
-    console.log(startTime);
-    console.log(endTime)
-    console.log(constantSignDaysExcludeToday)
     };
     self.data.constantSignDaysExcludeToday = constantSignDaysExcludeToday;
-
     self.checkToday();  
   },
 
@@ -291,6 +286,8 @@ Page({
       if(self.data.todayData.length>0){
         self.data.signData.push(parseInt(self.data.todayData[0]['create_time'].slice(8,10)))
         self.data.isSign = true;
+        console.log('checkToday',self.data.constantSignDaysExcludeToday)
+        console.log('checkToday',self.data.constantSignDaysExcludeToday+1)
         self.setData({
           web_signData:self.data.signData,
           web_rewardDay:self.data.constantSignDaysExcludeToday+1,

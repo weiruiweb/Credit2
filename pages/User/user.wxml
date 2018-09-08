@@ -16,7 +16,7 @@
 		<view id="sign" style="{{fonts[3].font}};width:47%;text-align:left;" class="flexRowBetween">
 			<view id="credit"  bindtap="intoPath" data-path="/pages/userCredit/userCredit" style="height:80rpx;">
 				<view id="credit_number">
-					{{web_computeData.info.FlowLog.countsum}}
+					{{web_computeData.info.FlowLog.countsum?web_computeData.info.FlowLog.countsum:'网络故障'}}
 				</view>
 				<view id="credit_text">
 					我的积分

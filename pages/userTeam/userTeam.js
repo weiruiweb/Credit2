@@ -78,6 +78,7 @@ Page({
         web_mainData:self.data.mainData,
         web_total:res.info.total
       });
+      console.log(self.data.mainData)
       setTimeout(function()
       {
         wx.hideNavigationBarLoading();
