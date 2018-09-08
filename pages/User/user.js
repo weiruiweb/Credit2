@@ -22,7 +22,6 @@ Page({
     const self = this;
     self.getMainData();
     self.getComputeData();
-
   },
  
 

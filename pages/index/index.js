@@ -46,7 +46,9 @@ Page({
     if(scene){
       var token = new Token({parent_no:scene});
       token.getUserInfo();
-
+    }else{
+      var token = new Token();
+      token.getUserInfo();
     }
   },
 
