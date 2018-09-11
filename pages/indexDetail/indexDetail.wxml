@@ -27,23 +27,25 @@
 
 <view class="qcored" style="{{isShow?'display:block':'display:none'}}">
   <view class="qcored_cont" >
+
     <view class="close" bindtap="show"> 
       <image src="/images/close_icon.png"></image>
     </view>
+
     <view style="font-size:20px;color:red;position:relative;width:280rpx;height:85rpx;margin:0 auto 20rpx">
       <view class="qcored_bg" style="margin-top:15rpx">
           <image src="/images/qcored_bg.png"></image>
       </view>
       <view style="font-size:20px;color:red;position:absolute;width:280rpx;height:85rpx;top:0;left:0;line-height:85rpx;text-align:center">兑换成功</view>
     </view>
+
     <view class="qcored_txt" style="{{fonts[3].font}};padding:0 20rpx">
-      长按识别下方客服二维码领取
+      请至个人中心页面联系客服领取，客服收到留言后会及时联系处理~
     </view> 
-    <view class="head_down">
-      <image src="/images/head_down.png"></image>
-    </view>
+
     <view class="qcoreds">
-      <image src="{{web_labelData.mainImg[0].url}}" data-url="{{web_labelData.mainImg[0].url}}"  bindtap="previewImage"></image>
+      <image src="/images/icon.png" ></image>
     </view>
+
   </view>
 </view>

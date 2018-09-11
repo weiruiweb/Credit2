@@ -60,12 +60,12 @@ page{
 }
 .qcored{
 	width:68%;
-	height:670rpx;
+	height:540rpx;
 	background:#fff;
 	position:fixed;
 	margin:0px auto;
 	text-align:center;
-	bottom:20%;
+	bottom:30%;
 
 	left:16%;
 	box-shadow:0rpx 0rpx 20rpx #666;

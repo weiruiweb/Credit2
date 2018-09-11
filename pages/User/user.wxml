@@ -36,37 +36,18 @@
 </view>
 </view>
 <view id="user">
-	<view class="order" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
-		<view class="user_order flexRowBetween">
-			<view class="order_left flexRowBetween">
+
+	
+	<view class="user_all">
+		<view class="user_infor flexRowBetween" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon1.png"></image>
-				<view class="my_order">我的订单</view>
+				<text>我的订单</text>
 			</view>
-			
-			<view class="check_order flexRowBetween">
-				<view style="fonts[2].font">
-					查看订单
-				</view>
+			<view class="next_page">
 				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
-	</view>
-	<view class="process">
-		<view class="peocess_item item_other" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=5">
-			<image src="/images/user_icon9.png"></image>
-			<text>已兑换</text>
-		</view>
-		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=2">
-			<image src="/images/user_icon7.png"></image>
-			<text>待付款</text>
-		</view>
-		<view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder?num=4">
-			<image src="/images/user_icon8.png"></image>
-			<text>待收货</text>
-		</view>
-		
-	</view>
-	<view class="user_all">
 		<view class="user_infor flexRowBetween"  bindtap="intoPath" data-path="/pages/userComplete/userComplete">
 			<view class="user_left flexRowBetween">
 				<image src="/images/user_icon.png"></image>

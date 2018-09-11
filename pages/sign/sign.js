@@ -28,7 +28,7 @@ Page({
     self.data.year = new Date().getFullYear();
     self.data.month = new Date().getMonth()+1;
     self.computeCalendar();
-    self.distributionGet();
+   
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.setData({
       web_rewardScore:self.data.rewardScore,
@@ -64,6 +64,7 @@ Page({
 
   computeCalendar(){
     const self = this;
+    self.data.isAll = false;
     self.data.totalDay = new Date(self.data.year, self.data.month, 0).getDate();
     var d = new Date();
     d.setYear(self.data.year);
@@ -91,7 +92,6 @@ Page({
 
   signIn(){
     const self = this;
-
     var firstDayReward = 0;
     if(self.data.seriesRewardData[1]){
       firstDayReward = Number(self.data.seriesRewardData[1]);
@@ -99,7 +99,7 @@ Page({
     if(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]){
       self.data.rewardScore = Number(self.data.seriesRewardData[self.data.constantSignDaysExcludeToday+1]);
     };
-    console.log('constantSignDays',self.data.constantSignDaysExcludeToday)
+    console.log('constantSignDaysExcludeToday',self.data.constantSignDaysExcludeToday)
     if(!self.data.rewardScore){
       self.data.rewardScore = firstDayReward;
     }else if(self.data.constantSignDaysExcludeToday>0){
@@ -150,8 +150,7 @@ Page({
           );
         }
       }       
-    };
-    
+    };    
     console.log(postData);
     const callback = (res)=>{ 
       wx.hideLoading();
@@ -196,6 +195,7 @@ Page({
       self.setData({
         web_distributionData:self.data.distributionData,
       });
+      self.data.isAll = true;
       wx.hideLoading();
     };
     console.log('distri');
@@ -217,7 +217,11 @@ Page({
         }else{
           wx.showLoading();
           const callback = (user,res) =>{
-            self.signIn(user);
+            if(self.data.isAll){
+              self.signIn(user);  
+            }else{
+              api.showToast('请稍后重试','none')
+            }    
           };
           api.getAuthSetting(callback);
         };
@@ -239,6 +243,9 @@ Page({
         new Date(new Date().toLocaleDateString()).getTime()/1000
       ]
     ];   
+    postData.order={
+      create_time:'desc'
+    };
     const callback = (res)=>{
       self.data.logData = res.info.data;
       console.log('logData',self.data.logData)
@@ -267,6 +274,9 @@ Page({
       var endTime = new Date(new Date().toLocaleDateString()).getTime()/1000 - 86400*i;
       var itemTime = self.data.logData[i].create_time.replace('-', '/').replace('-', '/'); 
       var testTime = new Date(itemTime)/1000;
+      console.log('startTime',startTime);
+      console.log('endTime',endTime);
+      console.log('testTime',testTime);
       if(testTime>=startTime&&testTime<=endTime){
         constantSignDaysExcludeToday++
       };
@@ -299,7 +309,8 @@ Page({
           web_signData:self.data.signData
         });
       };
-      wx.hideLoading();
+      
+      self.distributionGet();
       c_callback&&c_callback();
     };
     api.logGet(postData,callback);
